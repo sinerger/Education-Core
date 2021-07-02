@@ -27,6 +27,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             //Addserviced
+            //Testforbidenmergeto master
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
