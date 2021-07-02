@@ -28,6 +28,7 @@ namespace WebApi
         {
             //Addserviced
             //Testforbidenmergeto master
+            //sonenore
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
