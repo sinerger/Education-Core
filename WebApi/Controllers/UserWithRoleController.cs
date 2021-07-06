@@ -55,5 +55,11 @@ namespace WebApi.Controllers
         {
             return _userWithRoleUnitOfWork.UserWithRoleRepository.UpdateUserWithRole(user).Result;
         }
+
+        [HttpPost("Test")]
+        public async Task TestTransaction(UserWithRole user)
+        {
+            _userWithRoleUnitOfWork.UserWithRoleRepository.TestTransaction(user);
+        }
     }
 }

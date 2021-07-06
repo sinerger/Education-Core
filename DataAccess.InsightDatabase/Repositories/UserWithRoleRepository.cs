@@ -23,9 +23,12 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 var RoleID = user.Role.ID;
+                user.ID = Guid.NewGuid();
+
                 await DBConnection.QueryAsync(nameof(CreateUserWithRole),
                         parameters: new
                         {
+                            user.ID,
                             user.FirstName,
                             user.LastName,
                             user.Login,
@@ -39,7 +42,6 @@ namespace DataAccess.InsightDatabase.Repositories
             {
                 // TODO: Работаем с Serilog
 
-                return false;
                 throw e;
             }
         }
@@ -107,6 +109,35 @@ namespace DataAccess.InsightDatabase.Repositories
                 return false;
                 throw e;
             }
+        }
+
+        public async Task TestTransaction(UserWithRole user)
+        {
+            try
+            {
+                using (var conn = DBConnection.OpenWithTransaction())
+                {
+                    user.ID = Guid.NewGuid();
+                    var RoleID = user.Role.ID;
+                    await DBConnection.QueryAsync(nameof(CreateUserWithRole),
+                            parameters: new
+                            {
+                                user.FirstName,
+                                user.LastName,
+                                user.Login,
+                                user.Password,
+                                RoleID
+                            });
+
+                    conn.Commit();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e ;
+            }
+            
         }
     }
 }

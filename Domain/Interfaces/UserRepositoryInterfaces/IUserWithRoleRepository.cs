@@ -21,5 +21,7 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
         Task<bool> CreateUserWithRole(UserWithRole user);
         Task<bool> UpdateUserWithRole(UserWithRole user);
         Task<bool> DeleteUserWithRole(Guid id);
+
+        Task TestTransaction(UserWithRole user);
     }
 }
