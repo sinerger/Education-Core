@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{8653420A-F875-4083-B92D-038540CC35E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.InsightDatabase", "DataAccess.InsightDatabase\DataAccess.InsightDatabase.csproj", "{75FF4641-9014-44F9-9B36-24163D261608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8653420A-F875-4083-B92D-038540CC35E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8653420A-F875-4083-B92D-038540CC35E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8653420A-F875-4083-B92D-038540CC35E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8653420A-F875-4083-B92D-038540CC35E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75FF4641-9014-44F9-9B36-24163D261608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FF4641-9014-44F9-9B36-24163D261608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FF4641-9014-44F9-9B36-24163D261608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FF4641-9014-44F9-9B36-24163D261608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

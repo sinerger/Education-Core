@@ -1,3 +1,6 @@
+using DataAccess.InsightDatabase.UnitsOfWork;
+using Domain.Interfaces.UserRepositoryInterfaces;
+using Insight.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,8 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,10 +34,12 @@ namespace WebApi
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-            });
+            var conStr = Configuration["ConnectionStrings:DefaultLocalRostik"];
+            var mysqlCon = new MySqlConnectionStringBuilder(conStr);
+            DbConnection connection = mysqlCon.Connection();
+            services.AddTransient<IDbConnection>(conn => connection);
+
+            services.AddTransient<IUserWithRoleUnitOfWork, UserWithRoleUnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +48,6 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
             app.UseHttpsRedirection();
