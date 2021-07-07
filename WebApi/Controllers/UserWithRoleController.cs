@@ -23,43 +23,37 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserWithRole>> GetUsersWithRole()
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUsersWithRole();
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.GetUsersWithRoleAsync();
         }
 
         [HttpGet("id")]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByID(id);
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
         }
 
         [HttpGet("login")]
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login,string password)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByLoginAndPassword(login, password);
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
         }
 
         [HttpPost]
         public async Task<bool> CreateUserWithRole(UserWithRole user)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.CreateUserWithRole(user).Result;
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.CreateUserWithRoleAsync(user);
         }
 
         [HttpDelete("id")]
         public async Task<bool> DeleteUserWithRole(Guid id)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.DeleteUserWithRole(id).Result;
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.DeleteUserWithRoleAsync(id);
         }
 
         [HttpPut]
         public async Task<bool> UpdateUserWithRole(UserWithRole user)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.UpdateUserWithRole(user).Result;
-        }
-
-        [HttpPost("Test")]
-        public async Task TestTransaction(UserWithRole user)
-        {
-            _userWithRoleUnitOfWork.UserWithRoleRepository.TestTransaction(user);
+            return await _userWithRoleUnitOfWork.UserWithRoleRepository.UpdateUserWithRoleAsync(user);
         }
     }
 }
