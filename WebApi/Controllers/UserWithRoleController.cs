@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Users;
-using Domain.Interfaces.UserRepositoryInterfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,47 +13,47 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserWithRoleController : ControllerBase
     {
-        private readonly IUserWithRoleUnitOfWork _userWithRoleUnitOfWork;
+        private readonly IDBContext _dbContext;
 
-        public UserWithRoleController(IUserWithRoleUnitOfWork userWithRoleUnitOfWork)
+        public UserWithRoleController(IDBContext dbContext)
         {
-            _userWithRoleUnitOfWork = userWithRoleUnitOfWork;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
         public async Task<IEnumerable<UserWithRole>> GetUsersWithRole()
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUsersWithRole();
+            return await _dbContext.UserWithRoleRepository.GetUsersWithRoleAsync();
         }
 
         [HttpGet("id")]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByID(id);
+            return await _dbContext.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
         }
 
         [HttpGet("login")]
-        public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login,string password)
+        public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.GetUserWithRoleByLoginAndPassword(login, password);
+            return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
         }
 
         [HttpPost]
         public async Task<bool> CreateUserWithRole(UserWithRole user)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.CreateUserWithRole(user).Result;
+            return await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
         }
 
         [HttpDelete("id")]
         public async Task<bool> DeleteUserWithRole(Guid id)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.DeleteUserWithRole(id).Result;
+            return await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);
         }
 
         [HttpPut]
         public async Task<bool> UpdateUserWithRole(UserWithRole user)
         {
-            return _userWithRoleUnitOfWork.UserWithRoleRepository.UpdateUserWithRole(user).Result;
+            return await _dbContext.UserWithRoleRepository.UpdateUserWithRoleAsync(user);
         }
     }
 }
