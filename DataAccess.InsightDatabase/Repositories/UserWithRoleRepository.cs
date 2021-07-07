@@ -12,7 +12,7 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
-        public IDbConnection DBConnection { get;}
+        public IDbConnection DBConnection { get; }
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {
@@ -51,12 +51,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                //await DBConnection.QueryAsync(nameof(DeleteUserWithRoleAsync).GetStoredProcedureName(), new { id });
-
-                //return true;
                 IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-                await userRepository.DeleteUserWithRoleAsync(id);
-                return true;            }
+                
+                return await userRepository.DeleteUserWithRoleAsync(id);
+            }
             catch (Exception e)
             {
                 // TODO: Работаем с Serilog

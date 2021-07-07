@@ -1,4 +1,5 @@
-using DataAccess.InsightDatabase.UnitsOfWork;
+using DataAccess.InsightDatabase;
+using Domain.Interfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
 using Microsoft.AspNetCore.Builder;
@@ -34,12 +35,13 @@ namespace WebApi
         {
 
             services.AddControllers();
+
             var conStr = Configuration["ConnectionStrings:DefaultLocalRostik"];
             var mysqlCon = new MySqlConnectionStringBuilder(conStr);
             DbConnection connection = mysqlCon.Connection();
             services.AddTransient<IDbConnection>(conn => connection);
 
-            services.AddTransient<IUserWithRoleUnitOfWork, UserWithRoleUnitOfWork>();
+            services.AddTransient<IDBContext, DBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
