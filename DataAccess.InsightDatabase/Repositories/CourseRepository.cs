@@ -10,7 +10,7 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        public IDbConnection DBConnection { get; set; }
+        public IDbConnection DBConnection { get; }
 
         public CourseRepository(IDbConnection dbConnection)
         {
@@ -27,7 +27,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -43,7 +43,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -58,7 +58,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -73,7 +73,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -88,7 +88,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }

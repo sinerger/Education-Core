@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Courses;
-using Domain.Interfaces.CourseRepositoryInterfaces1;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,41 +11,41 @@ namespace WebApi.Controllers
     [ApiController]
     public class CourseController : Controller
     {
-        private readonly ICourseUnitOfWork _courseUnitOfWork;
+        private readonly IDBContext _dbContext;
 
-        public CourseController(ICourseUnitOfWork courseUnitOfWork)
+        public CourseController(IDBContext dbContext)
         {
-            _courseUnitOfWork = courseUnitOfWork;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
         public async Task<List<Course>> GetAllCourseById()
         {
-            return await _courseUnitOfWork.CourseRepository.GetAllCoursesAsync();
+            return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
 
         [HttpGet("id")]
         public async Task<Course> GetCourseById(Guid id)
         {
-            return await _courseUnitOfWork.CourseRepository.GetCourseByIdAsync(id);
+            return await _dbContext.CourseRepository.GetCourseByIdAsync(id);
         }
 
         [HttpPost]
         public async Task<bool> CreateCourse(Course course)
         {
-            return await _courseUnitOfWork.CourseRepository.CreateCourseAsync(course);
+            return await _dbContext.CourseRepository.CreateCourseAsync(course);
         }
 
         [HttpDelete]
         public async Task<bool> DeleteCourse(Guid id)
         {
-            return await _courseUnitOfWork.CourseRepository.DeleteCourseAsync(id);
+            return await _dbContext.CourseRepository.DeleteCourseAsync(id);
         }
 
         [HttpPut]
         public async Task<bool> UpdateCourse(Course course)
         {
-            return await _courseUnitOfWork.CourseRepository.UpdateCourseAsync(course);
+            return await _dbContext.CourseRepository.UpdateCourseAsync(course);
         }
     }
 }
