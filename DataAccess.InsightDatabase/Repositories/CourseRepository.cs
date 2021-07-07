@@ -4,7 +4,6 @@ using Insight.Database;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
@@ -18,18 +17,28 @@ namespace DataAccess.InsightDatabase.Repositories
             DBConnection = dbConnection;
         }
 
-        public Task<bool> CreateCourse(Course course)
-        {
-            ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-            return courseRepository.CreateCourse(course);
-        }
-
-        public async Task<bool> DeleteCourse(Guid id)
+        public async Task<bool> CreateCourseAsync(Course course)
         {
             try
             {
-                await DBConnection.QueryAsync(nameof(DeleteCourse), new { id });
+                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
+
+                return await courseRepository.CreateCourseAsync(course);
+            }
+            catch (Exception e)
+            {
+                //Serilog
+                throw e;
+            }
+        }
+
+        public async Task<bool> DeleteCourseAsync(Guid id)
+        {
+            try
+            {
+                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
+                await courseRepository.DeleteCourseAsync(id);
+
                 return true;
             }
             catch (Exception e)
@@ -39,25 +48,49 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public List<Course> GetAllCourses()
+        public async Task<List<Course>> GetAllCoursesAsync()
         {
-            ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-            
-            return courseRepository.GetAllCourses();
+            try
+            {
+                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
+
+                return await courseRepository.GetAllCoursesAsync();
+            }
+            catch (Exception e)
+            {
+                //Serilog
+                throw e;
+            }
         }
 
-        public Course GetCourseById(Guid id)
+        public async Task<Course> GetCourseByIdAsync(Guid id)
         {
-            ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-            
-            return courseRepository.GetCourseById(id);
+            try
+            {
+                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
+
+                return await courseRepository.GetCourseByIdAsync(id);
+            }
+            catch (Exception e)
+            {
+                //Serilog
+                throw e;
+            }
         }
 
-        public Task<bool> UpdateCourse(Course course)
+        public async Task<bool> UpdateCourseAsync(Course course)
         {
-            ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-            
-            return courseRepository.UpdateCourse(course);
+            try
+            {
+                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
+
+                return await courseRepository.UpdateCourseAsync(course);
+            }
+            catch (Exception e)
+            {
+                //Serilog
+                throw e;
+            }
         }
     }
 }
