@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Homeworks;
-using Domain.Interfaces.HomeworkRepositoryInterfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,41 +11,41 @@ namespace WebApi.Controllers
     [ApiController]
     public class HomeworkController : ControllerBase
     {
-        private readonly IHomeworkUnitOfWork _homeworkUnitOfWork;
+        private readonly IDBContext _dbContext;
 
-        public HomeworkController(IHomeworkUnitOfWork homeworkUnitOfWork)
+        public HomeworkController(IDBContext dbContext)
         {
-            _homeworkUnitOfWork = homeworkUnitOfWork;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Homework>> GetHomeworks()
         {
-            return (IEnumerable<Homework>)await _homeworkUnitOfWork.HomeworkRepository.GetHomeworkAsync();
+            return (IEnumerable<Homework>)await _dbContext.HomeworkRepository.GetHomeworkAsync();
         }
 
         [HttpGet("id")]
         public async Task<Homework> GetHomeworkById(Guid id)
         {
-            return await _homeworkUnitOfWork.HomeworkRepository.GetHomeworkByIdAsync(id);
+            return await _dbContext.HomeworkRepository.GetHomeworkByIdAsync(id);
         }
 
         [HttpPost]
         public async Task<bool> GreateHomework(Homework homework)
         {
-            return await _homeworkUnitOfWork.HomeworkRepository.CreateHomeworkAsync(homework);
+            return await _dbContext.HomeworkRepository.CreateHomeworkAsync(homework);
         }
 
         [HttpDelete("id")]
         public async Task<bool> DeleteHomework(Guid id)
         {
-            return await _homeworkUnitOfWork.HomeworkRepository.DeleteHomeworkAsync(id);
+            return await _dbContext.HomeworkRepository.DeleteHomeworkAsync(id);
         }
 
         [HttpPut]
         public async Task<bool> UpdateHomework(Homework homework)
         {
-            return await _homeworkUnitOfWork.HomeworkRepository.UpdateHomeworkAsync(homework);
+            return await _dbContext.HomeworkRepository.UpdateHomeworkAsync(homework);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -42,7 +42,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -57,7 +57,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -72,7 +72,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -87,7 +87,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                //Serilog
+                // TODO: Работаем с Serilog
                 throw e;
             }
         }
