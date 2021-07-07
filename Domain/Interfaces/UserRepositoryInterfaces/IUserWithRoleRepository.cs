@@ -11,15 +11,16 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
     public interface IUserWithRoleRepository : IRepository
     {
         [Recordset(typeof(UserWithRole), typeof(Role))]
-        IEnumerable<UserWithRole> GetUsersWithRole();
+        Task<IEnumerable<UserWithRole>> GetUsersWithRoleAsync();
 
         [Recordset(typeof(UserWithRole), typeof(Role))]
-        UserWithRole GetUserWithRoleByID(Guid id);
+        Task<UserWithRole> GetUserWithRoleByIDAsync(Guid id);
 
         [Recordset(typeof(UserWithRole), typeof(Role))]
-        UserWithRole GetUserWithRoleByLoginAndPassword(string login, string password);
-        Task<bool> CreateUserWithRole(UserWithRole user);
-        Task<bool> UpdateUserWithRole(UserWithRole user);
-        Task<bool> DeleteUserWithRole(Guid id);
+        Task<UserWithRole> GetUserWithRoleByLoginAndPasswordAsync(string login, string password);
+
+        Task<bool> CreateUserWithRoleAsync(UserWithRole user);
+        Task<bool> UpdateUserWithRoleAsync(UserWithRole user);
+        Task<bool> DeleteUserWithRoleAsync(Guid id);
     }
 }
