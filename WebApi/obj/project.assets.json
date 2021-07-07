@@ -6149,25 +6149,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rostik\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Matvijivan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\C#\\Education-Core\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "F:\\C#\\Education-Core\\WebApi\\WebApi.csproj",
-      "packagesPath": "C:\\Users\\Rostik\\.nuget\\packages\\",
-      "outputPath": "F:\\C#\\Education-Core\\WebApi\\obj\\",
+      "projectPath": "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\WebApi\\WebApi.csproj",
+      "packagesPath": "C:\\Users\\Matvijivan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Rostik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Matvijivan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -6180,11 +6180,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
-              "projectPath": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
+            "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
+              "projectPath": "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
             },
-            "F:\\C#\\Education-Core\\Domain\\Domain.csproj": {
-              "projectPath": "F:\\C#\\Education-Core\\Domain\\Domain.csproj"
+            "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Matvijivan\\Desktop\\Education-Core\\Domain\\Domain.csproj"
             }
           }
         }
@@ -6230,7 +6230,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
