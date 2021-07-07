@@ -1625,7 +1625,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Domain": "1.0.0"
+          "Domain": "1.0.0",
+          "System.Data.Common": "4.3.0"
         },
         "compile": {
           "bin/placeholder/DataAccess.InsightDatabase.dll": {}
@@ -6180,11 +6181,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
-              "projectPath": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
+            "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
+              "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
             },
-            "F:\\C#\\Education-Core\\Domain\\Domain.csproj": {
-              "projectPath": "F:\\C#\\Education-Core\\Domain\\Domain.csproj"
+            "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj"
             }
           }
         }

@@ -4,22 +4,22 @@
     "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
+    "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj",
+        "projectUniqueName": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj",
         "projectName": "DataAccess.InsightDatabase",
-        "projectPath": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj",
-        "packagesPath": "C:\\Users\\Rostik\\.nuget\\packages\\",
-        "outputPath": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\obj\\",
+        "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Rostik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -32,8 +32,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "F:\\C#\\Education-Core\\Domain\\Domain.csproj": {
-                "projectPath": "F:\\C#\\Education-Core\\Domain\\Domain.csproj"
+              "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj"
               }
             }
           }
@@ -47,6 +47,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "System.Data.Common": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,26 +68,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\C#\\Education-Core\\Domain\\Domain.csproj": {
+    "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\C#\\Education-Core\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "F:\\C#\\Education-Core\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Rostik\\.nuget\\packages\\",
-        "outputPath": "F:\\C#\\Education-Core\\Domain\\obj\\",
+        "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Rostik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -126,11 +132,11 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\C#\\Education-Core\\WebApi\\WebApi.csproj": {
+    "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\WebApi\\WebApi.csproj",
@@ -158,11 +164,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
-                "projectPath": "F:\\C#\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
+              "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj": {
+                "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\DataAccess.InsightDatabase\\DataAccess.InsightDatabase.csproj"
               },
-              "F:\\C#\\Education-Core\\Domain\\Domain.csproj": {
-                "projectPath": "F:\\C#\\Education-Core\\Domain\\Domain.csproj"
+              "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\zadanieDomoweIT\\kursyC#\\EducationCore\\Education-Core\\Domain\\Domain.csproj"
               }
             }
           }
