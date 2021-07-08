@@ -47,7 +47,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<List<Course>> GetAllCoursesAsync()
+        public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
             try
             {

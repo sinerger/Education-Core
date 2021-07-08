@@ -7,7 +7,7 @@ namespace Domain.Interfaces.CouseRepositoryInterfaces
 {
     public interface ICourseRepository: IRepository
     {
-        Task<List<Course>> GetAllCoursesAsync();
+        Task<IEnumerable<Course>> GetAllCoursesAsync();
         Task<Course> GetCourseByIdAsync(Guid id);
         Task<bool> CreateCourseAsync(Course course) ;
         Task<bool> UpdateCourseAsync(Course course);
