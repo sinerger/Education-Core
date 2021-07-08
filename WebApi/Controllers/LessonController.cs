@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Lesson1;
+﻿using Domain.Entities.Lesson;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Lesson1
+﻿namespace Domain.Entities.Lesson
 {
     public class Student
     {

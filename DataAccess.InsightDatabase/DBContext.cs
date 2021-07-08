@@ -4,12 +4,8 @@ using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using Insight.Database;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using Domain.Interfaces.LessonRepositoryiInterfaces;
+using Domain.Interfaces.LessonRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
 {

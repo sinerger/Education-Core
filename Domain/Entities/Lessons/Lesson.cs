@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Entities.Lesson1
+namespace Domain.Entities.Lesson
 {
     public class Lesson
     {

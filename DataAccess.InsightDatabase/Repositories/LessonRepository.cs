@@ -1,5 +1,5 @@
-﻿using Domain.Entities.Lesson1;
-using Domain.Interfaces.LessonRepositoryiInterfaces;
+﻿using Domain.Entities.Lesson;
+using Domain.Interfaces.LessonRepositoryInterfaces;
 using Insight.Database;
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ namespace DataAccess.InsightDatabase.Repositories
                 ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
 
                 return await lessonRepository.GetLessonByIdAsync(id);
-
             }
             catch (Exception e)
             {
@@ -114,7 +113,6 @@ namespace DataAccess.InsightDatabase.Repositories
                 ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
 
                 return await lessonRepository.DeleteLessonAsync(id);
-
             }
             catch (Exception e)
             {

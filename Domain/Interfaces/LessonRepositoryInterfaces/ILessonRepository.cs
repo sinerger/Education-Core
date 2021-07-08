@@ -1,11 +1,11 @@
 ﻿using Domain.Entities.Homeworks;
-using Domain.Entities.Lesson1;
+using Domain.Entities.Lesson;
 using Insight.Database;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces.LessonRepositoryiInterfaces
+namespace Domain.Interfaces.LessonRepositoryInterfaces
 {
     public interface ILessonRepository : IRepository
     {
