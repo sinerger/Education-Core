@@ -1,9 +1,7 @@
 ﻿using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 ﻿using Domain.Interfaces.CourseRepositoryIntarfaces;
-using Domain.Interfaces.UserRepositoryInterfaces;
 ﻿using Domain.Interfaces.CouseRepositoryInterfaces;
-using Domain.Interfaces.UserRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +15,7 @@ namespace Domain.Interfaces
         IHomeworkRepository HomeworkRepository { get; }
         ICourseProgramRepository CourseProgramRepository { get; }
         ICourseRepository CourseRepository { get; }
+        IStudentRepository StudentRepository { get; }
 
         IDbConnection DBConnection { get; }
 
