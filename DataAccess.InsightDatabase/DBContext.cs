@@ -1,11 +1,12 @@
-﻿using DataAccess.InsightDatabase.Repositories;
+﻿using System.Data;
+using DataAccess.InsightDatabase.Repositories;
 using Domain.Interfaces;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using System.Data;
 using Domain.Interfaces.LessonRepositoryInterfaces;
+using Domain.Interfaces.GroupRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
 {
@@ -20,6 +21,7 @@ namespace DataAccess.InsightDatabase
         public IStudentRepository StudentRepository => new StudentRepository(DBConnection);
         public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
         public ITeacherRepository TeacherRepository => new TeacherRepository(DBConnection);
+        public IGroupRepository GroupRepository => new GroupRepository(DBConnection);
 
         public DBContext(IDbConnection dbConnection)
         {

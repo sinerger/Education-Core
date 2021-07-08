@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Homeworks;
-using Domain.Entities.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities.Homeworks;
+using Domain.Entities.Users;
 
-namespace Domain.Entities.Lesson
+namespace Domain.Entities.Lessons
 {
     public class Lesson
     {

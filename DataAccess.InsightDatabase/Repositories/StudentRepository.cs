@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
