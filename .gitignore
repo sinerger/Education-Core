@@ -441,3 +441,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+*.json
+*.cache
+*.props
+*.suo
