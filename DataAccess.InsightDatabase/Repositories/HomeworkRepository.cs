@@ -2,6 +2,7 @@
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Insight.Database;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -47,7 +48,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<IEquatable<Homework>> GetHomeworkAsync()
+        public async Task<IEnumerable<Homework>> GetHomeworkAsync()
         {
             try
             {
