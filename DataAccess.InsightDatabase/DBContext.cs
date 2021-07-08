@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.CourseRepositoryIntarfaces;
+using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
 using System;
@@ -17,6 +18,7 @@ namespace DataAccess.InsightDatabase
         public IUserWithRoleRepository UserWithRoleRepository => new UserWithRoleRepository(DBConnection);
         public IHomeworkRepository HomeworkRepository => new HomeworkRepository(DBConnection);
         public ICourseProgramRepository CourseProgramRepository => new CourseProgramRepository(DBConnection);
+        public ICourseRepository CourseRepository => new CourseRepository(DBConnection);
 
         public DBContext(IDbConnection dbConnection)
         {
