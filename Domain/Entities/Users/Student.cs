@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Domain.Entities.Groups;
 using Domain.Entities.Solutions;
-using Insight.Database;
 
 namespace Domain.Entities.Users
 {

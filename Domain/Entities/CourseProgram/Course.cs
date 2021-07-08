@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities.CourseProgram
+﻿using System;
+
+namespace Domain.Entities.CourseProgram
 {
     public class Course
     {

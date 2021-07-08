@@ -1,8 +1,7 @@
-﻿using Domain.Entities.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Users;
 
 namespace Domain.Interfaces.UserRepositoryInterfaces
 {

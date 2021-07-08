@@ -19,6 +19,7 @@ namespace Domain.Interfaces
         ILessonRepository LessonRepository { get; }
         IUserDetailRepository UserDetailRepository { get; }
         IStudentRepository StudentRepository { get; }
+        ITeacherRepository TeacherRepository { get; }
 
         IDbConnection DBConnection { get; }
 

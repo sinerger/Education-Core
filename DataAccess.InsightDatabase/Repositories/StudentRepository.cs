@@ -1,12 +1,11 @@
-﻿using DataAccess.InsightDatabase.Extensions;
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Insight.Database;
+using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using Insight.Database;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -30,11 +29,11 @@ namespace DataAccess.InsightDatabase.Repositories
                             student.ID,
                             student.FirstName,
                             student.LastName,
-                            //student.Email,
-                            //student.Phone,
-                            //student.City,
-                            //student.DateOfBirth,
-                            //student.Feedback,
+                            student.Email,
+                            student.Phone,
+                            student.City,
+                            student.DateOfBirth,
+                            student.Feedback,
                             student.AgreementNumber,
                             //TODO:
                             //student.Group,
@@ -86,9 +85,18 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<Student> GetStudentByIDAsync(Guid id)
         {
-            IStudentRepository studentRepository = DBConnection.As<IStudentRepository>();
+            try
+            {
+                IStudentRepository studentRepository = DBConnection.As<IStudentRepository>();
 
-            return await studentRepository.GetStudentByIDAsync(id);
+                return await studentRepository.GetStudentByIDAsync(id);
+            }
+            catch (Exception e)
+            {
+                // TODO: Работаем с Serilog
+
+                throw e;
+            }
         }
 
         public async Task<bool> UpdateStudentAsync(Student student)
@@ -101,11 +109,11 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.ID,
                         student.FirstName,
                         student.LastName,
-                        //student.Email,
-                        //student.Phone,
-                        //student.City,
-                        //student.DateOfBirth,
-                        //student.Feedback,
+                        student.Email,
+                        student.Phone,
+                        student.City,
+                        student.DateOfBirth,
+                        student.Feedback,
                         student.AgreementNumber,
                         //TODO:
                         //student.Group,

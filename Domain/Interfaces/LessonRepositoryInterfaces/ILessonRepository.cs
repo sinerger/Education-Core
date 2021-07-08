@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Homeworks;
 using Domain.Entities.Lesson;
+using Domain.Entities.Users;
 using Insight.Database;
 using System;
 using System.Collections.Generic;
