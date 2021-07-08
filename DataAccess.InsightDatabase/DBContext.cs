@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Domain.Interfaces.LessonRepositoryiInterfaces;
 
 namespace DataAccess.InsightDatabase
 {
@@ -19,6 +20,7 @@ namespace DataAccess.InsightDatabase
         public IHomeworkRepository HomeworkRepository => new HomeworkRepository(DBConnection);
         public ICourseProgramRepository CourseProgramRepository => new CourseProgramRepository(DBConnection);
         public ICourseRepository CourseRepository => new CourseRepository(DBConnection);
+        public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
 
         public DBContext(IDbConnection dbConnection)
         {

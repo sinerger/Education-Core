@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Domain.Interfaces.LessonRepositoryiInterfaces;
 
 namespace Domain.Interfaces
 {
@@ -17,6 +18,7 @@ namespace Domain.Interfaces
         IHomeworkRepository HomeworkRepository { get; }
         ICourseProgramRepository CourseProgramRepository { get; }
         ICourseRepository CourseRepository { get; }
+        ILessonRepository LessonRepository { get; }
 
         IDbConnection DBConnection { get; }
 
