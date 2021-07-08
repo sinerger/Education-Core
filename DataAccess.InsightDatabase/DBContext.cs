@@ -4,11 +4,8 @@ using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using Insight.Database;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using Domain.Interfaces.LessonRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
 {
@@ -21,6 +18,7 @@ namespace DataAccess.InsightDatabase
         public ICourseRepository CourseRepository => new CourseRepository(DBConnection);
         public IUserDetailRepository UserDetailRepository => new UserDetailRepository(DBConnection);
 
+        public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
 
         public DBContext(IDbConnection dbConnection)
         {
