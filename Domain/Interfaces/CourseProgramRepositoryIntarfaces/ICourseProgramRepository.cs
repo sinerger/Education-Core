@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.CourseProgram;
+using Domain.Entities.Lesson;
 using Insight.Database;
 using System;
 using System.Collections.Generic;

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Domain.Entities.CourseProgram
+namespace Domain.Entities.Lesson
 {
-    public class Course
+    public class Teacher
     {
         public Guid ID { get; set; }
     }
