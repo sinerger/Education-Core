@@ -36,7 +36,7 @@ namespace WebApi
 
             services.AddControllers();
 
-            var conStr = Configuration["ConnectionStrings:DefaultLocalRostik"];
+            var conStr = Configuration["ConnectionStrings:DefaultLocal"];
             var mysqlCon = new MySqlConnectionStringBuilder(conStr);
             DbConnection connection = mysqlCon.Connection();
             services.AddTransient<IDbConnection>(conn => connection);

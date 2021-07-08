@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Homework>> GetHomeworks()
         {
-            return (IEnumerable<Homework>)await _dbContext.HomeworkRepository.GetHomeworkAsync();
+            return await _dbContext.HomeworkRepository.GetHomeworkAsync();
         }
 
         [HttpGet("id")]
