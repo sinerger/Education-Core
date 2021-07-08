@@ -22,16 +22,16 @@ namespace DataAccess.InsightDatabase.Repositories
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
         {
             IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            return await userDetailRepository.GetAllUsersDetail();
+            return await userDetailRepository.GetAllUsersDetailAsync();
         }
-        public async Task<bool> CreateUserDetail(UserDetail user)
+        public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
             try
             {
                 var FeedbackID = user.Feedback.ID;
                 user.ID = Guid.NewGuid();
 
-                await DBConnection.QueryAsync(nameof(CreateUserDetail),
+                await DBConnection.QueryAsync(nameof(CreateDetailInfoForUserAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         user.ID,
@@ -58,7 +58,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
             
-            return await userDetailRepository.GetUserDetailByID(id);
+            return await userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
         public async Task<bool> UpdateUserDetailAsync(UserDetail user)

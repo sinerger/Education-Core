@@ -24,31 +24,31 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetail()
         {
-            return await _DBContext.UserDetailRepository.GetAllUsersDetail();
+            return await _DBContext.UserDetailRepository.GetAllUsersDetailAsync();
         }
         
         [HttpGet("{id}")]
         public async Task<UserDetail> GetUserDetailByID (Guid id)
         {
-            return await _DBContext.UserDetailRepository.GetUserDetailByID(id);
+            return await _DBContext.UserDetailRepository.GetUserDetailByIDAsync(id);
         }
 
         [HttpPost]
-        public async Task<bool> CreateUserDetail(UserDetail user)
+        public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
-            return _DBContext.UserDetailRepository.CreateUserDetail(user).Result;
+            return _DBContext.UserDetailRepository.CreateDetailInfoForUserAsync(user).Result;
         }
 
         [HttpPut]
         public async Task<bool> UpdateUserDetail(UserDetail user)
         {
-            return _DBContext.UserDetailRepository.UpdateUserDetail(user).Result;
+            return _DBContext.UserDetailRepository.UpdateUserDetailAsync(user).Result;
         }
         
         [HttpDelete]
         public async Task<bool> DeleteUserDetailByID(int id)
         {
-            return _DBContext.UserDetailRepository.DeleteUserDetailByID(id).Result;
+            return _DBContext.UserDetailRepository.DeleteUserDetailByIDAsync(id).Result;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
 
         [Recordset(typeof(UserDetail), typeof(Feedback))]
         Task<UserDetail> GetUserDetailByIDAsync(Guid id);
-        Task<bool> CreateUserDetailAsync(UserDetail user);
+        Task<bool> CreateDetailInfoForUserAsync(UserDetail user);
         Task<bool> UpdateUserDetailAsync(UserDetail user);
         Task<bool> DeleteUserDetailByIDAsync(int Id);
     }
