@@ -37,9 +37,8 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-                await courseRepository.DeleteCourseAsync(id);
 
-                return true;
+                return await courseRepository.DeleteCourseAsync(id);
             }
             catch (Exception e)
             {
