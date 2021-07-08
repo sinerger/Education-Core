@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.UserRepositoryInterfaces;
+﻿using Domain.Interfaces.CourseRepositoryIntarfaces;
+using Domain.Interfaces.UserRepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,6 +10,7 @@ namespace Domain.Interfaces
     public interface IDBContext
     {
         IUserWithRoleRepository UserWithRoleRepository { get; }
+        ICourseProgramRepository CourseProgramRepository { get; }
 
         IDbConnection DBConnection { get; }
 
