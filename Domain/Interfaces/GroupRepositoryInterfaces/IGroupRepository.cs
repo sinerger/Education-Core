@@ -10,8 +10,8 @@ namespace Domain.Interfaces.GroupRepositoryInterfaces
     {
         Task<IEnumerable<Group>> GetAllGroupsAsync();
         Task<Group> GetGroupByIDAsync(Guid id);
-        Task<bool> CreateGroupAsync(Group group);
+        Task<bool> CreateGroupWithinCourseAsync(Guid courseId, Group group);
         Task<bool> UpdateGroupAsync(Group group);
-        Task<bool> DeleteGroupByIDAsync(Guid id);
+        Task<bool> DeleteGroupAsync(Guid id);
     }
 }

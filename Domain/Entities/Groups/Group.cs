@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Entities.CoursePrograms;
+using Domain.Entities.Courses;
 using Domain.Entities.Users;
 
 namespace Domain.Entities.Groups
@@ -13,6 +13,6 @@ namespace Domain.Entities.Groups
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public Teacher Teacher { get; set; }
-        public CourseProgram CourseProgram { get; set; }
+        public Course Course { get; set; }
     }
 }

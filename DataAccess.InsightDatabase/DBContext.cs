@@ -7,6 +7,7 @@ using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Interfaces.LessonRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
+using Domain.Interfaces.SolutionRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
 {
@@ -22,6 +23,7 @@ namespace DataAccess.InsightDatabase
         public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
         public ITeacherRepository TeacherRepository => new TeacherRepository(DBConnection);
         public IGroupRepository GroupRepository => new GroupRepository(DBConnection);
+        public ISolutionRepository SolutionRepository => new SolutionRepository(DBConnection);
 
         public DBContext(IDbConnection dbConnection)
         {
