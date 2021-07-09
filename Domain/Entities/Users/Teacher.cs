@@ -1,4 +1,7 @@
-﻿using Domain.Entities.Groups;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Domain.Entities.Groups;
 
 namespace Domain.Entities.Users
 {

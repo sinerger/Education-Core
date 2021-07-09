@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Users;
-using Insight.Database;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain.Entities;
 using System.Threading.Tasks;
+using Insight.Database;
+using Domain.Entities.Users;
+using Domain.Entities;
 
 namespace Domain.Interfaces.UserRepositoryInterfaces
 {

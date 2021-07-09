@@ -1,10 +1,11 @@
-﻿using Domain.Entities.CourseProgram;
-using Domain.Entities.Lesson;
-using Insight.Database;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Insight.Database;
+using Domain.Entities.CoursePrograms;
+using Domain.Entities.Courses;
+using Domain.Entities.Lessons;
 
 namespace Domain.Interfaces.CourseRepositoryIntarfaces
 {

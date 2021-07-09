@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
@@ -11,12 +12,15 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
+        private readonly IStudentRepository _studentRepository;
         public IDbConnection DBConnection { get; }
 
         public StudentRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _studentRepository = DBConnection.As<IStudentRepository>();
         }
+
         public async Task<bool> CreateStudentAsync(Student student)
         {
             try
@@ -34,10 +38,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             student.City,
                             student.DateOfBirth,
                             student.Feedback,
-                            student.AgreementNumber,
-                            //TODO:
-                            //student.Group,
-                            //student.Solutions
+                            student.AgreementNumber
                         });
                 }
 
@@ -51,13 +52,43 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteStudentByIDAsync(Guid id)
+        public async Task<bool> AddStudentToGroupAsync(Guid groupId, Student student)
         {
             try
             {
-                IStudentRepository studentRepository = DBConnection.As<IStudentRepository>();
+                using (var transaction = DBConnection.OpenWithTransaction())
+                {
+                    await DBConnection.QueryAsync(nameof(AddStudentToGroupAsync).GetStoredProcedureName(),
+                        parameters: new
+                        {
+                            student.ID,
+                            student.FirstName,
+                            student.LastName,
+                            student.Email,
+                            student.Phone,
+                            student.City,
+                            student.DateOfBirth,
+                            student.Feedback,
+                            student.AgreementNumber,
+                            groupId
+                        });
+                }
 
-                return await studentRepository.DeleteStudentByIDAsync(id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                // TODO: Работаем с Serilog
+
+                throw e;
+            }
+        }
+
+        public async Task<bool> DeleteStudentAsync(Guid id)
+        {
+            try
+            {
+                return await _studentRepository.DeleteStudentAsync(id);
             }
             catch (Exception e)
             {
@@ -71,9 +102,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IStudentRepository studentRepository = DBConnection.As<IStudentRepository>();
-
-                return await studentRepository.GetAllStudentsAsync();
+                return await _studentRepository.GetAllStudentsAsync();
             }
             catch (Exception e)
             {
@@ -87,9 +116,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IStudentRepository studentRepository = DBConnection.As<IStudentRepository>();
-
-                return await studentRepository.GetStudentByIDAsync(id);
+                return await _studentRepository.GetStudentByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -114,10 +141,7 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.City,
                         student.DateOfBirth,
                         student.Feedback,
-                        student.AgreementNumber,
-                        //TODO:
-                        //student.Group,
-                        //student.Solutions
+                        student.AgreementNumber
                     });
 
                 return true;

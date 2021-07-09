@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
@@ -11,12 +12,15 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class TeacherRepository : ITeacherRepository
     {
+        private readonly ITeacherRepository _teacherRepository;
         public IDbConnection DBConnection { get; }
 
         public TeacherRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _teacherRepository = DBConnection.As<ITeacherRepository>();
         }
+
         public async Task<bool> CreateTeacherAsync(Teacher teacher)
         {
             try
@@ -33,9 +37,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             teacher.Phone,
                             teacher.City,
                             teacher.DateOfBirth,
-                            teacher.Feedback,
-                            //TODO:
-                            //teacher.Group
+                            teacher.Feedback
                         });
                 }
 
@@ -49,13 +51,42 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteTeacherByIDAsync(Guid id)
+        public async Task<bool> AddTeacherToGroupAsync(Guid groupId, Teacher teacher)
         {
             try
             {
-                ITeacherRepository teacherRepository = DBConnection.As<ITeacherRepository>();
+                using (var transaction = DBConnection.OpenWithTransaction())
+                {
+                    await DBConnection.QueryAsync(nameof(AddTeacherToGroupAsync).GetStoredProcedureName(),
+                        parameters: new
+                        {
+                            teacher.ID,
+                            teacher.FirstName,
+                            teacher.LastName,
+                            teacher.Email,
+                            teacher.Phone,
+                            teacher.City,
+                            teacher.DateOfBirth,
+                            teacher.Feedback,
+                            groupId
+                        });
+                }
 
-                return await teacherRepository.DeleteTeacherByIDAsync(id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                // TODO: Работаем с Serilog
+
+                throw e;
+            }
+        }
+
+        public async Task<bool> DeleteTeacherAsync(Guid id)
+        {
+            try
+            {
+                return await _teacherRepository.DeleteTeacherAsync(id);
             }
             catch (Exception e)
             {
@@ -69,9 +100,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ITeacherRepository teacherRepository = DBConnection.As<ITeacherRepository>();
-
-                return await teacherRepository.GetAllTeachersAsync();
+                return await _teacherRepository.GetAllTeachersAsync();
             }
             catch (Exception e)
             {
@@ -85,9 +114,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ITeacherRepository teacherRepository = DBConnection.As<ITeacherRepository>();
-
-                return await teacherRepository.GetTeacherByIDAsync(id);
+                return await _teacherRepository.GetTeacherByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -111,9 +138,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             teacher.Phone,
                             teacher.City,
                             teacher.DateOfBirth,
-                            teacher.Feedback,
-                            //TODO:
-                            //teacher.Group
+                            teacher.Feedback
                         });
 
                 return true;

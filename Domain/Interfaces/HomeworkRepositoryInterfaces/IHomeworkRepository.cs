@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Homeworks;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Homeworks;
 
 namespace Domain.Interfaces.HomeworkRepositoryInterfaces
 {

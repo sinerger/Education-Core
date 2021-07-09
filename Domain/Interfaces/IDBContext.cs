@@ -1,12 +1,14 @@
-﻿using Domain.Interfaces.HomeworkRepositoryInterfaces;
+﻿using System;
+using System.Data;
+using System.Text;
+using System.Collections.Generic;
+using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 ﻿using Domain.Interfaces.CourseRepositoryIntarfaces;
 ﻿using Domain.Interfaces.CouseRepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 using Domain.Interfaces.LessonRepositoryInterfaces;
+using Domain.Interfaces.GroupRepositoryInterfaces;
+using Domain.Interfaces.SolutionRepositoryInterfaces;
 
 namespace Domain.Interfaces
 {
@@ -20,8 +22,9 @@ namespace Domain.Interfaces
         IUserDetailRepository UserDetailRepository { get; }
         IStudentRepository StudentRepository { get; }
         ITeacherRepository TeacherRepository { get; }
+        IGroupRepository GroupRepository { get; }
+        ISolutionRepository SolutionRepository { get; }
 
         IDbConnection DBConnection { get; }
-
     }
 }
