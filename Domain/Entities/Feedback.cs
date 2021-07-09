@@ -7,5 +7,6 @@ namespace Domain.Entities
     public class Feedback
     {
         public Guid ID { get; set; }
+
     }
 }
