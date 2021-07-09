@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controler]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CourseController : Controller
     {

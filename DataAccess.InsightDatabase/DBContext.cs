@@ -6,6 +6,7 @@ using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Interfaces.LessonRepositoryInterfaces;
+using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
 
@@ -19,6 +20,7 @@ namespace DataAccess.InsightDatabase
         public ICourseProgramRepository CourseProgramRepository => new CourseProgramRepository(DBConnection);
         public ICourseRepository CourseRepository => new CourseRepository(DBConnection);
         public IUserDetailRepository UserDetailRepository => new UserDetailRepository(DBConnection);
+        public IGroupWithStudentRepository GroupWithStudentRepository => new GroupWithStudentRepository(DBConnection);
         public IStudentRepository StudentRepository => new StudentRepository(DBConnection);
         public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
         public ITeacherRepository TeacherRepository => new TeacherRepository(DBConnection);
