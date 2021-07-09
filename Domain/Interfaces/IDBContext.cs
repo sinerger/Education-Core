@@ -8,6 +8,7 @@ using Domain.Interfaces.UserRepositoryInterfaces;
 ﻿using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.LessonRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
+using Domain.Interfaces.SolutionRepositoryInterfaces;
 
 namespace Domain.Interfaces
 {
@@ -22,6 +23,7 @@ namespace Domain.Interfaces
         IStudentRepository StudentRepository { get; }
         ITeacherRepository TeacherRepository { get; }
         IGroupRepository GroupRepository { get; }
+        ISolutionRepository SolutionRepository { get; }
 
         IDbConnection DBConnection { get; }
     }

@@ -7,45 +7,45 @@ using Domain.Interfaces;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private readonly IDBContext _dBContext;
+        private readonly IDBContext _dbContext;
 
         public GroupController(IDBContext dBContext)
         {
-            _dBContext = dBContext;
+            _dbContext = dBContext;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Group>> GetAllGroups()
         {
-            return await _dBContext.GroupRepository.GetAllGroupsAsync();
+            return await _dbContext.GroupRepository.GetAllGroupsAsync();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<Group> GetGroupByID(Guid id)
         {
-            return await _dBContext.GroupRepository.GetGroupByIDAsync(id);
+            return await _dbContext.GroupRepository.GetGroupByIDAsync(id);
         }
 
         [HttpPost]
-        public async Task<bool> CreateGroup(Group group)
+        public async Task<bool> CreateGroupWithinCourse(Guid courseId, Group group)
         {
-            return await _dBContext.GroupRepository.CreateGroupAsync(group);
+            return await _dbContext.GroupRepository.CreateGroupWithinCourseAsync(courseId, group);
         }
 
         [HttpPut]
         public async Task<bool> UpdateGroup(Group group)
         {
-            return await _dBContext.GroupRepository.UpdateGroupAsync(group);
+            return await _dbContext.GroupRepository.UpdateGroupAsync(group);
         }
 
-        [HttpDelete]
-        public async Task<bool> DeleteGroupByID(Guid id)
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteGroup(Guid id)
         {
-            return await _dBContext.GroupRepository.DeleteGroupByIDAsync(id);
+            return await _dbContext.GroupRepository.DeleteGroupAsync(id);
         }
     }
 }

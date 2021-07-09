@@ -25,10 +25,16 @@ namespace WebApi.Controllers
             return await _dbContext.StudentRepository.GetAllStudentsAsync();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<Student> GetStudentByID(Guid id)
         {
             return await _dbContext.StudentRepository.GetStudentByIDAsync(id);
+        }
+
+        [HttpPost("{groupid}")]
+        public async Task<bool> AddStudentToGroup(Guid groupId, Student student)
+        {
+            return await _dbContext.StudentRepository.AddStudentToGroupAsync(groupId, student);
         }
 
         [HttpPost]
@@ -43,10 +49,10 @@ namespace WebApi.Controllers
             return await _dbContext.StudentRepository.UpdateStudentAsync(student);
         }
 
-        [HttpDelete]
-        public async Task<bool> DeleteStudentByID(Guid id)
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteStudenD(Guid id)
         {
-            return await _dbContext.StudentRepository.DeleteStudentByIDAsync(id);
+            return await _dbContext.StudentRepository.DeleteStudentAsync(id);
         }
     }
 }

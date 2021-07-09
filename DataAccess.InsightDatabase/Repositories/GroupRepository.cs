@@ -12,28 +12,29 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
+        private readonly IGroupRepository _groupRepository;
         public IDbConnection DBConnection { get; }
 
         public GroupRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _groupRepository = DBConnection.As<IGroupRepository>();
         }
-        public async Task<bool> CreateGroupAsync(Group group)
+
+        public async Task<bool> CreateGroupWithinCourseAsync(Guid courseId, Group group)
         {
             try
             {
                 using (var transaction = DBConnection.OpenWithTransaction())
                 {
-                    await DBConnection.QueryAsync(nameof(CreateGroupAsync).GetStoredProcedureName(),
+                    await DBConnection.QueryAsync(nameof(CreateGroupWithinCourseAsync).GetStoredProcedureName(),
                         parameters: new
                         {
                             group.ID,
                             group.Title,
                             group.StartDate,
                             group.FinishDate,
-                            //TODO:
-                            //group.Teacher,
-                            //group.CourseProgram
+                            courseId
                         });
                 }
 
@@ -47,13 +48,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteGroupByIDAsync(Guid id)
+        public async Task<bool> DeleteGroupAsync(Guid id)
         {
             try
             {
-                IGroupRepository groupRepository = DBConnection.As<IGroupRepository>();
-
-                return await groupRepository.DeleteGroupByIDAsync(id);
+                return await _groupRepository.DeleteGroupAsync(id);
             }
             catch (Exception e)
             {
@@ -67,9 +66,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IGroupRepository groupRepository = DBConnection.As<IGroupRepository>();
-
-                return await groupRepository.GetAllGroupsAsync();
+                return await _groupRepository.GetAllGroupsAsync();
             }
             catch (Exception e)
             {
@@ -83,9 +80,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IGroupRepository groupRepository = DBConnection.As<IGroupRepository>();
-
-                return await groupRepository.GetGroupByIDAsync(id);
+                return await _groupRepository.GetGroupByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -99,20 +94,14 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(UpdateGroupAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            group.ID,
-                            group.Title,
-                            group.StartDate,
-                            group.FinishDate,
-                            //TODO:
-                            //group.Teacher,
-                            //group.CourseProgram
-                        });
-                }
+                await DBConnection.QueryAsync(nameof(UpdateGroupAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        group.ID,
+                        group.Title,
+                        group.StartDate,
+                        group.FinishDate
+                    });
 
                 return true;
             }

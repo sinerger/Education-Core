@@ -10,8 +10,9 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
     {
         Task<IEnumerable<Student>> GetAllStudentsAsync();
         Task<Student> GetStudentByIDAsync(Guid id);
+        Task<bool> AddStudentToGroupAsync(Guid groupId, Student student);
         Task<bool> CreateStudentAsync(Student student);
         Task<bool> UpdateStudentAsync(Student student);
-        Task<bool> DeleteStudentByIDAsync(Guid id);
+        Task<bool> DeleteStudentAsync(Guid id);
     }
 }
