@@ -1,15 +1,16 @@
-﻿using Domain.Entities.Lesson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities.Courses;
+using Domain.Entities.Lessons;
 
-namespace Domain.Entities.CourseProgram
+namespace Domain.Entities.CoursePrograms
 {
     public class CourseProgram
     {
         public Guid ID { get; set; }
         public Course Course { get; set; }
-        public Lesson.Lesson Lesson { get; set; }
+        public Lesson Lesson { get; set; }
 
     }
 }
