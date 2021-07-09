@@ -1,10 +1,8 @@
 ﻿using Domain.Entities.Users;
 using Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -20,12 +18,6 @@ namespace WebApi.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<UserWithRole>> GetUsersWithRole()
-        {
-            return await _dbContext.UserWithRoleRepository.GetUsersWithRoleAsync();
-        }
-
         [HttpGet("id")]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
@@ -36,12 +28,6 @@ namespace WebApi.Controllers
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
-        }
-
-        [HttpPost]
-        public async Task<bool> CreateUserWithRole(UserWithRole user)
-        {
-            return await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
         }
 
         [HttpDelete("id")]

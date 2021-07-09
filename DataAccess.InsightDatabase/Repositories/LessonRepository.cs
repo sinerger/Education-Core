@@ -11,19 +11,19 @@ namespace DataAccess.InsightDatabase.Repositories
     public class LessonRepository : ILessonRepository
     {
         public IDbConnection DBConnection { get; }
+        private ILessonRepository _lessonRepository;
 
         public LessonRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _lessonRepository = DBConnection.As<ILessonRepository>(); 
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllLessonAsync()
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.GetAllLessonAsync();
+                return await _lessonRepository.GetAllLessonsAsync();
 
             }
             catch (Exception e)
@@ -37,9 +37,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.GetLessonByIdAsync(id);
+                return await _lessonRepository.GetLessonByIdAsync(id);
             }
             catch (Exception e)
             {
@@ -48,7 +46,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> CreateLessonAsync(Lesson lesson)
+        public async Task<bool> CreateLessonWithinCourseAsync(Lesson lesson,Guid CoursID)
         {
             try
             {
@@ -56,7 +54,7 @@ namespace DataAccess.InsightDatabase.Repositories
                 var HomeworkID = lesson.Homework.ID;
                 lesson.ID = Guid.NewGuid();
 
-                await DBConnection.QueryAsync(nameof(CreateLessonAsync),
+                await DBConnection.QueryAsync(nameof(CreateLessonWithinCourseAsync),
                     parameters: new
                     {
                         lesson.ID,
@@ -110,9 +108,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.DeleteLessonAsync(id);
+                return await _lessonRepository.DeleteLessonAsync(id);
             }
             catch (Exception e)
             {

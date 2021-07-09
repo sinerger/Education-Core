@@ -24,19 +24,13 @@ namespace WebApi.Controllers
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
 
-        [HttpGet("id")]
-        public async Task<Course> GetCourseById(Guid id)
-        {
-            return await _dbContext.CourseRepository.GetCourseByIdAsync(id);
-        }
-
         [HttpPost]
         public async Task<bool> CreateCourse(Course course)
         {
             return await _dbContext.CourseRepository.CreateCourseAsync(course);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteCourse(Guid id)
         {
             return await _dbContext.CourseRepository.DeleteCourseAsync(id);

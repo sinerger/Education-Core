@@ -12,19 +12,19 @@ namespace DataAccess.InsightDatabase.Repositories
     {
 
         public IDbConnection DBConnection { get; }
+        private IHomeworkRepository _homeworkRepository;
 
         public HomeworkRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _homeworkRepository = DBConnection.As<IHomeworkRepository>();
         }
 
-        public async Task<bool> CreateHomeworkAsync(Homework homework)
+        public async Task<bool> CreateHomeworkWithinLessonAsync(Homework homework,Guid LessonID)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.CreateHomeworkAsync(homework);
+                return await _homeworkRepository.CreateHomeworkWithinLessonAsync(homework,LessonID);
             }
             catch (Exception e)
             {
@@ -37,9 +37,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.DeleteHomeworkAsync(id); 
+                return await _homeworkRepository.DeleteHomeworkAsync(id); 
             }
             catch (Exception e)
             {
@@ -48,13 +46,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<IEnumerable<Homework>> GetHomeworkAsync()
+        public async Task<IEnumerable<Homework>> GetAllHomeworkByCourseIDAsync(Guid CourseID)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkAsync(); 
+                return await _homeworkRepository.GetAllHomeworkByCourseIDAsync(CourseID); 
             }
             catch (Exception e)
             {
@@ -63,13 +59,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<Homework> GetHomeworkByIdAsync(Guid id)
+        public async Task<Homework> GetHomeworkByLessonIdAsync(Guid LessonID)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkByIdAsync(id);
+                return await _homeworkRepository.GetHomeworkByLessonIdAsync(LessonID);
             }
             catch (Exception e)
             {
@@ -82,9 +76,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.UpdateHomeworkAsync(homework);
+                return await _homeworkRepository.UpdateHomeworkAsync(homework);
             }
             catch (Exception e)
             {

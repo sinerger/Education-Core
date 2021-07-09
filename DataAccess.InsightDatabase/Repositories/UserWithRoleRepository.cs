@@ -13,63 +13,19 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
         public IDbConnection DBConnection { get; }
+        private IUserWithRoleRepository _userWithRoleRepository;
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
-        }
-
-        public async Task<bool> CreateUserWithRoleAsync(UserWithRole user)
-        {
-            try
-            {
-                var RoleID = user.Role.ID;
-                user.ID = Guid.NewGuid();
-
-                await DBConnection.QueryAsync(nameof(CreateUserWithRoleAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            user.ID,
-                            user.FirstName,
-                            user.LastName,
-                            user.Login,
-                            user.Password,
-                            RoleID
-                        });
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
-
-                throw e;
-            }
+            _userWithRoleRepository = DBConnection.As<IUserWithRoleRepository>();
         }
 
         public async Task<bool> DeleteUserWithRoleAsync(Guid id)
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-                
-                return await userRepository.DeleteUserWithRoleAsync(id);
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
-
-                throw e;
-            }
-        }
-
-        public async Task<IEnumerable<UserWithRole>> GetUsersWithRoleAsync()
-        {
-            try
-            {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUsersWithRoleAsync();
+                return await _userWithRoleRepository.DeleteUserWithRoleAsync(id);
             }
             catch (Exception e)
             {
@@ -83,9 +39,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUserWithRoleByIDAsync(id);
+                return await _userWithRoleRepository.GetUserWithRoleByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -99,9 +53,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+                return await _userWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
             }
             catch (Exception e)
             {

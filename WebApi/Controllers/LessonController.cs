@@ -19,31 +19,31 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Lesson>> GetLessons()
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
         {
-            return await _dbContext.LessonRepository.GetAllLessonAsync();
+            return await _dbContext.LessonRepository.GetAllLessonsAsync();
         }
 
-        [HttpGet("id")]
-        public async Task<Lesson> GetLessonById(Guid id)
+        [HttpGet("{id}")]
+        public async Task<Lesson> GetLessonByIdAsync(Guid id)
         {
             return await _dbContext.LessonRepository.GetLessonByIdAsync(id);
         }
 
-        [HttpDelete("id")]
-        public async Task<bool> DeleteLesson(Guid id)
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteLessonAsync(Guid id)
         {
             return await _dbContext.LessonRepository.DeleteLessonAsync(id);
         }
 
         [HttpPost]
-        public async Task<bool> CreateLesson(Lesson lesson)
+        public async Task<bool> CreateLessonWithinCourseAsync(Lesson lesson,Guid courseID)
         {
-            return await _dbContext.LessonRepository.CreateLessonAsync(lesson);
+            return await _dbContext.LessonRepository.CreateLessonWithinCourseAsync(lesson, courseID);
         }
 
         [HttpPut]
-        public async Task<bool> UpdateLesson(Lesson lesson)
+        public async Task<bool> UpdateLessonAsync(Lesson lesson)
         {
             return await _dbContext.LessonRepository.UpdateLessonAsync(lesson);
         }
