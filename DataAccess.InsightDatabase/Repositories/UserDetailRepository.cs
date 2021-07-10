@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Text;
+using System.Data;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
@@ -22,6 +22,7 @@ namespace DataAccess.InsightDatabase.Repositories
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
         {
             IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
+
             return await userDetailRepository.GetAllUsersDetailAsync();
         }
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
@@ -84,8 +85,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                // TODO: Работаем с Serilog
+                throw e;
             }
         }
 

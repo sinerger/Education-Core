@@ -1,13 +1,13 @@
-﻿using Domain.Entities.Courses;
-using Domain.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities.Courses;
+using Domain.Interfaces;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controler]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CourseController : Controller
     {
