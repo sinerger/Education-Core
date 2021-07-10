@@ -1,12 +1,12 @@
-﻿using DataAccess.InsightDatabase.Extensions;
-using Domain.Entities.Users;
-using Domain.Interfaces.UserRepositoryInterfaces;
-using Insight.Database;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Text;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Insight.Database;
+using DataAccess.InsightDatabase.Extensions;
+using Domain.Interfaces.UserRepositoryInterfaces;
+using Domain.Entities.Users;
 
 namespace DataAccess.InsightDatabase.Repositories
 {

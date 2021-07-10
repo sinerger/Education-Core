@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities.Users
 {
-    public class UserDetail:UserAbstract
+    public class UserDetail : UserAbstract
     {
         public Feedback Feedback { get; set; }
         public string Email { get; set; }

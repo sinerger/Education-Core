@@ -1,7 +1,7 @@
-﻿using Domain.Entities.Courses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.Entities.Courses;
 
 namespace Domain.Interfaces.CouseRepositoryInterfaces
 {

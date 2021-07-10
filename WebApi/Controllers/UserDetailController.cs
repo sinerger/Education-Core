@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Users;
-
-using Domain.Interfaces.UserRepositoryInterfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities.CoursePrograms;
+using Domain.Entities.Users;
+using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Interfaces;
 
 
@@ -27,10 +27,22 @@ namespace WebApi.Controllers
             return await _DBContext.UserDetailRepository.GetUserDetailByIDAsync(id);
         }
 
+        [HttpPost]
+        public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
+        {
+            return await _DBContext.UserDetailRepository.CreateDetailInfoForUserAsync(user);
+        }
+
         [HttpPut]
         public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
         {
-            return _DBContext.UserDetailRepository.UpdateDetailInfoForUserAsync(user).Result;
+            return await _DBContext.UserDetailRepository.UpdateUserDetailAsync(user);
+        }
+        
+        [HttpDelete]
+        public async Task<bool> DeleteUserDetailByID(int id)
+        {
+            return await _DBContext.UserDetailRepository.DeleteUserDetailByIDAsync(id);
         }
     }
 }

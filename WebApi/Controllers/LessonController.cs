@@ -1,9 +1,9 @@
-﻿using Domain.Entities.Lesson;
-using Domain.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities.Lessons;
+using Domain.Interfaces;
 
 namespace WebApi.Controllers
 {
