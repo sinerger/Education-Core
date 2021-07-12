@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Roles;
-using Insight.Database;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Insight.Database;
+using Domain.Entities.Roles;
 
 namespace Domain.Entities.Users
 {

@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Courses;
-using Domain.Interfaces.CouseRepositoryInterfaces;
-using Insight.Database;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Insight.Database;
+using Domain.Entities.Courses;
+using Domain.Interfaces.CouseRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase.Repositories
 {

@@ -1,9 +1,9 @@
-﻿using Domain.Entities.Courses;
-using Domain.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities.Courses;
+using Domain.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Course>> GetAllCourseById()
+        public async Task<IEnumerable<Course>> GetAllCoursesById()
         {
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
