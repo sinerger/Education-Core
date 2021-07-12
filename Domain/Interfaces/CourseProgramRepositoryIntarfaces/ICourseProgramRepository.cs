@@ -10,10 +10,10 @@ namespace Domain.Interfaces.CourseRepositoryIntarfaces
 {
     public interface ICourseProgramRepository : IRepository
     {
-        [Recordset(1, typeof(Course), typeof(Lesson), IsChild = true, Into = "Lesson")]
+        //[Recordset(1, typeof(Course), typeof(Lesson), IsChild = true, Into = "Lesson")]
         Task<CourseProgram> GetCourseProgramByIDAsync(Guid id);
 
-        [Recordset(1, typeof(Course), typeof(Lesson), IsChild = true, Into = "Lesson")]
+        //[Recordset(1, typeof(Course), typeof(Lesson), IsChild = true, Into = "Lesson")]
         Task<IEnumerable<CourseProgram>> GetAllCourseProgramAsync();
 
         Task<bool> CreateCourseProgramAsync(CourseProgram courseProgram);

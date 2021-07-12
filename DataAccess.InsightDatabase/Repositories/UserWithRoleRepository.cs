@@ -19,12 +19,12 @@ namespace DataAccess.InsightDatabase.Repositories
             DBConnection = dbConnection;
         }
 
-        public async Task<bool> CreateUserWithRoleAsync(UserWithRole user)
+        public async Task CreateUserWithRoleAsync(UserWithRole user)
         {
             try
             {
-                var RoleID = user.Role.ID;
-                user.ID = Guid.NewGuid();
+                var TypeRole = user.Role.ToString();
+                user.ID = user.ID == Guid.Empty ? Guid.NewGuid() : user.ID;
 
                 await DBConnection.QueryAsync(nameof(CreateUserWithRoleAsync).GetStoredProcedureName(),
                         parameters: new
@@ -34,10 +34,8 @@ namespace DataAccess.InsightDatabase.Repositories
                             user.LastName,
                             user.Login,
                             user.Password,
-                            RoleID
+                            TypeRole
                         });
-
-                return true;
             }
             catch (Exception e)
             {
@@ -47,13 +45,13 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteUserWithRoleAsync(Guid id)
+        public async Task DeleteUserWithRoleAsync(Guid id)
         {
             try
             {
                 IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-                
-                return await userRepository.DeleteUserWithRoleAsync(id);
+
+                await userRepository.DeleteUserWithRoleAsync(id);
             }
             catch (Exception e)
             {
@@ -111,12 +109,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> UpdateUserWithRoleAsync(UserWithRole user)
+        public async Task UpdateUserWithRoleAsync(UserWithRole user)
         {
             try
             {
-                var RoleID = user.Role.ID;
-
+                var TypeRole = user.Role.ToString();
                 await DBConnection.QueryAsync(nameof(UpdateUserWithRoleAsync).GetStoredProcedureName(),
                         parameters: new
                         {
@@ -125,10 +122,8 @@ namespace DataAccess.InsightDatabase.Repositories
                             user.LastName,
                             user.Login,
                             user.Password,
-                            RoleID
+                            TypeRole
                         });
-
-                return true;
             }
             catch (Exception e)
             {

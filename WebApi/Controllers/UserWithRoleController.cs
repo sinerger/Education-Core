@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class UserWithRoleController : ControllerBase
     {
@@ -20,40 +21,80 @@ namespace WebApi.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<UserWithRole>> GetUsersWithRole()
-        {
-            return await _dbContext.UserWithRoleRepository.GetUsersWithRoleAsync();
-        }
-
-        [HttpGet("id")]
+        [HttpGet(ApiRoutes.UserWIthRole.GetUserWithRoleByID)]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
+            try
+            {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
-        [HttpGet("login")]
+        [HttpGet(ApiRoutes.UserWIthRole.GetUserWithRoleByLoginAndPassword)]
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
-            return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+            try
+            {
+                return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
-        [HttpPost]
-        public async Task<bool> CreateUserWithRole(UserWithRole user)
+        [HttpPost(ApiRoutes.UserWIthRole.CreateUserWithRole)]
+        public async Task<Guid> CreateUserWithRole(UserWithRole user)
         {
-            return await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
+            try
+            {
+                await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
+
+                return user.ID;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
 
-        [HttpDelete("id")]
+        [HttpDelete(ApiRoutes.UserWIthRole.DeleteUserWithRoleByID)]
         public async Task<bool> DeleteUserWithRole(Guid id)
         {
-            return await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);
+            try
+            {
+                await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
         [HttpPut]
         public async Task<bool> UpdateUserWithRole(UserWithRole user)
         {
-            return await _dbContext.UserWithRoleRepository.UpdateUserWithRoleAsync(user);
+            try
+            {
+                await _dbContext.UserWithRoleRepository.UpdateUserWithRoleAsync(user);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
     }
 }

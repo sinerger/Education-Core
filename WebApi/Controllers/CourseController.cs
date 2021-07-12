@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controler]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CourseController : Controller
     {
@@ -24,16 +24,16 @@ namespace WebApi.Controllers
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{@!id}")]
         public async Task<Course> GetCourseById(Guid id)
         {
             return await _dbContext.CourseRepository.GetCourseByIdAsync(id);
         }
 
         [HttpPost]
-        public async Task<bool> CreateCourse(Course course)
+        public async Task CreateCourse([FromBody]Course course)
         {
-            return await _dbContext.CourseRepository.CreateCourseAsync(course);
+            await _dbContext.CourseRepository.CreateCourseAsync(course);
         }
 
         [HttpDelete]

@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{60E71EAF-2C5E-42D1-A8C9-4E4ADD24C4C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{8653420A-F875-4083-B92D-038540CC35E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{8653420A-F875-4083-B92D-038540CC35E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.InsightDatabase", "DataAccess.InsightDatabase\DataAccess.InsightDatabase.csproj", "{75FF4641-9014-44F9-9B36-24163D261608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.InsightDatabase", "DataAccess.InsightDatabase\DataAccess.InsightDatabase.csproj", "{75FF4641-9014-44F9-9B36-24163D261608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education-Core.WebApi.IntegrationTests", "Education-Core.WebApi.IntegrationTests\Education-Core.WebApi.IntegrationTests.csproj", "{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{75FF4641-9014-44F9-9B36-24163D261608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75FF4641-9014-44F9-9B36-24163D261608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75FF4641-9014-44F9-9B36-24163D261608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

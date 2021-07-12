@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Lesson;
+﻿using Domain.Entities.Courses;
+using Domain.Entities.Lesson;
 using System;
 using System.Collections.Generic;
 using System.Text;

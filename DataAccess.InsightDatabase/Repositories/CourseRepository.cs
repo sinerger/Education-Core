@@ -17,13 +17,13 @@ namespace DataAccess.InsightDatabase.Repositories
             DBConnection = dbConnection;
         }
 
-        public async Task<bool> CreateCourseAsync(Course course)
+        public async Task CreateCourseAsync(Course course)
         {
             try
             {
                 ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
 
-                return await courseRepository.CreateCourseAsync(course);
+                await courseRepository.CreateCourseAsync(course);
             }
             catch (Exception e)
             {
