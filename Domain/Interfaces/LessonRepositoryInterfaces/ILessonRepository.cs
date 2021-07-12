@@ -17,8 +17,8 @@ namespace Domain.Interfaces.LessonRepositoryInterfaces
         [Recordset(typeof(Lesson), typeof(Teacher))]
         [Recordset(typeof(Lesson), typeof(Homework))]
         //TODO one to many
-        Task<Lesson> GetLessonByIdAsync(Guid id);
-        Task<bool> CreateLessonWithinCourseAsync(Lesson lesson, Guid CoursID);
+        Task<Lesson> GetLessonByIDAsync(Guid id);
+        Task<bool> CreateLessonWithinCourseAsync(Guid CoursID,Lesson lesson);
         Task<bool> UpdateLessonAsync(Lesson lesson);
         Task<bool> DeleteLessonAsync(Guid id);
     }

@@ -19,24 +19,24 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{courseid}")]
-        public async Task<IEnumerable<Homework>> GetAllHomeworkByCourseIDAsync(Guid CourseID)
+        public async Task<IEnumerable<Homework>> GetAllHomeworkByCourseID(Guid CourseID)
         {
             return await _dbContext.HomeworkRepository.GetAllHomeworkByCourseIDAsync(CourseID);
         }
 
         [HttpGet("lessonid")]
-        public async Task<Homework> GetHomeworkByLessonIdAsync(Guid LessonID)
+        public async Task<Homework> GetHomeworkByLessonID(Guid LessonID)
         {
-            return await _dbContext.HomeworkRepository.GetHomeworkByLessonIdAsync(LessonID);
+            return await _dbContext.HomeworkRepository.GetHomeworkByLessonIDAsync(LessonID);
         }
 
         [HttpPost]
-        public async Task<bool> CreateHomeworkWithinLessonAsync(Homework homework, Guid LessonID)
+        public async Task<bool> CreateHomeworkWithinLesson(Guid LessonID, Homework homework)
         {
-            return await _dbContext.HomeworkRepository.CreateHomeworkWithinLessonAsync(homework,LessonID);
+            return await _dbContext.HomeworkRepository.CreateHomeworkWithinLessonAsync(LessonID, homework);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteHomework(Guid id)
         {
             return await _dbContext.HomeworkRepository.DeleteHomeworkAsync(id);

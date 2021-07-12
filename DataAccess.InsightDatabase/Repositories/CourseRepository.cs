@@ -11,7 +11,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class CourseRepository : ICourseRepository
     {
         public IDbConnection DBConnection { get; }
-        private ICourseRepository _courseRepository; 
+        private readonly ICourseRepository _courseRepository; 
 
         public CourseRepository(IDbConnection dbConnection)
         {

@@ -11,7 +11,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class LessonRepository : ILessonRepository
     {
         public IDbConnection DBConnection { get; }
-        private ILessonRepository _lessonRepository;
+        private readonly ILessonRepository _lessonRepository;
 
         public LessonRepository(IDbConnection dbConnection)
         {
@@ -33,11 +33,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<Lesson> GetLessonByIdAsync(Guid id)
+        public async Task<Lesson> GetLessonByIDAsync(Guid id)
         {
             try
             {
-                return await _lessonRepository.GetLessonByIdAsync(id);
+                return await _lessonRepository.GetLessonByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> CreateLessonWithinCourseAsync(Lesson lesson,Guid CoursID)
+        public async Task<bool> CreateLessonWithinCourseAsync(Guid CoursID,Lesson lesson)
         {
             try
             {

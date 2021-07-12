@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Course>> GetAllCourseById()
+        public async Task<IEnumerable<Course>> GetAllCoursesById()
         {
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }

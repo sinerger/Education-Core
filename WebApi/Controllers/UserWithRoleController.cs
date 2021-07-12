@@ -5,11 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Users;
-using Domain.Interfaces;
-
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -23,19 +18,19 @@ namespace WebApi.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
         }
 
-        [HttpGet("login")]
+        [HttpGet("{login}")]
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteUserWithRole(Guid id)
         {
             return await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);

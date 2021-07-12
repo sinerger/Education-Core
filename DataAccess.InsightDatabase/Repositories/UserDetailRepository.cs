@@ -2,8 +2,6 @@
 using System.Text;
 using System.Data;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
 using System.Threading.Tasks;
 using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
@@ -15,7 +13,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserDetailRepository : IUserDetailRepository
     {
         public IDbConnection DBConnection { get; }
-        private IUserDetailRepository _userDetailRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
 
         public UserDetailRepository(IDbConnection dbConnection)
         {
@@ -25,23 +23,10 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            return await userDetailRepository.GetAllUsersDetailAsync();
-        }
-        public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
-        {
-            try
-            {
-                return await _userDetailRepository.GetUserDetailByIDAsync(id);
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
-                throw e;
-            }
+            return await _userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
-        public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
+         public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
         {
             try
             {

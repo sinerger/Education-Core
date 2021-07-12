@@ -12,7 +12,7 @@ namespace DataAccess.InsightDatabase.Repositories
     {
 
         public IDbConnection DBConnection { get; }
-        private IHomeworkRepository _homeworkRepository;
+        private readonly IHomeworkRepository _homeworkRepository;
 
         public HomeworkRepository(IDbConnection dbConnection)
         {
@@ -20,11 +20,11 @@ namespace DataAccess.InsightDatabase.Repositories
             _homeworkRepository = DBConnection.As<IHomeworkRepository>();
         }
 
-        public async Task<bool> CreateHomeworkWithinLessonAsync(Homework homework,Guid LessonID)
+        public async Task<bool> CreateHomeworkWithinLessonAsync(Guid LessonID ,Homework homework)
         {
             try
             {
-                return await _homeworkRepository.CreateHomeworkWithinLessonAsync(homework,LessonID);
+                return await _homeworkRepository.CreateHomeworkWithinLessonAsync(LessonID , homework);
             }
             catch (Exception e)
             {
@@ -59,11 +59,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<Homework> GetHomeworkByLessonIdAsync(Guid LessonID)
+        public async Task<Homework> GetHomeworkByLessonIDAsync(Guid LessonID)
         {
             try
             {
-                return await _homeworkRepository.GetHomeworkByLessonIdAsync(LessonID);
+                return await _homeworkRepository.GetHomeworkByLessonIDAsync(LessonID);
             }
             catch (Exception e)
             {

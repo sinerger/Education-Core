@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         [HttpGet("id")]
         public async Task<GroupWithStudent> GetGroupWithStudentById(Guid id)
         {
-            return await _dbContext.GroupWithStudentRepository.GetGroupWithStudentByIdAsync(id);
+            return await _dbContext.GroupWithStudentRepository.GetGroupWithStudentByIDAsync(id);
         }
     }
 }

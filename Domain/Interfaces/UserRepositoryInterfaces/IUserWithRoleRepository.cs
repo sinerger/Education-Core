@@ -12,10 +12,8 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
     {
         [Recordset(typeof(UserWithRole), typeof(Role))]
         Task<UserWithRole> GetUserWithRoleByIDAsync(Guid id);
-
         [Recordset(typeof(UserWithRole), typeof(Role))]
         Task<UserWithRole> GetUserWithRoleByLoginAndPasswordAsync(string login, string password);
-
         Task<bool> UpdateUserWithRoleAsync(UserWithRole user);
         Task<bool> DeleteUserWithRoleAsync(Guid id);
     }

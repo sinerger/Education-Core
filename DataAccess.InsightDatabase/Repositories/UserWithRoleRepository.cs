@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Text;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
 using DataAccess.InsightDatabase.Extensions;
@@ -13,7 +12,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
         public IDbConnection DBConnection { get; }
-        private IUserWithRoleRepository _userWithRoleRepository;
+        private readonly IUserWithRoleRepository _userWithRoleRepository;
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {

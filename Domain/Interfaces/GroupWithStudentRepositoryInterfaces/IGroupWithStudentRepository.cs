@@ -9,6 +9,6 @@ namespace Domain.Interfaces.GroupWithStudentRepositoryInterfaces
     public interface IGroupWithStudentRepository : IRepository
     {
         [Recordset(1, typeof(Student), IsChild = true, Into = "Students")]
-        Task<GroupWithStudent> GetGroupWithStudentByIdAsync(Guid id);
+        Task<GroupWithStudent> GetGroupWithStudentByIDAsync(Guid id);
     }
 }
