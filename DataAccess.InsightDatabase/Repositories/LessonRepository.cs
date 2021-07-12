@@ -11,24 +11,21 @@ namespace DataAccess.InsightDatabase.Repositories
     public class LessonRepository : ILessonRepository
     {
         public IDbConnection DBConnection { get; }
-
+        private ILessonRepository _lessonRepository;
         public LessonRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _lessonRepository = DBConnection.As<ILessonRepository>();
         }
 
         public async Task<IEnumerable<Lesson>> GetAllLessonAsync()
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.GetAllLessonAsync();
-
+                return await _lessonRepository.GetAllLessonAsync();
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -37,13 +34,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.GetLessonByIdAsync(id);
+                return await _lessonRepository.GetLessonByIdAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -72,7 +66,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -86,8 +79,8 @@ namespace DataAccess.InsightDatabase.Repositories
                 lesson.ID = Guid.NewGuid();
 
                 await DBConnection.QueryAsync(nameof(UpdateLessonAsync),
-                    parameters:new
-                    { 
+                    parameters: new
+                    {
                         lesson.ID,
                         lesson.Title,
                         lesson.Description,
@@ -101,7 +94,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -110,13 +102,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ILessonRepository lessonRepository = DBConnection.As<ILessonRepository>();
-
-                return await lessonRepository.DeleteLessonAsync(id);
+                return await _lessonRepository.DeleteLessonAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

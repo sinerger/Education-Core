@@ -1,15 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Data;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
-﻿using Domain.Interfaces.CourseRepositoryIntarfaces;
+using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Domain.Interfaces.LessonRepositoryInterfaces;
 using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
 using Domain.Interfaces.FeedbackRepositoryInterfaces;
+using Domain.Interfaces.CouseRepositoryInterfaces;
 
 namespace Domain.Interfaces
 {

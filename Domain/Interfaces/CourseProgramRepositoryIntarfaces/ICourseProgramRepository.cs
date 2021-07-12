@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Insight.Database;
 using Domain.Entities.CoursePrograms;
@@ -18,9 +17,7 @@ namespace Domain.Interfaces.CourseRepositoryIntarfaces
         Task<IEnumerable<CourseProgram>> GetAllCourseProgramAsync();
 
         Task<bool> CreateCourseProgramAsync(CourseProgram courseProgram);
-
         Task<bool> UpdateCourseProgramAsync(CourseProgram courseProgram);
-
         Task<bool> DeleteCourseProgramAsync(Guid id);
     }
 }

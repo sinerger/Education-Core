@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.CoursePrograms;
 using Domain.Interfaces;
@@ -26,7 +24,7 @@ namespace WebApi.Controllers
             return await _dbContext.CourseProgramRepository.GetAllCourseProgramAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<CourseProgram> GetCourseProgramsById(Guid id)
         {
             return await _dbContext.CourseProgramRepository.GetCourseProgramByIDAsync(id);
@@ -44,7 +42,7 @@ namespace WebApi.Controllers
             return await _dbContext.CourseProgramRepository.CreateCourseProgramAsync(courseProgram);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteCourseProgramsById(Guid id)
         {
             return await _dbContext.CourseProgramRepository.DeleteCourseProgramAsync(id);

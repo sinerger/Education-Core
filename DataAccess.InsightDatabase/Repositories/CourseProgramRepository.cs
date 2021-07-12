@@ -11,23 +11,22 @@ namespace DataAccess.InsightDatabase.Repositories
     public class CourseProgramRepository : ICourseProgramRepository
     {
         public IDbConnection DBConnection { get; }
+        private ICourseProgramRepository _courseProgramRepository;
 
         public CourseProgramRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _courseProgramRepository = DBConnection.As<ICourseProgramRepository>();
         }
 
         public async Task<bool> DeleteCourseProgramAsync(Guid id)
         {
             try
             {
-                ICourseProgramRepository courseProgramRepository = DBConnection.As<ICourseProgramRepository>();
-                
-                return await courseProgramRepository.DeleteCourseProgramAsync(id);
+                return await _courseProgramRepository.DeleteCourseProgramAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -36,14 +35,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ICourseProgramRepository courseProgramRepository = DBConnection.As<ICourseProgramRepository>();
-
-                return await courseProgramRepository.GetAllCourseProgramAsync();
-
+                return await _courseProgramRepository.GetAllCourseProgramAsync();
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -52,14 +47,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ICourseProgramRepository courseProgramRepository = DBConnection.As<ICourseProgramRepository>();
-
-                return await courseProgramRepository.GetCourseProgramByIDAsync(id);
-
+                return await _courseProgramRepository.GetCourseProgramByIDAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -84,7 +75,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -109,7 +99,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

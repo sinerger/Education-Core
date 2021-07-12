@@ -24,13 +24,13 @@ namespace WebApi.Controllers
             return await _dbContext.LessonRepository.GetAllLessonAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<Lesson> GetLessonById(Guid id)
         {
             return await _dbContext.LessonRepository.GetLessonByIdAsync(id);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteLesson(Guid id)
         {
             return await _dbContext.LessonRepository.DeleteLessonAsync(id);

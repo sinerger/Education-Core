@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
@@ -12,8 +11,8 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
-        private readonly IGroupRepository _groupRepository;
         public IDbConnection DBConnection { get; }
+        private readonly IGroupRepository _groupRepository;
 
         public GroupRepository(IDbConnection dbConnection)
         {
@@ -42,8 +41,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
                 throw e;
             }
         }
@@ -56,8 +53,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
                 throw e;
             }
         }
@@ -70,8 +65,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
                 throw e;
             }
         }
@@ -107,8 +100,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
                 throw e;
             }
         }

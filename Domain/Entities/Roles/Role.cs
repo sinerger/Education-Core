@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Insight.Database;
 
 namespace Domain.Entities.Roles
 {

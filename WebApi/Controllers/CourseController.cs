@@ -24,7 +24,7 @@ namespace WebApi.Controllers
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<Course> GetCourseById(Guid id)
         {
             return await _dbContext.CourseRepository.GetCourseByIdAsync(id);
