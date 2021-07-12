@@ -7,6 +7,7 @@ using Insight.Database;
 using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -45,7 +46,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -76,7 +77,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -90,7 +91,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -104,7 +105,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -118,7 +119,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -145,7 +146,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
