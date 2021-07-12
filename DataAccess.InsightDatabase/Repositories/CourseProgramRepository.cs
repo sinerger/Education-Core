@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.CourseProgram;
 using Domain.Interfaces.CourseRepositoryIntarfaces;
 using Insight.Database;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -43,7 +45,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -59,7 +62,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -84,7 +88,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -109,7 +114,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

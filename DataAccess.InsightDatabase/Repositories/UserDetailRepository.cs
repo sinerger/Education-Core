@@ -7,6 +7,7 @@ using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -21,9 +22,20 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            return await userDetailRepository.GetAllUsersDetailAsync();
+            try
+            {
+                IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
+
+                return await userDetailRepository.GetAllUsersDetailAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
         }
+
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
             try
@@ -48,7 +60,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -56,9 +68,18 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            
-            return await userDetailRepository.GetUserDetailByIDAsync(id);
+            try
+            {
+                IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
+
+                return await userDetailRepository.GetUserDetailByIDAsync(id);
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
         }
 
         public async Task<bool> UpdateUserDetailAsync(UserDetail user)
@@ -84,7 +105,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Logger.Error(e.ToString());
+
                 throw;
             }
         }
@@ -94,12 +116,13 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 await DBConnection.QueryAsync(nameof(DeleteUserDetailByIDAsync).GetStoredProcedureName(), new { id });
-                
+
                 return true;
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

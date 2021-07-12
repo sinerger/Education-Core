@@ -12,12 +12,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MySql.Data.MySqlClient;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Serilog;
 
 namespace WebApi
 {
@@ -33,7 +35,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var serilog = new SerilogInitialize(LogEventLevel.Debug);
             services.AddControllers();
 
             var conStr = Configuration["ConnectionStrings:DefaultLocal"];
