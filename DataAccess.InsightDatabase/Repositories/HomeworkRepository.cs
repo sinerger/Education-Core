@@ -1,11 +1,11 @@
-﻿using Domain.Entities.Homeworks;
-using Domain.Interfaces.HomeworkRepositoryInterfaces;
-using Insight.Database;
 using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Insight.Database;
+using Domain.Entities.Homeworks;
+using Domain.Interfaces.HomeworkRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
