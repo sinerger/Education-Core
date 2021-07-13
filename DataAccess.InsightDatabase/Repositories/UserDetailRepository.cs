@@ -7,6 +7,7 @@ using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -23,7 +24,16 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
         {
-            return await _userDetailRepository.GetAllUsersDetailAsync();
+            try
+            {
+                return await _userDetailRepository.GetAllUsersDetailAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
         }
 
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
@@ -50,13 +60,24 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            return await _userDetailRepository.GetUserDetailByIDAsync(id);
+            try
+            {
+                return await _userDetailRepository.GetUserDetailByIDAsync(id);
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
         }
 
         public async Task<bool> UpdateUserDetailAsync(UserDetail user)
@@ -82,7 +103,9 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                throw e;
+                Log.Logger.Error(e.ToString());
+
+                throw;
             }
         }
 
@@ -96,6 +119,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

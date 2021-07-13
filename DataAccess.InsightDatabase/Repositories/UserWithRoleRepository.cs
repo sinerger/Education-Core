@@ -1,3 +1,4 @@
+using Serilog;
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
@@ -40,6 +41,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -52,6 +55,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -64,6 +69,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -76,6 +83,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -88,6 +97,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -110,6 +121,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

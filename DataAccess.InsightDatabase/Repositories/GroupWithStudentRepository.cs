@@ -4,6 +4,7 @@ using Insight.Database;
 using System.Threading.Tasks;
 using Domain.Entities.GroupWithStudents;
 using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -26,6 +27,8 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

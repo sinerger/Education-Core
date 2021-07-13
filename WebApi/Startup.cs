@@ -7,8 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
+using Serilog.Events;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using System.Threading.Tasks;
+using WebApi.Serilog;
 
 namespace WebApi
 {
@@ -23,6 +29,7 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var serilog = new SerilogInitialize(LogEventLevel.Debug);
             services.AddControllers();
 
             var conStr = Configuration["ConnectionStrings:TestDB"];
