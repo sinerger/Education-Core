@@ -5,7 +5,7 @@ using Domain.Entities.Solutions;
 
 namespace Domain.Entities.Users
 {
-    public class Student : UserDetail
+    public class Student : UserWithRole
     {
         public DateTime AgreementNumber { get; set; }
         public Group Group { get; set; }

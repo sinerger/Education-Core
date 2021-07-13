@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.Users
 {
-    public class Teacher : UserDetail
+    public class Teacher : UserWithRole
     {
         public Group Group { get; set; }
     }

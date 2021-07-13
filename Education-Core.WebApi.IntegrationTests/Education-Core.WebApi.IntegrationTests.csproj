@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SourceData\InitializeData\**" />
+    <EmbeddedResource Remove="SourceData\InitializeData\**" />
+    <None Remove="SourceData\InitializeData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.7" />
@@ -27,10 +33,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\WebApi\WebApi.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="SourceData\InitializeData\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>

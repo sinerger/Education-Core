@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Groups;
 using Domain.Interfaces;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class GroupController : ControllerBase
     {
@@ -18,7 +19,7 @@ namespace WebApi.Controllers
             _dbContext = dBContext;
         }
 
-        [HttpGet]
+        [HttpGet(ApiRoutes.Group.GetAllGroups)]
         public async Task<IEnumerable<Group>> GetAllGroups()
         {
             return await _dbContext.GroupRepository.GetAllGroupsAsync();
@@ -30,10 +31,10 @@ namespace WebApi.Controllers
             return await _dbContext.GroupRepository.GetGroupByIDAsync(id);
         }
 
-        [HttpPost]
+        [HttpPost(ApiRoutes.Group.CreateGroupWithinCourse)]
         public async Task<bool> CreateGroupWithinCourse(Guid courseId, Group group)
         {
-            return await _dbContext.GroupRepository.CreateGroupWithinCourseAsync(courseId, group);
+            return await _dbContext.GroupRepository.CreateGroupWithinCourseAsync( group);
         }
 
         [HttpPut]
@@ -43,9 +44,9 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<bool> DeleteGroup(Guid id)
+        public async Task DeleteGroup(Guid id)
         {
-            return await _dbContext.GroupRepository.DeleteGroupAsync(id);
+            await _dbContext.GroupRepository.DeleteGroupAsync(id);
         }
     }
 }
