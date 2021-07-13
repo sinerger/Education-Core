@@ -14,7 +14,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserDetailRepository : IUserDetailRepository
     {
         public IDbConnection DBConnection { get; }
-        private IUserDetailRepository _userDetailRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
 
         public UserDetailRepository(IDbConnection dbConnection)
         {
@@ -22,19 +22,6 @@ namespace DataAccess.InsightDatabase.Repositories
             _userDetailRepository = DBConnection.As<IUserDetailRepository>();
         }
 
-        public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
-        {
-            try
-            {
-                return await _userDetailRepository.GetAllUsersDetailAsync();
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
-        }
 
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
@@ -60,7 +47,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
+                // TODO: Работаем с Serilog
 
                 throw e;
             }
@@ -68,25 +55,16 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            try
-            {
-                return await _userDetailRepository.GetUserDetailByIDAsync(id);
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
+            return await _userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
-        public async Task<bool> UpdateUserDetailAsync(UserDetail user)
+         public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
         {
             try
             {
                 var FeedbackID = user.Feedback.ID;
 
-                await DBConnection.QueryAsync(nameof(UpdateUserDetailAsync).GetStoredProcedureName(),
+                await DBConnection.QueryAsync(nameof(UpdateDetailInfoForUserAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         user.ID,

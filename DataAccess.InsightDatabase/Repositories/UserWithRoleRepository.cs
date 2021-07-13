@@ -1,6 +1,7 @@
 using Serilog;
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
@@ -13,12 +14,12 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
         public IDbConnection DBConnection { get; }
-        private IUserWithRoleRepository userRepository;
+        private readonly IUserWithRoleRepository _userWithRoleRepository;
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
-            userRepository = DBConnection.As<IUserWithRoleRepository>();
+            _userWithRoleRepository = DBConnection.As<IUserWithRoleRepository>();
         }
 
         public async Task CreateUserWithRoleAsync(UserWithRole user)
@@ -51,21 +52,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                await userRepository.DeleteUserWithRoleAsync(id);
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
-        }
-
-        public async Task<IEnumerable<UserWithRole>> GetUsersWithRoleAsync()
-        {
-            try
-            {
-                return await userRepository.GetUsersWithRoleAsync();
+                await _userWithRoleRepository.DeleteUserWithRoleAsync(id);
             }
             catch (Exception e)
             {
@@ -79,7 +66,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                return await userRepository.GetUserWithRoleByIDAsync(id);
+                return await _userWithRoleRepository.GetUserWithRoleByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -93,7 +80,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                return await userRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+                return await _userWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
             }
             catch (Exception e)
             {

@@ -12,18 +12,19 @@ namespace DataAccess.InsightDatabase.Repositories
     public class LessonRepository : ILessonRepository
     {
         public IDbConnection DBConnection { get; }
-        private ILessonRepository _lessonRepository;
+        private readonly ILessonRepository _lessonRepository;
+
         public LessonRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
-            _lessonRepository = DBConnection.As<ILessonRepository>();
+            _lessonRepository = DBConnection.As<ILessonRepository>(); 
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllLessonAsync()
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
         {
             try
             {
-                return await _lessonRepository.GetAllLessonAsync();
+                return await _lessonRepository.GetAllLessonsAsync();
             }
             catch (Exception e)
             {
@@ -33,11 +34,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<Lesson> GetLessonByIdAsync(Guid id)
+        public async Task<Lesson> GetLessonByIDAsync(Guid id)
         {
             try
             {
-                return await _lessonRepository.GetLessonByIdAsync(id);
+                return await _lessonRepository.GetLessonByIDAsync(id);
             }
             catch (Exception e)
             {
@@ -47,7 +48,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> CreateLessonAsync(Lesson lesson)
+        public async Task<bool> CreateLessonWithinCourseAsync(Guid CoursID,Lesson lesson)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace DataAccess.InsightDatabase.Repositories
                 var HomeworkID = lesson.Homework.ID;
                 lesson.ID = Guid.NewGuid();
 
-                await DBConnection.QueryAsync(nameof(CreateLessonAsync),
+                await DBConnection.QueryAsync(nameof(CreateLessonWithinCourseAsync),
                     parameters: new
                     {
                         lesson.ID,

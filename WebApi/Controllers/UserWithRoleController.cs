@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Domain.Entities.Users;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Users;
 using Domain.Interfaces;
+using System.Threading.Tasks;
 using WebApi.Routes;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -81,7 +81,7 @@ namespace WebApi.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut(ApiRoutes.UserWIthRole.UpdateUserWithRole)]
         public async Task<bool> UpdateUserWithRole(UserWithRole user)
         {
             try

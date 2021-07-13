@@ -12,7 +12,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class CourseRepository : ICourseRepository
     {
         public IDbConnection DBConnection { get; }
-        private ICourseRepository _courseRepository;
+        private readonly ICourseRepository _courseRepository; 
 
         public CourseRepository(IDbConnection dbConnection)
         {
@@ -34,11 +34,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteCourseAsync(Guid id)
+        public async Task DeleteCourseAsync(Guid id)
         {
             try
             {
-                return await _courseRepository.DeleteCourseAsync(id);
+                 await _courseRepository.DeleteCourseAsync(id);
             }
             catch (Exception e)
             {
@@ -62,25 +62,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<Course> GetCourseByIdAsync(Guid id)
+        public async Task UpdateCourseAsync(Course course)
         {
             try
             {
-                return await _courseRepository.GetCourseByIdAsync(id);
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
-        }
-
-        public async Task<bool> UpdateCourseAsync(Course course)
-        {
-            try
-            {
-                return await _courseRepository.UpdateCourseAsync(course);
+                await _courseRepository.UpdateCourseAsync(course);
             }
             catch (Exception e)
             {

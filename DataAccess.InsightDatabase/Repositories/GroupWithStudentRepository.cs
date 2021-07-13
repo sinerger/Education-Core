@@ -11,7 +11,7 @@ namespace DataAccess.InsightDatabase.Repositories
     public class GroupWithStudentRepository : IGroupWithStudentRepository
     {
         public IDbConnection DBConnection { get; }
-        private IGroupWithStudentRepository _groupWithStudentRepository;
+        private readonly IGroupWithStudentRepository _groupWithStudentRepository;
 
         public GroupWithStudentRepository(IDbConnection dbConnection)
         {
@@ -19,11 +19,11 @@ namespace DataAccess.InsightDatabase.Repositories
             _groupWithStudentRepository = DBConnection.As<IGroupWithStudentRepository>();
         }
 
-        public async Task<GroupWithStudent> GetGroupWithStudentByIdAsync(Guid id)
+        public async Task<GroupWithStudent> GetGroupWithStudentByIDAsync(Guid id)
         {
             try
             {
-                return await _groupWithStudentRepository.GetGroupWithStudentByIdAsync(id);
+                return await _groupWithStudentRepository.GetGroupWithStudentByIDAsync(id);
             }
             catch (Exception e)
             {
