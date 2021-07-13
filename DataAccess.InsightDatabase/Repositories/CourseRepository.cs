@@ -19,11 +19,11 @@ namespace DataAccess.InsightDatabase.Repositories
             _courseRepository = DBConnection.As<ICourseRepository>();
         }
 
-        public async Task<bool> CreateCourseAsync(Course course)
+        public async Task CreateCourseAsync(Course course)
         {
             try
             {
-                return await _courseRepository.CreateCourseAsync(course);
+                await _courseRepository.CreateCourseAsync(course);
             }
             catch (Exception e)
             {

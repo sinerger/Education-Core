@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.CoursePrograms;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Interfaces;

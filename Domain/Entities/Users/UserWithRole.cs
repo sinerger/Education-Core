@@ -7,8 +7,11 @@ namespace Domain.Entities.Users
     {
         public string Login { get; set; }
         public string Password { get; set; }
+        public TypeRole Role { get; set; }
 
-        [ChildRecords]
-        public Role Role { get; set; }
+        public UserWithRole()
+        {
+            Role = TypeRole.Admin;
+        }
     }
 }

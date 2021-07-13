@@ -31,9 +31,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateCourse(Course course)
+        public async Task CreateCourse([FromBody]Course course)
         {
-            return await _dbContext.CourseRepository.CreateCourseAsync(course);
+            await _dbContext.CourseRepository.CreateCourseAsync(course);
         }
 
         [HttpDelete]
