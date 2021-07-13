@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Domain.Entities.Homeworks;
 
 namespace Domain.Entities.Solutions

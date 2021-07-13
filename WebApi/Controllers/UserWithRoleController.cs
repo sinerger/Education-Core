@@ -26,13 +26,13 @@ namespace WebApi.Controllers
             return await _dbContext.UserWithRoleRepository.GetUsersWithRoleAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<UserWithRole> GetUserWithRoleById(Guid id)
         {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
         }
 
-        [HttpGet("login")]
+        [HttpGet("{login}")]
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
             return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
             return await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteUserWithRole(Guid id)
         {
             return await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);

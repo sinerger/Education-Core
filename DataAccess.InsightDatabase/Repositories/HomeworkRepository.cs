@@ -2,33 +2,31 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Insight.Database;
 using Domain.Entities.Homeworks;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
+using Insight.Database;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class HomeworkRepository : IHomeworkRepository
     {
-
         public IDbConnection DBConnection { get; }
+        private IHomeworkRepository _homeworkRepository;
 
         public HomeworkRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _homeworkRepository = DBConnection.As<IHomeworkRepository>();
         }
 
         public async Task<bool> CreateHomeworkAsync(Homework homework)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.CreateHomeworkAsync(homework);
+                return await _homeworkRepository.CreateHomeworkAsync(homework);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -37,13 +35,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.DeleteHomeworkAsync(id); 
+                return await _homeworkRepository.DeleteHomeworkAsync(id); 
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -52,13 +47,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkAsync(); 
+                return await _homeworkRepository.GetHomeworkAsync(); 
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -67,13 +59,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkByIdAsync(id);
+                return await _homeworkRepository.GetHomeworkByIdAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -82,13 +71,10 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.UpdateHomeworkAsync(homework);
+                return await _homeworkRepository.UpdateHomeworkAsync(homework);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

@@ -10,23 +10,22 @@ namespace DataAccess.InsightDatabase.Repositories
     public class GroupWithStudentRepository : IGroupWithStudentRepository
     {
         public IDbConnection DBConnection { get; }
+        private IGroupWithStudentRepository _groupWithStudentRepository;
 
         public GroupWithStudentRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _groupWithStudentRepository = DBConnection.As<IGroupWithStudentRepository>();
         }
 
         public async Task<GroupWithStudent> GetGroupWithStudentByIdAsync(Guid id)
         {
             try
             {
-                IGroupWithStudentRepository groupWithStudentRepository = DBConnection.As<IGroupWithStudentRepository>();
-
-                return await groupWithStudentRepository.GetGroupWithStudentByIdAsync(id);
+                return await _groupWithStudentRepository.GetGroupWithStudentByIdAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

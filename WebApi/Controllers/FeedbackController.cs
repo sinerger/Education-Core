@@ -3,7 +3,6 @@ using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -25,13 +24,13 @@ namespace WebApi.Controllers
             return await _dBContext.FeedbackRepository.CreateFeedbackForUserAsync(userID, feedback);
         }
 
-        [HttpGet("authorid")]
+        [HttpGet("{authorid}")]
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksByAuthorIDAsync(Guid userID)
         {
             return await _dBContext.FeedbackRepository.GetAllFeedbacksByAuthorIDAsync(userID);
         }
 
-        [HttpGet("userid")]
+        [HttpGet("{userid}")]
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksByUserIDAsync(Guid userID)
         {
             return await _dBContext.FeedbackRepository.GetAllFeedbacksByUserIDAsync(userID);
@@ -43,7 +42,7 @@ namespace WebApi.Controllers
             return await _dBContext.FeedbackRepository.UpdateFeedbackAsync(feedback);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteFeedbackAsync(Guid id)
         {
             return await _dBContext.FeedbackRepository.DeleteFeedbackAsync(id);

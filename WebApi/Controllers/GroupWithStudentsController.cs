@@ -17,7 +17,7 @@ namespace WebApi.Controllers
             _dbContext = dBContext;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<GroupWithStudent> GetGroupWithStudentById(Guid id)
         {
             return await _dbContext.GroupWithStudentRepository.GetGroupWithStudentByIdAsync(id);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Insight.Database;
 using Domain.Entities.Users;
@@ -15,6 +14,7 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
 
         [Recordset(typeof(UserDetail), typeof(Feedback))]
         Task<UserDetail> GetUserDetailByIDAsync(Guid id);
+
         Task<bool> CreateDetailInfoForUserAsync(UserDetail user);
         Task<bool> UpdateUserDetailAsync(UserDetail user);
         Task<bool> DeleteUserDetailByIDAsync(int Id);

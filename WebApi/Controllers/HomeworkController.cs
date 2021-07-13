@@ -24,7 +24,7 @@ namespace WebApi.Controllers
             return await _dbContext.HomeworkRepository.GetHomeworkAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<Homework> GetHomeworkById(Guid id)
         {
             return await _dbContext.HomeworkRepository.GetHomeworkByIdAsync(id);
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
             return await _dbContext.HomeworkRepository.CreateHomeworkAsync(homework);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteHomework(Guid id)
         {
             return await _dbContext.HomeworkRepository.DeleteHomeworkAsync(id);

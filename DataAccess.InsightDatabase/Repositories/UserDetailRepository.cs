@@ -13,18 +13,19 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserDetailRepository : IUserDetailRepository
     {
         public IDbConnection DBConnection { get; }
+        private IUserDetailRepository _userDetailRepository;
 
         public UserDetailRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _userDetailRepository = DBConnection.As<IUserDetailRepository>();
         }
 
         public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-
-            return await userDetailRepository.GetAllUsersDetailAsync();
+            return await _userDetailRepository.GetAllUsersDetailAsync();
         }
+
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
             try
@@ -49,17 +50,13 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
                 throw e;
             }
         }
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            
-            return await userDetailRepository.GetUserDetailByIDAsync(id);
+            return await _userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
         public async Task<bool> UpdateUserDetailAsync(UserDetail user)
@@ -85,7 +82,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }
@@ -95,12 +91,11 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 await DBConnection.QueryAsync(nameof(DeleteUserDetailByIDAsync).GetStoredProcedureName(), new { id });
-                
+
                 return true;
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

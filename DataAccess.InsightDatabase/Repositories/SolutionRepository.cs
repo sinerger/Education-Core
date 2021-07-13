@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
@@ -10,10 +9,10 @@ using Domain.Interfaces.SolutionRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
-    class SolutionRepository : ISolutionRepository
+    public class SolutionRepository : ISolutionRepository
     {
-        private readonly ISolutionRepository _solutionRepository;
         public IDbConnection DBConnection { get; }
+        private readonly ISolutionRepository _solutionRepository;
 
         public SolutionRepository(IDbConnection dbConnection)
         {
