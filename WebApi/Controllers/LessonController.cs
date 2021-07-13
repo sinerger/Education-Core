@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Lessons;
 using Domain.Interfaces;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class LessonController : ControllerBase
     {
@@ -18,34 +19,42 @@ namespace WebApi.Controllers
             _dbContext = dBContext;
         }
 
-        [HttpGet]
+        [HttpGet(ApiRoutes.Lesson.GetAllLessons)]
         public async Task<IEnumerable<Lesson>> GetAllLessons()
         {
             return await _dbContext.LessonRepository.GetAllLessonsAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.Lesson.GetLessonByID)]
         public async Task<Lesson> GetLessonByID(Guid id)
         {
             return await _dbContext.LessonRepository.GetLessonByIDAsync(id);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<bool> DeleteLesson(Guid id)
+        [HttpDelete(ApiRoutes.Lesson.DeleteLesson)]
+        public async Task DeleteLesson(Guid id)
         {
-            return await _dbContext.LessonRepository.DeleteLessonAsync(id);
+            await _dbContext.LessonRepository.DeleteLessonAsync(id);
         }
 
-        [HttpPost]
-        public async Task<bool> CreateLessonWithinCourse(Guid courseID,Lesson lesson)
+        [HttpPost(ApiRoutes.Lesson.CreateLessonWithinCourse)]
+        public async Task CreateLessonWithinCourse(Lesson lesson)
         {
-            return await _dbContext.LessonRepository.CreateLessonWithinCourseAsync(courseID ,lesson );
+            try
+            {
+                await _dbContext.LessonRepository.CreateLessonWithinCourseAsync(lesson);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateLesson(Lesson lesson)
+        [HttpPut(ApiRoutes.Lesson.UpdateLesson)]
+        public async Task UpdateLesson(Lesson lesson)
         {
-            return await _dbContext.LessonRepository.UpdateLessonAsync(lesson);
+            await _dbContext.LessonRepository.UpdateLessonAsync(lesson);
         }
     }
 }

@@ -1,11 +1,12 @@
 using Serilog;
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Insight.Database;
 using Domain.Entities.Lessons;
 using Domain.Interfaces.LessonRepositoryInterfaces;
+using DataAccess.InsightDatabase.Extensions;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -17,7 +18,7 @@ namespace DataAccess.InsightDatabase.Repositories
         public LessonRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
-            _lessonRepository = DBConnection.As<ILessonRepository>(); 
+            _lessonRepository = DBConnection.As<ILessonRepository>();
         }
 
         public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
@@ -48,27 +49,23 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> CreateLessonWithinCourseAsync(Guid CoursID,Lesson lesson)
+        public async Task CreateLessonWithinCourseAsync(Lesson lesson)
         {
             try
             {
                 var TeacherID = lesson.Teacher.ID;
-                var HomeworkID = lesson.Homework.ID;
-                lesson.ID = Guid.NewGuid();
+                var courseID = lesson.Course.ID;
+                lesson.ID = lesson.ID == Guid.Empty ? Guid.NewGuid() : lesson.ID;
 
-                await DBConnection.QueryAsync(nameof(CreateLessonWithinCourseAsync),
+                await DBConnection.QueryAsync(nameof(CreateLessonWithinCourseAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         lesson.ID,
                         lesson.Title,
                         lesson.Description,
-                        lesson.Deadline,
-                        lesson.Attendance,
-                        TeacherID,
-                        HomeworkID
+                        lesson.DeadLine,
+                        courseID
                     });
-
-                return true;
             }
             catch (Exception e)
             {
@@ -78,27 +75,21 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> UpdateLessonAsync(Lesson lesson)
+        public async Task UpdateLessonAsync(Lesson lesson)
         {
             try
             {
-                var TeacherID = lesson.Teacher.ID;
                 var HomeworkID = lesson.Homework.ID;
-                lesson.ID = Guid.NewGuid();
 
-                await DBConnection.QueryAsync(nameof(UpdateLessonAsync),
+                await DBConnection.QueryAsync(nameof(UpdateLessonAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         lesson.ID,
                         lesson.Title,
                         lesson.Description,
-                        lesson.Deadline,
-                        lesson.Attendance,
-                        TeacherID,
+                        lesson.DeadLine,
                         HomeworkID
                     });
-
-                return true;
             }
             catch (Exception e)
             {
@@ -108,11 +99,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteLessonAsync(Guid id)
+        public async Task DeleteLessonAsync(Guid id)
         {
             try
             {
-                return await _lessonRepository.DeleteLessonAsync(id);
+                await _lessonRepository.DeleteLessonAsync(id);
             }
             catch (Exception e)
             {

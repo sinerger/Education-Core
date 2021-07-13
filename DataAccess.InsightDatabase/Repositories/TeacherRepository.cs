@@ -32,12 +32,7 @@ namespace DataAccess.InsightDatabase.Repositories
                         {
                             teacher.ID,
                             teacher.FirstName,
-                            teacher.LastName,
-                            teacher.Email,
-                            teacher.Phone,
-                            teacher.City,
-                            teacher.DateOfBirth,
-                            teacher.Feedback
+                            teacher.LastName
                         });
                 }
 
@@ -62,13 +57,7 @@ namespace DataAccess.InsightDatabase.Repositories
                         {
                             teacher.ID,
                             teacher.FirstName,
-                            teacher.LastName,
-                            teacher.Email,
-                            teacher.Phone,
-                            teacher.City,
-                            teacher.DateOfBirth,
-                            teacher.Feedback,
-                            groupId
+                            teacher.LastName
                         });
                 }
 
@@ -133,12 +122,7 @@ namespace DataAccess.InsightDatabase.Repositories
                         {
                             teacher.ID,
                             teacher.FirstName,
-                            teacher.LastName,
-                            teacher.Email,
-                            teacher.Phone,
-                            teacher.City,
-                            teacher.DateOfBirth,
-                            teacher.Feedback
+                            teacher.LastName
                         });
 
                 return true;
