@@ -1,3 +1,4 @@
+using Serilog;
 ﻿using System;
 using System.Data;
 using System.Text;
@@ -13,10 +14,12 @@ namespace DataAccess.InsightDatabase.Repositories
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
         public IDbConnection DBConnection { get; }
+        private readonly IUserWithRoleRepository _userWithRoleRepository;
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _userWithRoleRepository = DBConnection.As<IUserWithRoleRepository>();
         }
 
         public async Task CreateUserWithRoleAsync(UserWithRole user)
@@ -39,7 +42,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -49,29 +52,11 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                await userRepository.DeleteUserWithRoleAsync(id);
+                await _userWithRoleRepository.DeleteUserWithRoleAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-
-                throw e;
-            }
-        }
-
-        public async Task<IEnumerable<UserWithRole>> GetUsersWithRoleAsync()
-        {
-            try
-            {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUsersWithRoleAsync();
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -81,13 +66,11 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUserWithRoleByIDAsync(id);
+                return await _userWithRoleRepository.GetUserWithRoleByIDAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -97,13 +80,11 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                IUserWithRoleRepository userRepository = DBConnection.As<IUserWithRoleRepository>();
-
-                return await userRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+                return await _userWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -127,7 +108,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }

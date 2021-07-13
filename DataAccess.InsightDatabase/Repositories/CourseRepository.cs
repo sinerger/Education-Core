@@ -1,3 +1,4 @@
+using Serilog;
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,38 +12,38 @@ namespace DataAccess.InsightDatabase.Repositories
     public class CourseRepository : ICourseRepository
     {
         public IDbConnection DBConnection { get; }
+        private readonly ICourseRepository _courseRepository; 
 
         public CourseRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _courseRepository = DBConnection.As<ICourseRepository>();
         }
 
         public async Task CreateCourseAsync(Course course)
         {
             try
             {
-                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-                await courseRepository.CreateCourseAsync(course);
+                await _courseRepository.CreateCourseAsync(course);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<bool> DeleteCourseAsync(Guid id)
+        public async Task DeleteCourseAsync(Guid id)
         {
             try
             {
-                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-                return await courseRepository.DeleteCourseAsync(id);
+                 await _courseRepository.DeleteCourseAsync(id);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
@@ -51,43 +52,26 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-                return await courseRepository.GetAllCoursesAsync();
+                return await _courseRepository.GetAllCoursesAsync();
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<Course> GetCourseByIdAsync(Guid id)
+        public async Task UpdateCourseAsync(Course course)
         {
             try
             {
-                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-                return await courseRepository.GetCourseByIdAsync(id);
+                await _courseRepository.UpdateCourseAsync(course);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-                throw e;
-            }
-        }
+                Log.Logger.Error(e.ToString());
 
-        public async Task<bool> UpdateCourseAsync(Course course)
-        {
-            try
-            {
-                ICourseRepository courseRepository = DBConnection.As<ICourseRepository>();
-
-                return await courseRepository.UpdateCourseAsync(course);
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
                 throw e;
             }
         }

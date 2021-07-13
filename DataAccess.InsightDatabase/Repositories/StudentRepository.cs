@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Data;
-using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
 using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly IStudentRepository _studentRepository;
         public IDbConnection DBConnection { get; }
+        private readonly IStudentRepository _studentRepository;
 
         public StudentRepository(IDbConnection dbConnection)
         {
@@ -46,7 +46,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -78,7 +78,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -92,7 +92,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -106,7 +106,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -120,7 +120,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }
@@ -148,7 +148,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
 
                 throw e;
             }

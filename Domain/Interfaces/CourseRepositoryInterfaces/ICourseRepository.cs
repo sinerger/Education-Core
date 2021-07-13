@@ -8,9 +8,8 @@ namespace Domain.Interfaces.CouseRepositoryInterfaces
     public interface ICourseRepository : IRepository
     {
         Task<IEnumerable<Course>> GetAllCoursesAsync();
-        Task<Course> GetCourseByIdAsync(Guid id);
-        Task CreateCourseAsync(Course course);
-        Task<bool> UpdateCourseAsync(Course course);
-        Task<bool> DeleteCourseAsync(Guid id);
+        Task CreateCourseAsync(Course course) ;
+        Task UpdateCourseAsync(Course course);
+        Task DeleteCourseAsync(Guid id);
     }
 }

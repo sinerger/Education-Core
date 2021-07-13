@@ -1,94 +1,91 @@
+using Serilog;
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Insight.Database;
 using Domain.Entities.Homeworks;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
+using Insight.Database;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class HomeworkRepository : IHomeworkRepository
     {
-
         public IDbConnection DBConnection { get; }
+        private readonly IHomeworkRepository _homeworkRepository;
 
         public HomeworkRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _homeworkRepository = DBConnection.As<IHomeworkRepository>();
         }
 
-        public async Task<bool> CreateHomeworkAsync(Homework homework)
+        public async Task CreateHomeworkWithinLessonAsync(Guid LessonID ,Homework homework)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.CreateHomeworkAsync(homework);
+                await _homeworkRepository.CreateHomeworkWithinLessonAsync(LessonID , homework);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<bool> DeleteHomeworkAsync(Guid id)
+        public async Task DeleteHomeworkAsync(Guid id)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.DeleteHomeworkAsync(id); 
+                await _homeworkRepository.DeleteHomeworkAsync(id); 
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<IEnumerable<Homework>> GetHomeworkAsync()
+        public async Task<IEnumerable<Homework>> GetAllHomeworkByCourseIDAsync(Guid CourseID)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkAsync(); 
+                return await _homeworkRepository.GetAllHomeworkByCourseIDAsync(CourseID); 
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<Homework> GetHomeworkByIdAsync(Guid id)
+        public async Task<Homework> GetHomeworkByLessonIDAsync(Guid LessonID)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.GetHomeworkByIdAsync(id);
+                return await _homeworkRepository.GetHomeworkByLessonIDAsync(LessonID);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
 
-        public async Task<bool> UpdateHomeworkAsync(Homework homework)
+        public async Task UpdateHomeworkAsync(Homework homework)
         {
             try
             {
-                IHomeworkRepository homeworkRepository = DBConnection.As<IHomeworkRepository>();
-
-                return await homeworkRepository.UpdateHomeworkAsync(homework);
+                await _homeworkRepository.UpdateHomeworkAsync(homework);
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }

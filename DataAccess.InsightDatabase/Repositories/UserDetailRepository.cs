@@ -7,24 +7,22 @@ using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
+using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class UserDetailRepository : IUserDetailRepository
     {
         public IDbConnection DBConnection { get; }
+        private readonly IUserDetailRepository _userDetailRepository;
 
         public UserDetailRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
+            _userDetailRepository = DBConnection.As<IUserDetailRepository>();
         }
 
-        public async Task<IEnumerable<UserDetail>> GetAllUsersDetailAsync()
-        {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
 
-            return await userDetailRepository.GetAllUsersDetailAsync();
-        }
         public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
         {
             try
@@ -57,18 +55,16 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            IUserDetailRepository userDetailRepository = DBConnection.As<IUserDetailRepository>();
-            
-            return await userDetailRepository.GetUserDetailByIDAsync(id);
+            return await _userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
-        public async Task<bool> UpdateUserDetailAsync(UserDetail user)
+         public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
         {
             try
             {
                 var FeedbackID = user.Feedback.ID;
 
-                await DBConnection.QueryAsync(nameof(UpdateUserDetailAsync).GetStoredProcedureName(),
+                await DBConnection.QueryAsync(nameof(UpdateDetailInfoForUserAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         user.ID,
@@ -85,8 +81,9 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
-                throw e;
+                Log.Logger.Error(e.ToString());
+
+                throw;
             }
         }
 
@@ -95,12 +92,13 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 await DBConnection.QueryAsync(nameof(DeleteUserDetailByIDAsync).GetStoredProcedureName(), new { id });
-                
+
                 return true;
             }
             catch (Exception e)
             {
-                // TODO: Работаем с Serilog
+                Log.Logger.Error(e.ToString());
+
                 throw e;
             }
         }
