@@ -24,7 +24,7 @@ namespace DataAccess.InsightDatabase
         public IHomeworkRepository HomeworkRepository => new HomeworkRepository(DBConnection);
         public ICourseRepository CourseRepository => new CourseRepository(DBConnection);
         public IUserDetailRepository UserDetailRepository => new UserDetailRepository(DBConnection);
-        public IGroupWithStudentRepository GroupWithStudentRepository => new GroupWithStudentRepository(DBConnection);
+        public IGroupWithStudentsRepository GroupWithStudentsRepository => new GroupWithStudentsRepository(DBConnection);
         public IStudentRepository StudentRepository => new StudentRepository(DBConnection);
         public ILessonRepository LessonRepository => new LessonRepository(DBConnection);
         public ITeacherRepository TeacherRepository => new TeacherRepository(DBConnection);

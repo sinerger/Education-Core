@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using Domain.Entities.Groups;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Groups;
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
@@ -12,18 +8,28 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
     public class GroupData
     {
         private static List<Group> _groups;
+        private static Group _group;
         private static readonly int _countGroups = 1;
 
         static GroupData()
         {
             _groups = new List<Group>();
 
+            _group = new Group()
+            {
+                ID = Guid.NewGuid(),
+                Course = CoursesData.Courses[0],
+                Title = $"Title",
+                StartDate = new DateTime(2020, 08, 09),
+                FinishDate = new DateTime(2021, 03, 15)
+            };
+
             for (int i = 0; i < _countGroups; i++)
             {
                 _groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = InitializeData.CourseData.Courses[0],
+                    Course = InitializeData.CoursesData.Courses[0],
                     Title = $"Title{i}",
                     StartDate = new DateTime(2020, 08, 09),
                     FinishDate = new DateTime(2021, 03, 15)
@@ -33,7 +39,6 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 
         public static IEnumerable<object[]> DataForCreate()
         {
-            //InitializeData();
             foreach (var group in _groups)
             {
                 yield return new object[]
@@ -45,7 +50,6 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
         }
         public static IEnumerable<object[]> DataForUpdate()
         {
-            //InitializeData();
             foreach (var group in _groups)
             {
                 yield return new object[]

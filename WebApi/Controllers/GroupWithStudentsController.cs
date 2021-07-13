@@ -3,10 +3,11 @@ using Domain.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.GroupWithStudents;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api+ ApiRoutes.Controller)]
     [ApiController]
     public class GroupWithStudentsController : ControllerBase
     {
@@ -17,10 +18,10 @@ namespace WebApi.Controllers
             _dbContext = dBContext;
         }
 
-        [HttpGet("{id}")]
-        public async Task<GroupWithStudent> GetGroupWithStudentById(Guid id)
+        [HttpGet(ApiRoutes.GroupWithStudents.GetGroupWithStudentsByID)]
+        public async Task<GroupWithStudents> GetGroupWithStudentById(Guid id)
         {
-            return await _dbContext.GroupWithStudentRepository.GetGroupWithStudentByIDAsync(id);
+            return await _dbContext.GroupWithStudentsRepository.GetGroupWithStudentsByIDAsync(id);
         }
     }
 }

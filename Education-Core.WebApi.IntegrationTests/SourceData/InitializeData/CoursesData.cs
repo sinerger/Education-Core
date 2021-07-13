@@ -1,17 +1,14 @@
-﻿using System;
+﻿using Domain.Entities.Courses;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Courses;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class CourseData
+    public static class CoursesData
     {
         public  static  List<Course> Courses { get; set; }
 
-        static CourseData()
+        static CoursesData()
         {
             Courses = new List<Course>();
 

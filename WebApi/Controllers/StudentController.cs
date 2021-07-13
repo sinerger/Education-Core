@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         [HttpPost("{groupid}")]
         public async Task<bool> AddStudentToGroup(Guid groupId, Student student)
         {
-            return await _dbContext.StudentRepository.AddStudentToGroupAsync(groupId, student);
+            return await _dbContext.StudentRepository.AddStudentToGroupAsync(student);
         }
 
         [HttpPost]

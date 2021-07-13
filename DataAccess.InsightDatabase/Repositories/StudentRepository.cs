@@ -47,22 +47,23 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> AddStudentToGroupAsync(Guid groupId, Student student)
+        public async Task<bool> AddStudentToGroupAsync( Student student)
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(AddStudentToGroupAsync).GetStoredProcedureName(),
+                student.ID = student.ID == Guid.Empty ? Guid.NewGuid() : student.ID;
+                var GroupID = student.Group.ID;
+
+                await DBConnection.QueryAsync(nameof(AddStudentToGroupAsync).GetStoredProcedureName(),
                         parameters: new
                         {
                             student.ID,
                             student.FirstName,
                             student.LastName,
                             student.AgreementNumber,
-                            groupId
+                            GroupID
                         });
-                }
+                
 
                 return true;
             }

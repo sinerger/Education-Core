@@ -31,7 +31,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 {
                     ID = Guid.NewGuid(),
                     FirstName = $"Student{i}",
-                    LastName = $"LastNameTeacher{i}",
+                    LastName = $"LastNameStudent{i}",
                     Login = $"Login{i}",
                     Password = $"Password{i}"
                 });

@@ -150,6 +150,20 @@ namespace WebApi.Routes
             }
         }
 
+        public static class GroupWithStudents
+        {
+            public static string Route => "/" + nameof(GroupWithStudents);
+            public const string GetGroupWithStudentsByID = _getByIDDefaultRoute;
+            
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByid = GetGroupWithStudentsByID == "{id}" ? "" : GetGroupWithStudentsByID;
+                var result = Api + Route + getByid + "/" + id.ToString();
+
+                return result;
+            }
+        }
+
         public static class UserDetail
         {
             public static string Route => "/" + nameof(UserDetail);
