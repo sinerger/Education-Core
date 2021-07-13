@@ -33,11 +33,6 @@ namespace DataAccess.InsightDatabase.Repositories
                             student.ID,
                             student.FirstName,
                             student.LastName,
-                            student.Email,
-                            student.Phone,
-                            student.City,
-                            student.DateOfBirth,
-                            student.Feedback,
                             student.AgreementNumber
                         });
                 }
@@ -64,11 +59,6 @@ namespace DataAccess.InsightDatabase.Repositories
                             student.ID,
                             student.FirstName,
                             student.LastName,
-                            student.Email,
-                            student.Phone,
-                            student.City,
-                            student.DateOfBirth,
-                            student.Feedback,
                             student.AgreementNumber,
                             groupId
                         });
@@ -136,11 +126,6 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.ID,
                         student.FirstName,
                         student.LastName,
-                        student.Email,
-                        student.Phone,
-                        student.City,
-                        student.DateOfBirth,
-                        student.Feedback,
                         student.AgreementNumber
                     });
 
