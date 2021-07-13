@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
 using Domain.Entities.Users;
-using Domain.Entities;
+using Domain.Entities.Feedbacks;
 
 namespace Domain.Interfaces.UserRepositoryInterfaces
 {
     public interface IUserDetailRepository : IRepository
     {
-        [Recordset(typeof(UserDetail), typeof(Feedback))]
+        [Recordset(1, typeof(Feedback), IsChild = true, Into = "Feedbacks")]
         Task<UserDetail> GetUserDetailByIDAsync(Guid id);
-        Task<bool> UpdateDetailInfoForUserAsync(UserDetail user);
+        Task UpdateDetailInfoForUserAsync(UserDetail user);
     }
 }

@@ -8,6 +8,7 @@ namespace WebApi.Routes
     public static class ApiRoutes
     {
         private const string _getDefaultRoute = "{id}";
+        private const string _getAllDefaultRoute = "";
         private const string _updateDefaultRoute = "";
         private const string _deleteDefaultRoute = "{id}";
         private const string _createDefaultRoute = "";
@@ -56,6 +57,29 @@ namespace WebApi.Routes
             public static string GetRouteForDelete(Guid id)
             {
                 var result = Api + Route + "/" + id.ToString();
+
+                return result;
+            }
+        }
+
+        public static class UserDetail
+        {
+            public static string Route => "/" + nameof(UserDetail);
+
+            public const string GetUserDetailByID = _getDefaultRoute;
+            public const string UpdateUserDetail = _updateDefaultRoute;
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByID = GetUserDetailByID == "{id}" ? "" : GetUserDetailByID;
+                var result = Api + Route + getByID + "/" + id.ToString();
 
                 return result;
             }
