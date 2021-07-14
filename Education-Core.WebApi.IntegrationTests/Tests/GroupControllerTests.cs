@@ -19,7 +19,7 @@ using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.Tests
 {
-    public class GroupControllerTests: IntegrationTestAbstract
+    public class GroupControllerTests : IntegrationTestAbstract
     {
         public GroupControllerTests(ApiWebApplicationFactory fixture) : base(fixture)
         {
@@ -32,7 +32,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         {
             await TruncateAllTablesAsync();
             await InitializeData();
-            
+
             var postRoute = ApiRoutes.Group.GetRouteForCreate();
             var response = await _client.PostAsync(postRoute,
                 new StringContent(JsonConvert.SerializeObject(insertedGroup), Encoding.UTF8, "application/json"));
@@ -59,12 +59,12 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             group.Title = "UpdateGroup";
             group.StartDate = new DateTime(2021, 12, 10);
             var updateRoute = ApiRoutes.Group.GetRouteForUpdate();
-            var updateResponse= await _client.PutAsync(updateRoute,
+            var updateResponse = await _client.PutAsync(updateRoute,
                 new StringContent(JsonConvert.SerializeObject(group), Encoding.UTF8, "application/json"));
 
             var getRoute = ApiRoutes.Group.GetRouteForGetByID(group.ID);
             var getResponse = await _client.GetAsync(getRoute);
-            var actual =  JsonConvert.DeserializeObject<Group>(await getResponse.Content.ReadAsStringAsync());
+            var actual = JsonConvert.DeserializeObject<Group>(await getResponse.Content.ReadAsStringAsync());
 
             createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             updateResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -123,8 +123,8 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-               
-                await connection.QueryAsync("CreateCourse", CourseData.Courses[0]);
+
+                await connection.QueryAsync("CreateCourse", SourceData.InitializeData.CourseData.Courses[0]);
             }
         }
     }
