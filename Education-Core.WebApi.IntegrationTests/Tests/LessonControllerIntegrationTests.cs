@@ -145,7 +145,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                await conn.QueryAsync("CreateCourse", CourseData.Courses[0]);
+                await conn.QueryAsync("CreateCourse", SourceData.InitializeData.CourseData.Courses[0]);
                 await conn.QueryAsync("CreateHomework", HomeworkData.Homework);
                 await conn.QueryAsync("CreateTeacher", UserData.Teacher);
             }

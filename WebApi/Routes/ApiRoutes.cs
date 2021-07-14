@@ -172,5 +172,43 @@ namespace WebApi.Routes
                 return result;
             }
         }
+
+        public static class Course
+        {
+            public static string Route => "/" + nameof(Course);
+
+            public const string GetAllCourses = _getAllDefaultRoute;
+            public const string CreateCourse = _createDefaultRoute;
+            public const string DeleteCourse = _deleteDefaultRoute;
+            public const string UpdateCourse = _updateDefaultRoute;
+
+            public static string GetRouteForGetAllCourses()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForCreate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid id)
+            {
+                var result = Api + Route + "/" + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly ICourseRepository _courseRepository; 
+        public IDbConnection DBConnection { get; }
 
         public CourseRepository(IDbConnection dbConnection)
         {
@@ -24,6 +24,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
+                course.ID = course.ID == Guid.Empty ? Guid.NewGuid() : course.ID;
                 await _courseRepository.CreateCourseAsync(course);
             }
             catch (Exception e)

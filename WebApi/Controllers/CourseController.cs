@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Courses;
 using Domain.Interfaces;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class CourseController : Controller
     {
@@ -18,25 +19,25 @@ namespace WebApi.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Course>> GetAllCoursesById()
+        [HttpGet(ApiRoutes.Course.GetAllCourses)]
+        public async Task<IEnumerable<Course>> GetAllCourses()
         {
             return await _dbContext.CourseRepository.GetAllCoursesAsync();
         }
 
-        [HttpPost]
-        public async Task CreateCourse([FromBody]Course course)
+        [HttpPost(ApiRoutes.Course.CreateCourse)]
+        public async Task CreateCourse([FromBody] Course course)
         {
             await _dbContext.CourseRepository.CreateCourseAsync(course);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(ApiRoutes.Course.DeleteCourse)]
         public async Task DeleteCourse(Guid id)
         {
             await _dbContext.CourseRepository.DeleteCourseAsync(id);
         }
 
-        [HttpPut]
+        [HttpPut(ApiRoutes.Course.UpdateCourse)]
         public async Task UpdateCourse(Course course)
         {
             await _dbContext.CourseRepository.UpdateCourseAsync(course);

@@ -9,7 +9,7 @@ using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public class GroupData 
+    public class GroupData
     {
         private static List<Group> _groups;
         private static readonly int _countGroups = 1;
@@ -23,10 +23,10 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                 _groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = CourseData.Courses[0],
+                    Course = InitializeData.CourseData.Courses[0],
                     Title = $"Title{i}",
-                    StartDate = new DateTime(2020,08,09),
-                    FinishDate = new DateTime(2021,03,15)
+                    StartDate = new DateTime(2020, 08, 09),
+                    FinishDate = new DateTime(2021, 03, 15)
                 });
             }
         }
@@ -38,7 +38,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
             {
                 yield return new object[]
                 {
-                    group, 
+                    group,
                     group
                 };
             }
