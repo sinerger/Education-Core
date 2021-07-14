@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Education_Core.WebApi.IntegrationTests.SourceData;
 using WebApi.Routes;
 using Xunit;
+using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.Tests
 {
