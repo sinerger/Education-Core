@@ -1,20 +1,12 @@
-﻿using DataAccess.InsightDatabase.Extensions;
-using Domain.Entities.Users;
-using Education_Core.WebApi.IntegrationTests.Factories;
-using Education_Core.WebApi.IntegrationTests.SourceData;
-using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
-using FluentAssertions;
-using Insight.Database;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Users;
+using Education_Core.WebApi.IntegrationTests.Factories;
+using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
+using FluentAssertions;
+using Newtonsoft.Json;
 using WebApi.Routes;
 using Xunit;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Domain.Entities;
+using Domain.Entities.Feedbacks;
 using Domain.Interfaces.FeedbackRepositoryInterfaces;
 using Insight.Database;
 using Serilog;
