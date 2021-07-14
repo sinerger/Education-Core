@@ -12,7 +12,6 @@ namespace WebApi.Routes
         private const string _updateDefaultRoute = "";
         private const string _deleteDefaultRoute = "{id}";
         private const string _createDefaultRoute = "";
-        private const string _getDefaultRoute = "";
 
         public const string Api = "api";
         public const string Controller = "/[controller]";
@@ -112,7 +111,7 @@ namespace WebApi.Routes
         {
             public static string Route => "/" + nameof(Group);
 
-            public const string GetAllGroups = _getDefaultRoute;
+            public const string GetAllGroups = _getAllDefaultRoute;
             public const string CreateGroupWithinCourse = _createDefaultRoute;
 
 
@@ -146,6 +145,29 @@ namespace WebApi.Routes
             public static string GetRouteForGetAllGroups()
             {
                 var result = Api + Route + GetAllGroups;
+
+                return result;
+            }
+        }
+
+        public static class UserDetail
+        {
+            public static string Route => "/" + nameof(UserDetail);
+
+            public const string GetUserDetailByID = _getByIDDefaultRoute;
+            public const string UpdateUserDetail = _updateDefaultRoute;
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByID = GetUserDetailByID == "{id}" ? "" : GetUserDetailByID;
+                var result = Api + Route + getByID + "/" + id.ToString();
 
                 return result;
             }

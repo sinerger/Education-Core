@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Interfaces;
-
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api+ApiRoutes.Controller)]
     [ApiController]
     public class UserDetailController : ControllerBase
     {
@@ -20,16 +20,16 @@ namespace WebApi.Controllers
             _DBContext = dbContext;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.UserDetail.GetUserDetailByID)]
         public async Task<UserDetail> GetUserDetailByID(Guid id)
         {
             return await _DBContext.UserDetailRepository.GetUserDetailByIDAsync(id);
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateDetailInfoForUser(UserDetail user)
+        [HttpPut(ApiRoutes.UserDetail.UpdateUserDetail)]
+        public async Task UpdateDetailInfoForUser(UserDetail user)
         {
-            return await _DBContext.UserDetailRepository.UpdateDetailInfoForUserAsync(user);
+            await _DBContext.UserDetailRepository.UpdateDetailInfoForUserAsync(user);
         }
     }
 }

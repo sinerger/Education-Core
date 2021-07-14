@@ -13,8 +13,8 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class UserDetailRepository : IUserDetailRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly IUserDetailRepository _userDetailRepository;
+        public IDbConnection DBConnection { get; }
 
         public UserDetailRepository(IDbConnection dbConnection)
         {
@@ -22,84 +22,30 @@ namespace DataAccess.InsightDatabase.Repositories
             _userDetailRepository = DBConnection.As<IUserDetailRepository>();
         }
 
-
-        public async Task<bool> CreateDetailInfoForUserAsync(UserDetail user)
-        {
-            try
-            {
-                var FeedbackID = user.Feedback.ID;
-                user.ID = Guid.NewGuid();
-
-                await DBConnection.QueryAsync(nameof(CreateDetailInfoForUserAsync).GetStoredProcedureName(),
-                    parameters: new
-                    {
-                        user.ID,
-                        user.FirstName,
-                        user.LastName,
-                        user.Email,
-                        user.City,
-                        user.Phone,
-                        user.DateOfBirth,
-                        FeedbackID
-                    });
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                // TODO: Работаем с Serilog
-
-                throw e;
-            }
-        }
-
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
             return await _userDetailRepository.GetUserDetailByIDAsync(id);
         }
 
-         public async Task<bool> UpdateDetailInfoForUserAsync(UserDetail user)
+        public async Task UpdateDetailInfoForUserAsync(UserDetail user)
         {
             try
             {
-                var FeedbackID = user.Feedback.ID;
-
                 await DBConnection.QueryAsync(nameof(UpdateDetailInfoForUserAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         user.ID,
-                        user.FirstName,
-                        user.LastName,
                         user.Email,
-                        user.City,
                         user.Phone,
-                        user.DateOfBirth,
-                        FeedbackID
+                        user.City,
+                        user.DateOfBirth
                     });
-
-                return true;
             }
             catch (Exception e)
             {
                 Log.Logger.Error(e.ToString());
 
                 throw;
-            }
-        }
-
-        public async Task<bool> DeleteUserDetailByIDAsync(int id)
-        {
-            try
-            {
-                await DBConnection.QueryAsync(nameof(DeleteUserDetailByIDAsync).GetStoredProcedureName(), new { id });
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
             }
         }
     }
