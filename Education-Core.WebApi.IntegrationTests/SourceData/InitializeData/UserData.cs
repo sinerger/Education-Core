@@ -1,9 +1,11 @@
-﻿using Domain.Entities.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Groups;
+using Domain.Entities.Users;
+using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
@@ -17,7 +19,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
             Teacher = new Teacher()
             {
                 ID = Guid.NewGuid(),
-                FirstName = "Teacher",
+                FirstName="Teacher",
                 LastName = "LastNameTeacher",
                 Login = "LoginTeacher",
                 Password = "PasswordTeacher"
@@ -34,8 +36,11 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                     LastName = $"LastNameTeacher{i}",
                     Login = $"Login{i}",
                     Password = $"Password{i}"
+
                 });
             }
+
+
         }
     }
 }

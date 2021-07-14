@@ -57,7 +57,8 @@ namespace DataAccess.InsightDatabase.Repositories
                         {
                             teacher.ID,
                             teacher.FirstName,
-                            teacher.LastName
+                            teacher.LastName,
+                            groupId
                         });
                 }
 

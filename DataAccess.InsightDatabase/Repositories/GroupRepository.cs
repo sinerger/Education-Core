@@ -21,22 +21,22 @@ namespace DataAccess.InsightDatabase.Repositories
             _groupRepository = DBConnection.As<IGroupRepository>();
         }
 
-        public async Task<bool> CreateGroupWithinCourseAsync(Guid courseId, Group group)
+        public async Task<bool> CreateGroupWithinCourseAsync(Group group)
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(CreateGroupWithinCourseAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            group.ID,
-                            group.Title,
-                            group.StartDate,
-                            group.FinishDate,
-                            courseId
-                        });
-                }
+                group.ID = group.ID == Guid.Empty ? Guid.NewGuid() : group.ID;
+                var CourseID = group.Course.ID;
+
+                await DBConnection.QueryAsync(nameof(CreateGroupWithinCourseAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        group.ID,
+                        group.Title,
+                        group.StartDate,
+                        group.FinishDate,
+                        CourseID
+                    });
 
                 return true;
             }
@@ -48,11 +48,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteGroupAsync(Guid id)
+        public async Task DeleteGroupAsync(Guid id)
         {
             try
             {
-                return await _groupRepository.DeleteGroupAsync(id);
+                await _groupRepository.DeleteGroupAsync(id);
             }
             catch (Exception e)
             {
@@ -94,13 +94,17 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
+                group.ID = group.ID == Guid.Empty ? Guid.NewGuid() : group.ID;
+                var CourseID = group.Course.ID;
+
                 await DBConnection.QueryAsync(nameof(UpdateGroupAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         group.ID,
                         group.Title,
                         group.StartDate,
-                        group.FinishDate
+                        group.FinishDate,
+                        CourseID
                     });
 
                 return true;
