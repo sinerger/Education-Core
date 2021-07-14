@@ -1,12 +1,9 @@
 ﻿using Domain.Entities.Users;
 using Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Users;
-using Domain.Interfaces;
+using System;
 using System.Threading.Tasks;
 using WebApi.Routes;
-using System;
 
 namespace WebApi.Controllers
 {

@@ -62,6 +62,51 @@ namespace WebApi.Routes
             }
         }
 
+        public static class Lesson
+        {
+            public static string Route => "/" + nameof(Lesson);
+
+            public const string GetAllLessons = _getAllDefaultRoute;
+            public const string GetLessonByID = _getByIDDefaultRoute;
+            public const string UpdateLesson = _updateDefaultRoute;
+            public const string DeleteLesson = _deleteDefaultRoute;
+            public const string CreateLessonWithinCourse = _createDefaultRoute;
+
+            public static string GetRouteForAllLessons()
+            {
+                return Api + Route + "/";
+            }
+
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByid = GetLessonByID == "{id}" ? "" : GetLessonByID;
+                var result = Api + Route + getByid + "/" + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForCreate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid id)
+            {
+                var result = Api + Route + "/" + id.ToString();
+
+                return result;
+            }
+        }
+
         public static class Group
         {
             public static string Route => "/" + nameof(Group);
