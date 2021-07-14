@@ -1,5 +1,6 @@
 using System.Data;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Domain.Interfaces;
 using Insight.Database;
 using Microsoft.AspNetCore.Builder;
@@ -23,38 +24,39 @@ namespace WebApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutofac();
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.AddAuthorization(options =>
             {
@@ -64,17 +66,11 @@ namespace WebApi
                     policy => policy.RequireRole(TypeRole.Teacher.ToString(), TypeRole.Admin.ToString()));
 
             });
+        }
 
-           var serilog = new SerilogInitialize(LogEventLevel.Debug);
-            
-
-            var conStr = Configuration["ConnectionStrings:TestDB"];
-            var mysqlCon = new MySqlConnectionStringBuilder(conStr);
-            DbConnection connection = mysqlCon.Connection();
-
-            services.AddTransient<IDbConnection>(conn => connection);
-            services.AddTransient<IDBContext, DBContext>();
-            services.AddTransient<ISessionService, SessionService>();
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacModule(Configuration));
         }
 
 

@@ -88,13 +88,13 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             {
                 foreach (var student in groupWithStudents.Students)
                 {
-                    var GroupID = groupWithStudents.ID;
-                    var UserID = student.ID;
+                    var groupID = groupWithStudents.ID;
+                    var studentID = student.ID;
 
                     await connection.QueryAsync("AddStudentToGroup", parameters: new
                     {
-                        GroupID,
-                        UserID
+                        studentID,
+                        groupID
                     });
                 }
             }

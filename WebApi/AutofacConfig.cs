@@ -1,21 +1,40 @@
 ﻿using Autofac;
 using DataAccess.InsightDatabase;
+using DataAccess.InsightDatabase.Repositories;
+using Domain.Entities.Lessons;
 using Domain.Interfaces;
+using Domain.Interfaces.LessonRepositoryInterfaces;
+using Insight.Database;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
 using Domain.Interfaces.Services;
 using Education_Core.BusinessLogic.Services.EntityServices;
 using Serilog.Events;
 using System.Data;
 using System.Data.Common;
+using WebApi.Controllers;
 using WebApi.Serilog;
+using WebApi.JWT;
 
 namespace WebApi
 {
-    public class AutofacConfig
+    public class AutofacModule : Module
     {
-        public static void ConfigureContainer(DbConnection connection)
+        public IConfiguration Configuration { get; }
+
+        public AutofacModule(IConfiguration _configuration)
         {
-            var builder = new ContainerBuilder();
+            Configuration = _configuration;
+        }
+
+        protected override void Load(ContainerBuilder builder)
+        {
             var serilog = new SerilogInitialize(LogEventLevel.Debug);
+
+            var conStr = Configuration["ConnectionStrings:TestDB"];
+            var mysqlCon = new MySqlConnectionStringBuilder(conStr);
+            DbConnection connection = mysqlCon.Connection();
 
             builder.RegisterType<DBContext>().As<IDBContext>();
             builder.RegisterType<UserWithRoleService>().As<IUserWithRoleService>();
@@ -28,11 +47,10 @@ namespace WebApi
             builder.RegisterType<GroupWithStudentsService>().As<IGroupWithStudentsService>();
             builder.RegisterType<TeacherService>().As<ITeacherService>();
             builder.RegisterType<FeedbackServise>().As<IFeedbackServise>();
+            builder.RegisterType<SessionService>().As<ISessionService>();
 
             builder.Register<IDbConnection>(conn => connection);
             builder.RegisterInstance(serilog).As<SerilogInitialize>();
-
-            builder.Build();
         }
     }
 }
