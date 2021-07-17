@@ -26,13 +26,13 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserDetailData.DataForUpdate), MemberType = typeof(UserDetailData))]
-        public async Task UpdateUserDetail_WhenValidTestPassed_ShoulUpdateUserDetailInDB(UserWithRole insertedUser,UserDetail updatedUser, UserDetail expected)
+        [MemberData(nameof(UserDetailTData.DataForUpdate), MemberType = typeof(UserDetailTData))]
+        public async Task UpdateUserDetail_WhenValidTestPassed_ShoulUpdateUserDetailInDB(UserWithRole insertedUser, UserDetail updatedUser, UserDetail expected)
         {
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForUpdate();
+            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
             var postResponse = await _client.PostAsync(postRoute,
                 new StringContent(JsonConvert.SerializeObject(insertedUser), Encoding.UTF8, "application/json"));
             await InitializeFeedbackDataForUser(insertedUser.ID);
@@ -56,7 +56,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                await conn.QueryAsync("CreateTeacher", UserData.Teacher);
+                await conn.QueryAsync("CreateTeacher", UserInitData.Teacher);
             }
         }
 
@@ -65,9 +65,9 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                var author = UserData.Teacher.ID;
-                foreach (var feedback in FeedbackData.Feedbacks)
+                foreach (var feedback in FeedbackInitData.Feedbacks)
                 {
+                    var authorID = UserInitData.Teacher.ID;
                     await conn.QueryAsync("CreateFeedbackForUser",
                         new
                         {
@@ -75,7 +75,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
                             feedback.Date,
                             feedback.Description,
                             userID,
-                            author
+                            authorID
                         });
                 }
             }

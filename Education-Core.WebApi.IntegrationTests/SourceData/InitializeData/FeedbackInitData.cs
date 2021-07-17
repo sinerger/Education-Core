@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class FeedbackData
+    public static class FeedbackInitData
     {
         private const int _length = 10;
         public static List<Feedback> Feedbacks { get; set; }
 
-        static FeedbackData()
+        static FeedbackInitData()
         {
             Feedbacks = new List<Feedback>();
 

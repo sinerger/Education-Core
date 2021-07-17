@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public static class UserDetailData
+    public static class UserDetailTData
     {
         private static List<UserWithRole> _usersWithRole;
         private static List<UserDetail> _usersDetail;
         private const int _countUsers = 1;
 
-        static UserDetailData()
+        static UserDetailTData()
         {
             _usersWithRole = new List<UserWithRole>();
 
@@ -43,7 +43,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                     DateOfBirth = new DateTime(1995, 09, 05),
                     Email = "integrationTest@mail.com",
                     Phone = "0000000000",
-                    Feedbacks = FeedbackData.Feedbacks
+                    Feedbacks = FeedbackInitData.Feedbacks
                 });
             }
         }

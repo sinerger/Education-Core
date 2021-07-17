@@ -24,7 +24,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LessonData.DataForCreate), MemberType = typeof(LessonData))]
+        [MemberData(nameof(LessonTData.DataForCreate), MemberType = typeof(LessonTData))]
         public async Task CreateLessonWithinCourse_WhenValidTestPassed_ShouldReturnIEnumerableUsers(
             Lesson lessonToInsert, Lesson expected)
         {
@@ -46,7 +46,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LessonData.DataForGetAll), MemberType = typeof(LessonData))]
+        [MemberData(nameof(LessonTData.DataForGetAll), MemberType = typeof(LessonTData))]
         public async Task GetAllLessons_WhenValidDataPassed_ShouldReturnIEnumerableLessons
             (Lesson lessonToInsert, List<Lesson> expected)
         {
@@ -68,7 +68,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LessonData.DataForCreate), MemberType = typeof(LessonData))]
+        [MemberData(nameof(SourceData.TestData.LessonTData.DataForCreate), MemberType = typeof(LessonTData))]
         public async Task GetLessonById_WhenValidDataPassed_ShouldReturnLessons
             (Lesson lessonToInsert, Lesson expected)
         {
@@ -90,7 +90,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LessonData.DataForUpdate), MemberType = typeof(LessonData))]
+        [MemberData(nameof(LessonTData.DataForUpdate), MemberType = typeof(LessonTData))]
         public async Task UpdateLesson_WhenValidDataPassed_ShouldUpdateLesson(Lesson lesson)
         {
             await TruncateAllTablesAsync();
@@ -118,7 +118,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LessonData.DataForUpdate), MemberType = typeof(LessonData))]
+        [MemberData(nameof(LessonTData.DataForUpdate), MemberType = typeof(LessonTData))]
         public async Task DeleteLesson_WhenValidDataPassed_ShouldDeleteLesson(Lesson lessonToDelete)
         {
             await TruncateAllTablesAsync();
@@ -145,9 +145,9 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                await conn.QueryAsync("CreateCourse", SourceData.InitializeData.CourseData.Courses[0]);
-                await conn.QueryAsync("CreateHomework", HomeworkData.Homework);
-                await conn.QueryAsync("CreateTeacher", UserData.Teacher);
+                await conn.QueryAsync("CreateCourse", CourseInitData.Courses[0]);
+                await conn.QueryAsync("CreateHomework", HomeworkInitData.Homework);
+                await conn.QueryAsync("CreateTeacher", UserInitData.Teacher);
             }
         }
 

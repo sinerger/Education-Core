@@ -28,7 +28,7 @@ namespace WebApi.Routes
 
             public static string GetRouteForCreate()
             {
-                var result = Api + Route + CreateUserWithRole;
+                var result = Api + Route + "/" + CreateUserWithRole;
 
                 return result;
             }
@@ -206,6 +206,65 @@ namespace WebApi.Routes
             public static string GetRouteForUpdate()
             {
                 var result = Api + Route + "/";
+
+                return result;
+            }
+        }
+
+        public static class Homework
+        {
+            public static string Route => "/" + nameof(Homework);
+
+            public const string GetAllHomeworkByCourseID = "courseid";
+            public const string GetHomeworkByLessonID = "lessonid";
+            public const string AddHomeworkWithinLesson = "lessonid";
+            public const string UpdateHomework = _updateDefaultRoute;
+            public const string DeleteHomework = _deleteDefaultRoute;
+            public const string CreateHomework = _createDefaultRoute;
+
+            public static string GetRouteForCreate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForGetByLessonID(Guid lessonID)
+            {
+                var getByID = GetHomeworkByLessonID == "{lessonid}" ? "/" : "/" + GetHomeworkByLessonID + "?lessonid=";
+                var result = Api + Route + getByID + lessonID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForAddByLessonID(Guid lessonID)
+            {
+                var addByID = AddHomeworkWithinLesson == "{lessonid}" ? "/" : "/" + AddHomeworkWithinLesson + "?lessonid=";
+                var result = Api + Route + addByID + lessonID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAllByCourseID(Guid courseID)
+            {
+                var getAllByID = GetAllHomeworkByCourseID == "{courseid}" ? "/" : "/" + GetAllHomeworkByCourseID + "?courseid=";
+                var result = Api + Route + getAllByID + courseID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid homeworkID)
+            {
+                var delete = DeleteHomework == "{id}" ? "/" : "/" + DeleteHomework;
+                var result = Api + Route + delete + homeworkID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var update = UpdateHomework == "{id}" ? "/" : "/" + UpdateHomework;
+                var result = Api + Route + update;
 
                 return result;
             }

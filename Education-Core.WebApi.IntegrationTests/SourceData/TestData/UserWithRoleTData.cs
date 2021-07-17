@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public class UserWithRoleData
+    public class UserWithRoleTData
     {
         private static List<UserWithRole> _users;
         private const int _countUsers = 1;

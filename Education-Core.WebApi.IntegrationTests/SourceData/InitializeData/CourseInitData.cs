@@ -7,11 +7,11 @@ using Domain.Entities.Courses;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class CourseData
+    public static class CourseInitData
     {
         public  static  List<Course> Courses { get; set; }
 
-        static CourseData()
+        static CourseInitData()
         {
             Courses = new List<Course>();
 

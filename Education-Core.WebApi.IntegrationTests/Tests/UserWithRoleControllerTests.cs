@@ -20,7 +20,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserWithRoleData.DataForCreate), MemberType = typeof(UserWithRoleData))]
+        [MemberData(nameof(UserWithRoleTData.DataForCreate), MemberType = typeof(UserWithRoleTData))]
         public async Task CreateUserWithRole_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole insertedUser,
             UserWithRole expected)
         {
@@ -40,7 +40,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserWithRoleData.DataForUpdate), MemberType = typeof(UserWithRoleData))]
+        [MemberData(nameof(UserWithRoleTData.DataForUpdate), MemberType = typeof(UserWithRoleTData))]
         public async Task UpdateUserWithRole_WhenValidTestPassed_ShouldReturnUpdatetUser(UserWithRole user)
         {
             await TruncateAllTablesAsync();
@@ -66,7 +66,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserWithRoleData.DataForCreate), MemberType = typeof(UserWithRoleData))]
+        [MemberData(nameof(UserWithRoleTData.DataForCreate), MemberType = typeof(UserWithRoleTData))]
         public async Task GetUserWithRoleByLoginAndPassword_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole insertedUser,
             UserWithRole expected)
         {
@@ -86,7 +86,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserWithRoleData.DataForUpdate), MemberType = typeof(UserWithRoleData))]
+        [MemberData(nameof(UserWithRoleTData.DataForUpdate), MemberType = typeof(UserWithRoleTData))]
         public async Task DeleteUserWithRole_WhenValidTestPassed_ShouldDelete(UserWithRole deletedUser)
         {
             await TruncateAllTablesAsync();

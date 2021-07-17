@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public static class CourseData
+    public static class CourseTData
     {
         private static List<Course> _courses;
 
-        static CourseData()
+        static CourseTData()
         {
             _courses = new List<Course>();
 

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public static class LessonData
+    public static class LessonTData
     {
         private static Lesson _lesson;
 
-        static LessonData()
+        static LessonTData()
         {
             _lesson = new Lesson()
             {
@@ -17,9 +17,9 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                 Title = "Integration test Title",
                 Description = "Integration test Description",
                 DeadLine = new DateTime(2020, 10, 10),
-                Teacher = UserData.Teacher,
-                Course = InitializeData.CourseData.Courses[0],
-                Homework = HomeworkData.Homework
+                Teacher = UserInitData.Teacher,
+                Course = CourseInitData.Courses[0],
+                Homework = HomeworkInitData.Homework
             };
         }
 
