@@ -20,7 +20,8 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 Description = "Integration test Description",
                 DeadLine = new DateTime(2020, 10, 10),
                 Teacher = UserInitData.Teacher,
-                Course = CourseInitData.Courses[0]
+                Course = CourseInitData.Courses[0],
+                Homework = HomeworkInitData.Homework
             };
         }
     }

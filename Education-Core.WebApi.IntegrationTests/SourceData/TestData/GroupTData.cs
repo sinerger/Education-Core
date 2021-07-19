@@ -34,7 +34,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                 _groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = CourseInitData.Courses[0],
+                    Course = InitializeData.CourseInitData.Courses[0],
                     Title = $"Title{i}",
                     StartDate = new DateTime(2020, 08, 09),
                     FinishDate = new DateTime(2021, 03, 15)
@@ -44,6 +44,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 
         public static IEnumerable<object[]> DataForCreate()
         {
+            //InitializeData();
             foreach (var group in _groups)
             {
                 yield return new object[]
@@ -55,6 +56,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
         }
         public static IEnumerable<object[]> DataForUpdate()
         {
+            //InitializeData();
             foreach (var group in _groups)
             {
                 yield return new object[]
