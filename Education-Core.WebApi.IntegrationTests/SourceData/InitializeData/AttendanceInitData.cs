@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class AttendanceData
+    public static class AttendanceInitData
     {
         private const int lenght = 3; 
         public static List<Attendance> Attendance { get; }
 
-        static AttendanceData()
+        static AttendanceInitData()
         {
             Attendance = new List<Attendance>();
             for (int i = 0; i < lenght; i++)
             {
                 Attendance.Add(new Attendance()
                 {
-                    Student = UserData.Students[i],
+                    Student = UserInitData.Students[i],
                     IsVisited = i % 2 == 0 ? true : false
                 });
             }

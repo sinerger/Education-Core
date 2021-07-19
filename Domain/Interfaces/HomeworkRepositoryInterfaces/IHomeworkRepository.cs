@@ -7,9 +7,10 @@ namespace Domain.Interfaces.HomeworkRepositoryInterfaces
 {
     public interface IHomeworkRepository : IRepository
     {
-        Task<IEnumerable<Homework>> GetAllHomeworkByCourseIDAsync(Guid CourseID);
-        Task<Homework> GetHomeworkByLessonIDAsync(Guid LessonID);
-        Task CreateHomeworkWithinLessonAsync(Guid LessonID, Homework homework);
+        Task<IEnumerable<Homework>> GetAllHomeworksByCourseIDAsync(Guid courseID);
+        Task<Homework> GetHomeworkByLessonIDAsync(Guid lessonID);
+        Task AddHomeworkWithinLessonAsync(Guid lessonID, Homework homework);
+        Task CreateHomeworkAsync(Homework homework);
         Task UpdateHomeworkAsync(Homework homework);
         Task DeleteHomeworkAsync(Guid id);
     }

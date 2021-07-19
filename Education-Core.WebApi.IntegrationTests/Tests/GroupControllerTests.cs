@@ -26,7 +26,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GroupData.DataForCreate), MemberType = typeof(GroupData))]
+        [MemberData(nameof(GroupTData.DataForCreate), MemberType = typeof(GroupTData))]
         public async Task CreateGroupWithinCourse_WhenValidTestPassed_ShouldReturnCreatedGroup(Group insertedGroup,
             Group expected)
         {
@@ -46,7 +46,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GroupData.DataForUpdate), MemberType = typeof(GroupData))]
+        [MemberData(nameof(GroupTData.DataForUpdate), MemberType = typeof(GroupTData))]
         public async Task UpdateGroup_WhenValidTestPassed_ShouldReturnUpdatedGroup(Group group)
         {
             await TruncateAllTablesAsync();
@@ -73,7 +73,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GroupData.DataForUpdate), MemberType = typeof(GroupData))]
+        [MemberData(nameof(GroupTData.DataForUpdate), MemberType = typeof(GroupTData))]
         public async Task DeleteGroup_WhenValidTestPassed_ShouldDeleteGroup(Group group)
         {
             await TruncateAllTablesAsync();
@@ -95,7 +95,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GroupData.DataForGetAllGroups), MemberType = typeof(GroupData))]
+        [MemberData(nameof(GroupTData.DataForGetAllGroups), MemberType = typeof(GroupTData))]
         public async Task GetAllGroups_WhenValidTestPassed_ShouldReturnAllGroups(List<Group> insertedGroup, List<Group> expected)
         {
             await TruncateAllTablesAsync();
@@ -123,8 +123,8 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
-                await connection.QueryAsync("CreateCourse", SourceData.InitializeData.CourseData.Courses[0]);
+               
+                await connection.QueryAsync("CreateCourse", CourseInitData.Courses[0]);
             }
         }
     }

@@ -26,7 +26,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                var TypeRole = user.Role.ToString();
+                var role = user.Role.ToString();
                 user.ID = user.ID == Guid.Empty ? Guid.NewGuid() : user.ID;
 
                 await DBConnection.QueryAsync(nameof(CreateUserWithRoleAsync).GetStoredProcedureName(),
@@ -37,7 +37,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             user.LastName,
                             user.Login,
                             user.Password,
-                            TypeRole
+                            role
                         });
             }
             catch (Exception e)

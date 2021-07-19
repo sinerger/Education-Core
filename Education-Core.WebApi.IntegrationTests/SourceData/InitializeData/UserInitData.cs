@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class UserData
+    public static class UserInitData
     {
         public static Teacher Teacher { get; set; }
         public static List<Student> Students { get; set; }
 
-        static UserData()
+        static UserInitData()
         {
             Teacher = new Teacher()
             {

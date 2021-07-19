@@ -23,7 +23,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(CourseData.DataForCreate), MemberType = typeof(CourseData))]
+        [MemberData(nameof(CourseTData.DataForCreate), MemberType = typeof(CourseTData))]
         public async Task CreateCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(
             Course insertedCourse,Course expected)
         {
@@ -43,7 +43,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(CourseData.DataForUpdate), MemberType = typeof(CourseData))]
+        [MemberData(nameof(CourseTData.DataForUpdate), MemberType = typeof(CourseTData))]
         public async Task UpdateCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(Course course)
         {
             await TruncateAllTablesAsync();
@@ -69,7 +69,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(CourseData.DataForUpdate), MemberType = typeof(CourseData))]
+        [MemberData(nameof(CourseTData.DataForUpdate), MemberType = typeof(CourseTData))]
         public async Task DeleteCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(Course deleteCourse)
         {
             await TruncateAllTablesAsync();

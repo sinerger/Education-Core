@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class HomeworkData
+    public static class HomeworkInitData
     {
         public static Homework Homework { get; set; }
 
-        static HomeworkData()
+        static HomeworkInitData()
         {
             Homework = new Homework()
             {
