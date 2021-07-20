@@ -10,7 +10,6 @@ namespace Domain.Entities.Groups
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
-        public Teacher Teacher { get; set; }
         public Course Course { get; set; }
     }
 }

@@ -1,9 +1,15 @@
-﻿using Domain.Entities.Groups;
+﻿using System.Collections.Generic;
+using Domain.Entities.Groups;
+using Domain.Entities.Roles;
 
 namespace Domain.Entities.Users
 {
     public class Teacher : UserWithRole
     {
-        public Group Group { get; set; }
+        public List<Group> Groups { get; set; }
+        public Teacher()
+        {
+            Role = TypeRole.Teacher;
+        }
     }
 }
