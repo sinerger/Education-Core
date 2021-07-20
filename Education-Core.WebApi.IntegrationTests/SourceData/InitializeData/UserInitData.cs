@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
-    public static class UserInitData
+    public class UserInitData
     {
         public static Teacher Teacher { get; set; }
         public static List<Student> Students { get; set; }
+        public static UserWithRole UserWithRole { get; set; }
 
         static UserInitData()
         {
@@ -36,6 +37,15 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                     Password = $"Password{i}"
                 });
             }
+
+            UserWithRole = new UserWithRole()
+            {
+                ID = Guid.NewGuid(),
+                FirstName = "UserWithRole",
+                LastName = "LastNameUserWithRole",
+                Login = "LoginUserWithRole",
+                Password = "PasswordUserWithRole"
+            };
         }
     }
 }

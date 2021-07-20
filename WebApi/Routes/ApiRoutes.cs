@@ -441,5 +441,55 @@ namespace WebApi.Routes
                 return result;
             }
         }
+
+        public static class Feedback
+        {
+            public static string Route => "/" + nameof(Feedback);
+
+            public const string GetAllFeedbacksByUserID = "userid";
+            public const string GetAuthorByFeedbackID = "feedbackid";
+            public const string CreateFeedbackForUser = "userid";
+            public const string UpdateFeedback = _updateDefaultRoute;
+            public const string DeleteFeedback = _deleteDefaultRoute;
+
+            public static string GetRouteForGetAllByUserID(Guid userID)
+            {
+                var getByUserID = GetAllFeedbacksByUserID == "{userid}" ? "/" : "/" + GetAllFeedbacksByUserID + "?userid=";
+                var result = Api + Route + getByUserID + userID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAuthorByFeedbackID(Guid id)
+            {
+                var authorByID = GetAuthorByFeedbackID == "{feedbackid}" ? "/" : "/" + GetAuthorByFeedbackID + "?feedbackid=";
+                var result = Api + Route + authorByID + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForCreateForUser(Guid authorID, Guid userID)
+            {
+                var createByID = CreateFeedbackForUser == "{userid}" ? "/" : "/" + CreateFeedbackForUser;
+                var result = Api + Route + createByID + "?userid=" + userID.ToString() + "&authorid=" + authorID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid id)
+            {
+                var deleteByID = DeleteFeedback == "{id}" ? "" : "/" + DeleteFeedback;
+                var result = Api + Route + deleteByID + "/" + id.ToString();
+
+                return result;
+            }
+        }
     }
 }
