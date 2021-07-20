@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insight.Database;
 using DataAccess.InsightDatabase.Extensions;
+using Domain.Entities.Roles;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Serilog;
@@ -25,16 +26,19 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(CreateTeacherAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            teacher.ID,
-                            teacher.FirstName,
-                            teacher.LastName
-                        });
-                }
+                var role = TypeRole.Teacher;
+                teacher.ID = teacher.ID == Guid.Empty ? Guid.NewGuid() : teacher.ID;
+                await DBConnection.QueryAsync(nameof(CreateTeacherAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        teacher.ID,
+                        teacher.FirstName,
+                        teacher.LastName,
+                        teacher.Login,
+                        teacher.Password,
+                        role
+                    });
+
 
                 return true;
             }
@@ -46,21 +50,16 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> AddTeacherToGroupAsync(Guid groupId, Teacher teacher)
+        public async Task<bool> AddTeacherToGroupAsync(Guid GroupID, Guid UserID)
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
                     await DBConnection.QueryAsync(nameof(AddTeacherToGroupAsync).GetStoredProcedureName(),
                         parameters: new
                         {
-                            teacher.ID,
-                            teacher.FirstName,
-                            teacher.LastName,
-                            groupId
+                            GroupID,
+                            UserID
                         });
-                }
 
                 return true;
             }
@@ -72,11 +71,32 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> DeleteTeacherAsync(Guid id)
+        public async Task<bool> AddTeacherToLessonAsync(Guid LessonID, Guid TeacherID)
         {
             try
             {
-                return await _teacherRepository.DeleteTeacherAsync(id);
+                await DBConnection.QueryAsync(nameof(AddTeacherToLessonAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        TeacherID,
+                        LessonID
+                    });
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
+        }
+
+        public async Task DeleteTeacherAsync(Guid id)
+        {
+            try
+            {
+                 await _teacherRepository.DeleteTeacherAsync(id);
             }
             catch (Exception e)
             {
@@ -90,7 +110,8 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                return await _teacherRepository.GetAllTeachersAsync();
+                var result = await _teacherRepository.GetAllTeachersAsync();
+                return result;
             }
             catch (Exception e)
             {
@@ -118,13 +139,18 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
+                var role = teacher.Role;
+                teacher.ID = teacher.ID == Guid.Empty ? Guid.NewGuid() : teacher.ID;
                 await DBConnection.QueryAsync(nameof(UpdateTeacherAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            teacher.ID,
-                            teacher.FirstName,
-                            teacher.LastName
-                        });
+                    parameters: new
+                    {
+                        teacher.ID,
+                        teacher.FirstName,
+                        teacher.LastName,
+                        teacher.Login,
+                        teacher.Password,
+                        role
+                    });
 
                 return true;
             }
