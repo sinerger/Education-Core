@@ -1,5 +1,5 @@
 ﻿using DataAccess.InsightDatabase.Extensions;
-using Domain.Entities.Attendance;
+using Domain.Entities.Lessons;
 using Domain.Interfaces.AttendanceRepositoryInterfaces;
 using Insight.Database;
 using Serilog;
@@ -25,13 +25,13 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                var studentID = attendance.Student.ID;
+                var userID = attendance.Student.ID;
 
-                await DBConnection.QueryAsync(nameof(UpdateAttendanceAsync).GetStoredProcedureName(),
+                await DBConnection.QueryAsync(nameof(CreateAttendanceWithinLessonAsync).GetStoredProcedureName(),
                     parameters: new
                     {
                         lessonID,
-                        studentID,
+                        userID,
                         attendance.IsVisited
                     });
             }

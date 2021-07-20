@@ -363,7 +363,7 @@ namespace WebApi.Routes
                 return result;
             }
 
-            public static string GetRouteForCreateAttendanceWithinLesson(Guid lessonID)
+            public static string GetRouteForCreate(Guid lessonID)
             {
                 var createById = CreateAttendanceWithinLesson == "{lessonid}" ? "/" : "/" + CreateAttendanceWithinLesson + "?lessonid=";
                 var result = Api + Route + createById + lessonID.ToString();
@@ -371,7 +371,7 @@ namespace WebApi.Routes
                 return result;
             }
 
-            public static string GetRouteForUpdateAttendance(Guid lessonID)
+            public static string GetRouteForUpdate(Guid lessonID)
             {
                 var update = UpdateAttendance == "{lessonid}" ? "/" : "/" + UpdateAttendance + "?lessonid=";
                 var result = Api + Route + update + lessonID.ToString();

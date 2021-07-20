@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Domain.Entities.Groups;
 using Education_Core.WebApi.IntegrationTests.Factories;
 using FluentAssertions;
-using Education_Core.WebApi.IntegrationTests.SourceData;
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
 using Insight.Database;
@@ -16,7 +15,6 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using WebApi.Routes;
 using Xunit;
-using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.Tests
 {

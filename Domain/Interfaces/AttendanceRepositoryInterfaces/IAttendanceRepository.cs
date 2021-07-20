@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Attendance;
+﻿using Domain.Entities.Lessons;
 using Domain.Entities.Users;
 using Insight.Database;
 using System;

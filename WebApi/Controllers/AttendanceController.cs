@@ -3,9 +3,9 @@ using Domain.Interfaces;
 using WebApi.Routes;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Domain.Entities.Attendance;
 using System;
 using Serilog;
+using Domain.Entities.Lessons;
 
 namespace WebApi.Controllers
 {
