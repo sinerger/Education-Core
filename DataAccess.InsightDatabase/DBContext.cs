@@ -10,9 +10,6 @@ using Domain.Interfaces.LessonRepositoryInterfaces;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using System.Data;
-using Domain.Interfaces.FeedbackRepositoryInterfaces;
-using Domain.Interfaces.ICourseWithLessonsInterfaces;
-using Domain.Interfaces.AttendanceRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
 {

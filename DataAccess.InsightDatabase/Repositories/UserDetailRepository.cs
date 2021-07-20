@@ -50,7 +50,7 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
         }
     }
