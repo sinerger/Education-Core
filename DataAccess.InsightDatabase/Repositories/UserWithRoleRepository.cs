@@ -94,7 +94,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                var TypeRole = user.Role.ToString();
+                var role = user.Role.ToString();
                 await DBConnection.QueryAsync(nameof(UpdateUserWithRoleAsync).GetStoredProcedureName(),
                         parameters: new
                         {
@@ -103,7 +103,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             user.LastName,
                             user.Login,
                             user.Password,
-                            TypeRole
+                            role
                         });
             }
             catch (Exception e)

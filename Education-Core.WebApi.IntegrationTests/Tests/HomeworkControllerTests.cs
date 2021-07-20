@@ -28,7 +28,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(HomeworkTData.GetDataForCreate), MemberType = typeof(HomeworkTData))]
-        public async Task CreateUserWithRole_WhenValidTestPassed_ShouldReturnIEnumerableUsers(Homework insertedHomework, Guid lessonID,
+        public async Task CreateHomework_WhenValidTestPassed_ShouldReturnIEnumerableUsers(Homework insertedHomework, Guid lessonID,
             Homework expected)
         {
             await TruncateAllTablesAsync();
