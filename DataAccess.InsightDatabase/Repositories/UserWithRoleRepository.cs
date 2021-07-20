@@ -36,7 +36,7 @@ namespace DataAccess.InsightDatabase.Repositories
                             user.FirstName,
                             user.LastName,
                             user.Login,
-                            user.Password,
+                            user.Password, 
                             role
                         });
             }

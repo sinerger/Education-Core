@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities.GroupWithStudents
 {
-    public class GroupWithStudent:Group
+    public class GroupWithStudents:Group
     {
         public List<Student> Students { get; set; }
     }

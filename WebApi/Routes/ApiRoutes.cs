@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities.Users;
 
 namespace WebApi.Routes
 {
@@ -145,6 +146,20 @@ namespace WebApi.Routes
             public static string GetRouteForGetAllGroups()
             {
                 var result = Api + Route + GetAllGroups;
+
+                return result;
+            }
+        }
+
+        public static class GroupWithStudents
+        {
+            public static string Route => "/" + nameof(GroupWithStudents);
+            public const string GetGroupWithStudentsByID = _getByIDDefaultRoute;
+            
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByid = GetGroupWithStudentsByID == "{id}" ? "" : GetGroupWithStudentsByID;
+                var result = Api + Route + getByid + "/" + id.ToString();
 
                 return result;
             }

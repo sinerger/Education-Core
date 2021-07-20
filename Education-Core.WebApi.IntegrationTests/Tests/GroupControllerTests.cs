@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Entities.Groups;
-using Education_Core.WebApi.IntegrationTests.Factories;
-using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
-using FluentAssertions;
-using Insight.Database;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
 using System.Data.Common;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Groups;
+using Education_Core.WebApi.IntegrationTests.Factories;
+using FluentAssertions;
 using Education_Core.WebApi.IntegrationTests.SourceData;
+using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
+using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
+using Insight.Database;
+using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using WebApi.Routes;
 using Xunit;
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
@@ -38,6 +39,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
                 new StringContent(JsonConvert.SerializeObject(insertedGroup), Encoding.UTF8, "application/json"));
 
             var getRoute = ApiRoutes.Group.GetRouteForGetByID(insertedGroup.ID);
+
             var getResponse = await _client.GetAsync(getRoute);
             var actual = JsonConvert.DeserializeObject<Group>(await getResponse.Content.ReadAsStringAsync());
             response.StatusCode.Should().Be(HttpStatusCode.OK);

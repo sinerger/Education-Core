@@ -1,11 +1,6 @@
 ﻿using Domain.Entities.Groups;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Groups;
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
@@ -23,7 +18,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
             _group = new Group()
             {
                 ID = Guid.NewGuid(),
-                Course = CourseInitData.Courses[0],
+                Course = CoursesData.Courses[0],
                 Title = $"Title",
                 StartDate = new DateTime(2020, 08, 09),
                 FinishDate = new DateTime(2021, 03, 15)
@@ -34,7 +29,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                 _groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = CourseInitData.Courses[0],
+                    Course = InitializeData.CoursesData.Courses[0],
                     Title = $"Title{i}",
                     StartDate = new DateTime(2020, 08, 09),
                     FinishDate = new DateTime(2021, 03, 15)
