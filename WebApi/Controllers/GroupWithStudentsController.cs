@@ -1,8 +1,8 @@
-﻿using System;
-using Domain.Interfaces;
-using System.Threading.Tasks;
+﻿using Domain.Entities.GroupWithStudents;
+using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.GroupWithStudents;
+using System;
+using System.Threading.Tasks;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
@@ -11,17 +11,51 @@ namespace WebApi.Controllers
     [ApiController]
     public class GroupWithStudentsController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly IGroupWithStudentsService _groupWithStudentsService;
 
-        public GroupWithStudentsController(IDBContext dBContext)
+        public GroupWithStudentsController(IGroupWithStudentsService groupWithStudentsService)
         {
-            _dbContext = dBContext;
+            _groupWithStudentsService = groupWithStudentsService;
         }
 
         [HttpGet(ApiRoutes.GroupWithStudents.GetGroupWithStudentsByID)]
-        public async Task<GroupWithStudents> GetGroupWithStudentById(Guid id)
+        public async Task<IActionResult> GetGroupWithStudentById(Guid id)
         {
-            return await _dbContext.GroupWithStudentsRepository.GetGroupWithStudentsByIDAsync(id);
+            var responce = await _groupWithStudentsService.GetGroupWithStudentsByIDAsync(id);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<GroupWithStudents> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

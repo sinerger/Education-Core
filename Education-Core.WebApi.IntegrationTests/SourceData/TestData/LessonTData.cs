@@ -18,12 +18,12 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                 Description = "Integration test Description",
                 DeadLine = new DateTime(2020, 10, 10),
                 Teacher = UserInitData.Teacher,
-                Course = CourseInitData.Courses[0],
+                Course = CourseInitData.Course,
                 Homework = HomeworkInitData.Homework
             };
         }
 
-        public static IEnumerable<object[]> DataForCreate()
+        public static IEnumerable<object[]> GetDataForCreate()
         {
             yield return new object[]
             {
@@ -32,10 +32,9 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
             };
         }
 
-        public static IEnumerable<object[]> DataForGetAll()
+        public static IEnumerable<object[]> GetDataForGetAll()
         {
-            List<Lesson> lessons = new List<Lesson>();
-            lessons.Add(_lesson);
+            List<Lesson> lessons = new List<Lesson>() { _lesson };
 
             yield return new object[]
             {
@@ -44,7 +43,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
             };
         }
 
-        public static IEnumerable<object[]> DataForUpdate()
+        public static IEnumerable<object[]> GetDataForUpdate()
         {
             yield return new object[]
             {

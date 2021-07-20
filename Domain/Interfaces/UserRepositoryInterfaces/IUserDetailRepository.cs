@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Insight.Database;
+﻿using Domain.Entities.Feedbacks;
 using Domain.Entities.Users;
-using Domain.Entities.Feedbacks;
+using Insight.Database;
+using System;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces.UserRepositoryInterfaces
 {

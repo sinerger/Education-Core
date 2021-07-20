@@ -1,9 +1,6 @@
 ﻿using Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
@@ -31,10 +28,10 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 Students.Add(new Student()
                 {
                     ID = Guid.NewGuid(),
-                    FirstName = $"Student{i}",
-                    LastName = $"LastNameStudent{i}",
-                    Login = $"Login{i}",
-                    Password = $"Password{i}"
+                    FirstName = $"Student {i}",
+                    LastName = $"LastNameStudent {i}",
+                    Login = $"Login {i}",
+                    Password = $"Password {i}"
                 });
             }
 

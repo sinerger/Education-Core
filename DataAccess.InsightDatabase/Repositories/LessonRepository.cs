@@ -1,19 +1,18 @@
-using Serilog;
+using DataAccess.InsightDatabase.Extensions;
+using Domain.Entities.Lessons;
+using Domain.Interfaces.LessonRepositoryInterfaces;
+using Insight.Database;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Insight.Database;
-using Domain.Entities.Lessons;
-using Domain.Interfaces.LessonRepositoryInterfaces;
-using DataAccess.InsightDatabase.Extensions;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class LessonRepository : ILessonRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly ILessonRepository _lessonRepository;
+        public IDbConnection DBConnection { get; }
 
         public LessonRepository(IDbConnection dbConnection)
         {
@@ -29,8 +28,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -43,8 +40,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -69,8 +64,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -79,7 +72,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                var HomeworkID = lesson.Homework.ID;
+                var homeworkID = lesson.Homework.ID;
 
                 await DBConnection.QueryAsync(nameof(UpdateLessonAsync).GetStoredProcedureName(),
                     parameters: new
@@ -88,13 +81,11 @@ namespace DataAccess.InsightDatabase.Repositories
                         lesson.Title,
                         lesson.Description,
                         lesson.DeadLine,
-                        HomeworkID
+                        homeworkID
                     });
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -107,8 +98,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

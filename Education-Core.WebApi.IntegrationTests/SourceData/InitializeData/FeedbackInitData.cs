@@ -1,9 +1,6 @@
 ﻿using Domain.Entities.Feedbacks;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
@@ -21,7 +18,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 Feedbacks.Add(new Feedback()
                 {
                     ID = Guid.NewGuid(),
-                    Description = $"Integration test Description feedback{i}",
+                    Description = $"Integration test Description feedback {i}",
                     Date = new DateTime(2020,10,10)
                 });
             }

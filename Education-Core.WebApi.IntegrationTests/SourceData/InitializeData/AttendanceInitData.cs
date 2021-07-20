@@ -1,15 +1,11 @@
 ﻿using Domain.Entities.Lessons;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
 {
     public static class AttendanceInitData
     {
-        private const int lenght = 3; 
+        private const int lenght = 3;
         public static List<Attendance> Attendance { get; }
 
         static AttendanceInitData()

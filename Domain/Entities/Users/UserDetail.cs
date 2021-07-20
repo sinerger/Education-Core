@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Domain.Entities.Feedbacks;
+using System;
 using System.Collections.Generic;
-using Domain.Entities.Feedbacks;
 
 namespace Domain.Entities.Users
 {

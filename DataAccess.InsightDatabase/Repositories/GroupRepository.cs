@@ -1,19 +1,18 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
-using DataAccess.InsightDatabase.Extensions;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Groups;
 using Domain.Interfaces.GroupRepositoryInterfaces;
-using Serilog;
+using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly IGroupRepository _groupRepository;
+        public IDbConnection DBConnection { get; }
 
         public GroupRepository(IDbConnection dbConnection)
         {
@@ -21,12 +20,12 @@ namespace DataAccess.InsightDatabase.Repositories
             _groupRepository = DBConnection.As<IGroupRepository>();
         }
 
-        public async Task<bool> CreateGroupWithinCourseAsync(Group group)
+        public async Task CreateGroupWithinCourseAsync(Group group)
         {
             try
             {
                 group.ID = group.ID == Guid.Empty ? Guid.NewGuid() : group.ID;
-                var CourseID = group.Course.ID;
+                var courseID = group.Course.ID;
 
                 await DBConnection.QueryAsync(nameof(CreateGroupWithinCourseAsync).GetStoredProcedureName(),
                     parameters: new
@@ -35,15 +34,11 @@ namespace DataAccess.InsightDatabase.Repositories
                         group.Title,
                         group.StartDate,
                         group.FinishDate,
-                        CourseID
+                        courseID
                     });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -56,8 +51,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -70,8 +63,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -84,18 +75,16 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> UpdateGroupAsync(Group group)
+        public async Task UpdateGroupAsync(Group group)
         {
             try
             {
                 group.ID = group.ID == Guid.Empty ? Guid.NewGuid() : group.ID;
-                var CourseID = group.Course.ID;
+                var courseID = group.Course.ID;
 
                 await DBConnection.QueryAsync(nameof(UpdateGroupAsync).GetStoredProcedureName(),
                     parameters: new
@@ -104,15 +93,11 @@ namespace DataAccess.InsightDatabase.Repositories
                         group.Title,
                         group.StartDate,
                         group.FinishDate,
-                        CourseID
+                        courseID
                     });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

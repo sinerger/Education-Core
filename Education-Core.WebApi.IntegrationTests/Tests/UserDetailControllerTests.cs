@@ -7,9 +7,7 @@ using Insight.Database;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -26,23 +24,20 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         }
 
         [Theory]
-        [MemberData(nameof(UserDetailTData.DataForUpdate), MemberType = typeof(UserDetailTData))]
+        [MemberData(nameof(UserDetailTData.GetDataForUpdate), MemberType = typeof(UserDetailTData))]
         public async Task UpdateUserDetail_WhenValidTestPassed_ShoulUpdateUserDetailInDB(UserWithRole insertedUser,UserDetail updatedUser, UserDetail expected)
         {
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
-            var postResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedUser), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(insertedUser);
             await InitializeFeedbackDataForUser(insertedUser.ID);
 
             var putRoute = ApiRoutes.UserDetail.GetRouteForUpdate();
             var putResponse = await _client.PutAsync(putRoute,
                 new StringContent(JsonConvert.SerializeObject(updatedUser), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.UserDetail.GetRouteForGetByID(updatedUser.ID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(updatedUser);
             var actual = JsonConvert.DeserializeObject<UserDetail>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -60,12 +55,35 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             }
         }
 
+        protected override async Task<HttpResponseMessage> SendRequesToCreate(object obj)
+        {
+            var userDetail = (UserWithRole)obj;
+            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
+            var postResponse = await _client.PostAsync(postRoute,
+                new StringContent(JsonConvert.SerializeObject(userDetail), Encoding.UTF8, "application/json"));
+
+            return postResponse;
+        }
+
+        protected override Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            var userDetail = (UserDetail)obj;
+            var getRoute = ApiRoutes.UserDetail.GetRouteForGetByID(userDetail.ID);
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
+        }
+
         private async Task InitializeFeedbackDataForUser(Guid userID)
         {
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                var author = UserInitData.Teacher.ID;
                 foreach (var feedback in FeedbackInitData.Feedbacks)
                 {
                     var authorID = UserInitData.Teacher.ID;

@@ -1,52 +1,40 @@
 ﻿using Domain.Entities.Courses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
     public static class CourseTData
     {
-        private static List<Course> _courses;
+        private static Course _course;
 
         static CourseTData()
         {
-            _courses = new List<Course>();
-
-            for (int i = 0; i < 3; i++)
+            _course = new Course()
             {
-                _courses.Add(new Course()
-                {
-                    ID = Guid.NewGuid(),
-                    Title = $"Integratio Test{i}",
-                    Description = $"Description{i}"
-                });
-            }
+                ID = Guid.NewGuid(),
+                Title = $"Integratio Test",
+                Description = $"Description"
+            };
+
         }
 
         public static IEnumerable<object[]> DataForCreate()
         {
-            foreach (var course in _courses)
+            yield return new object[]
             {
-                yield return new object[]
-                    {
-                        course,
-                        course
-                    };
-            }
+                _course,
+                _course
+            };
+
         }
 
         public static IEnumerable<object[]> DataForUpdate()
         {
-            foreach (var course in _courses)
+            yield return new object[]
             {
-                yield return new object[]
-                    {
-                        course
-                    };
-            }
+                _course
+            };
         }
     }
 }

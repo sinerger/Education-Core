@@ -1,5 +1,4 @@
 ﻿using Domain.Entities.Homeworks;
-using Domain.Entities.Lessons;
 using Education_Core.WebApi.IntegrationTests.Factories;
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
@@ -10,7 +9,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -34,16 +32,13 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.Homework.GetRouteForCreate();
-            var postResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedHomework), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(insertedHomework);
 
             var putRoute = ApiRoutes.Homework.GetRouteForAddByLessonID(lessonID);
             var putResponse = await _client.PutAsync(putRoute,
                 new StringContent(JsonConvert.SerializeObject(insertedHomework), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.Homework.GetRouteForGetByLessonID(lessonID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByLessonID(lessonID);
             var actual = JsonConvert.DeserializeObject<Homework>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -59,9 +54,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.Homework.GetRouteForCreate();
-            var postResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedHomework), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(insertedHomework);
 
             var putRoute = ApiRoutes.Homework.GetRouteForAddByLessonID(lessonID);
             var putResponse = await _client.PutAsync(putRoute,
@@ -86,9 +79,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.Homework.GetRouteForCreate();
-            var postResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(updatedHomewrk), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(updatedHomewrk);
 
             var putRoute = ApiRoutes.Homework.GetRouteForAddByLessonID(lessonID);
             var putResponse = await _client.PutAsync(putRoute,
@@ -101,8 +92,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             var updateResponse = await _client.PutAsync(updateRoute,
                 new StringContent(JsonConvert.SerializeObject(updatedHomewrk), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.Homework.GetRouteForGetByLessonID(lessonID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByLessonID(lessonID);
             var actual = JsonConvert.DeserializeObject<Homework>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -120,16 +110,13 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postRoute = ApiRoutes.Homework.GetRouteForCreate();
-            var postResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedHomework), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(insertedHomework);
 
             var putRoute = ApiRoutes.Homework.GetRouteForAddByLessonID(lessonID);
             var putResponse = await _client.PutAsync(putRoute,
                 new StringContent(JsonConvert.SerializeObject(insertedHomework), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.Homework.GetRouteForGetAllByCourseID(courseID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(courseID);
             var actual = JsonConvert.DeserializeObject<List<Homework>>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -138,12 +125,40 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             actual.Should().BeEquivalentTo(expected);
         }
 
+        protected override async Task<HttpResponseMessage> SendRequesToCreate(object obj)
+        {
+            var homework = (Homework)obj;
+            var postRoute = ApiRoutes.Homework.GetRouteForCreate();
+            var postResponse = await _client.PostAsync(postRoute,
+                new StringContent(JsonConvert.SerializeObject(homework), Encoding.UTF8, "application/json"));
+
+            return postResponse;
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            var courseID = (Guid)obj;
+            var getRoute = ApiRoutes.Homework.GetRouteForGetAllByCourseID(courseID);
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
+        }
+
+        protected async Task<HttpResponseMessage> SendRequesToGetByLessonID(object obj)
+        {
+            var lessonID = (Guid)obj;
+            var getRoute = ApiRoutes.Homework.GetRouteForGetByLessonID(lessonID);
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
+        }
+
         protected async override Task InitializeData()
         {
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                await conn.QueryAsync("CreateCourse", CourseInitData.Courses[0]);
+                await conn.QueryAsync("CreateCourse", CourseInitData.Course);
 
                 var lesson = LessonInitData.Lesson;
                 var TeacherID = lesson.Teacher.ID;
@@ -160,6 +175,11 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
                         courseID
                     });
             }
+        }
+
+        protected override Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

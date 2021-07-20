@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.InsightDatabase", "DataAccess.InsightDatabase\DataAccess.InsightDatabase.csproj", "{75FF4641-9014-44F9-9B36-24163D261608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education-Core.WebApi.IntegrationTests", "Education-Core.WebApi.IntegrationTests\Education-Core.WebApi.IntegrationTests.csproj", "{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Education-Core.WebApi.IntegrationTests", "Education-Core.WebApi.IntegrationTests\Education-Core.WebApi.IntegrationTests.csproj", "{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Education-Core.BusinessLogic", "Education-Core.BusinessLogic\Education-Core.BusinessLogic.csproj", "{9577B620-A525-48AF-84C5-93C682EB0E52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA675D06-36FC-49B4-AF2F-54B5BDBF527A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9577B620-A525-48AF-84C5-93C682EB0E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9577B620-A525-48AF-84C5-93C682EB0E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9577B620-A525-48AF-84C5-93C682EB0E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9577B620-A525-48AF-84C5-93C682EB0E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

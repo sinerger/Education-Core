@@ -1,12 +1,12 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Users;
+﻿using Domain.Entities.Users;
 using Education_Core.WebApi.IntegrationTests.Factories;
 using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using WebApi.Routes;
 using Xunit;
 
@@ -21,20 +21,17 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(UserWithRoleTData.DataForCreate), MemberType = typeof(UserWithRoleTData))]
-        public async Task CreateUserWithRole_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole insertedUser,
+        public async Task CreateUserWithRole_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole user,
             UserWithRole expected)
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedUser), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(user);
 
-            var getRoute = ApiRoutes.UserWIthRole.GetRouteForGetByID(insertedUser.ID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(user);
             var actual = JsonConvert.DeserializeObject<UserWithRole>(await getResponse.Content.ReadAsStringAsync());
 
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             actual.Should().BeEquivalentTo(expected);
         }
@@ -45,9 +42,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(user);
 
             user.FirstName = "Update First Name";
             user.LastName = "Update Last Name";
@@ -55,11 +50,10 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             var updateResponce = await _client.PutAsync(updateRoute,
                 new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.UserWIthRole.GetRouteForGetByID(user.ID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(user);
             var actual = JsonConvert.DeserializeObject<UserWithRole>(await getResponse.Content.ReadAsStringAsync());
 
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             updateResponce.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             actual.Should().BeEquivalentTo(user);
@@ -67,48 +61,61 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(UserWithRoleTData.DataForCreate), MemberType = typeof(UserWithRoleTData))]
-        public async Task GetUserWithRoleByLoginAndPassword_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole insertedUser,
+        public async Task GetUserWithRoleByLoginAndPassword_WhenValidTestPassed_ShouldReturnIEnumerableUsers(UserWithRole user,
             UserWithRole expected)
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
-            var response = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedUser), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(user);
 
-            var getRoute = ApiRoutes.UserWIthRole.GetRouteForGetByLoginAndPassword(insertedUser.Login, insertedUser.Password);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(user);
             var actual = JsonConvert.DeserializeObject<UserWithRole>(await getResponse.Content.ReadAsStringAsync());
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             actual.Should().BeEquivalentTo(expected);
         }
 
         [Theory]
         [MemberData(nameof(UserWithRoleTData.DataForUpdate), MemberType = typeof(UserWithRoleTData))]
-        public async Task DeleteUserWithRole_WhenValidTestPassed_ShouldDelete(UserWithRole deletedUser)
+        public async Task DeleteUserWithRole_WhenValidTestPassed_ShouldDelete(UserWithRole user)
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(deletedUser), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(user);
 
-            var deleteRoute = ApiRoutes.UserWIthRole.GetRouteForDelete(deletedUser.ID);
+            var deleteRoute = ApiRoutes.UserWIthRole.GetRouteForDelete(user.ID);
             var deleteResponse = await _client.DeleteAsync(deleteRoute);
 
-            var getRoute = ApiRoutes.UserWIthRole.GetRouteForGetByID(deletedUser.ID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(user);
 
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             deleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
-        protected async override Task InitializeData()
+        protected override async Task<HttpResponseMessage> SendRequesToCreate(object obj)
         {
+            var userWithRole = (UserWithRole)obj;
+            var postRoute = ApiRoutes.UserWIthRole.GetRouteForCreate();
+            var postResponse = await _client.PostAsync(postRoute,
+                new StringContent(JsonConvert.SerializeObject(userWithRole), Encoding.UTF8, "application/json"));
 
+            return postResponse;
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            var userWithRole = (UserWithRole)obj;
+            var getRoute = ApiRoutes.UserWIthRole.GetRouteForGetByID(userWithRole.ID);
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
+        }
+
+        protected override Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

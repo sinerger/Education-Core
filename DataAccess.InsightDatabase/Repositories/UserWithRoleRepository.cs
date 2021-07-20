@@ -1,20 +1,17 @@
-using Serilog;
-﻿using System;
-using System.Data;
-using System.Text;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
 using DataAccess.InsightDatabase.Extensions;
-using Domain.Interfaces.UserRepositoryInterfaces;
 using Domain.Entities.Users;
+using Domain.Interfaces.UserRepositoryInterfaces;
+using Insight.Database;
+using System;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class UserWithRoleRepository : IUserWithRoleRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly IUserWithRoleRepository _userWithRoleRepository;
+        public IDbConnection DBConnection { get; }
 
         public UserWithRoleRepository(IDbConnection dbConnection)
         {
@@ -26,8 +23,8 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                var role = user.Role.ToString();
                 user.ID = user.ID == Guid.Empty ? Guid.NewGuid() : user.ID;
+                var role = user.Role.ToString();
 
                 await DBConnection.QueryAsync(nameof(CreateUserWithRoleAsync).GetStoredProcedureName(),
                         parameters: new
@@ -42,8 +39,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -56,8 +51,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -70,8 +63,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -84,8 +75,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -95,6 +84,7 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 var role = user.Role.ToString();
+
                 await DBConnection.QueryAsync(nameof(UpdateUserWithRoleAsync).GetStoredProcedureName(),
                         parameters: new
                         {
@@ -108,8 +98,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

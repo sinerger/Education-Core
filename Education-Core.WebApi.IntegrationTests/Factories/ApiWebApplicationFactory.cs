@@ -1,5 +1,7 @@
 ﻿using DataAccess.InsightDatabase;
 using Domain.Interfaces;
+using Domain.Interfaces.Services;
+using Education_Core.BusinessLogic.Services.EntityServices;
 using Insight.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -7,13 +9,8 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi;
 
 namespace Education_Core.WebApi.IntegrationTests.Factories
@@ -41,6 +38,16 @@ namespace Education_Core.WebApi.IntegrationTests.Factories
                 services.AddTransient<IDbConnection>(conn => connection);
 
                 services.AddTransient<IDBContext, DBContext>();
+                services.AddTransient<IUserWithRoleService, UserWithRoleService>();
+                services.AddTransient<IUserDetailService, UserDetailService>();
+                services.AddTransient<ILessonService, LessonService>();
+                services.AddTransient<IHomeworkService, HomeworkService>();
+                services.AddTransient<IGroupService, GroupService>();
+                services.AddTransient<ISolutionService, SolutionService>();
+                services.AddTransient<ICourseService, CourseService>();
+                services.AddTransient<IGroupWithStudentsService, GroupWithStudentsService>();
+                services.AddTransient<ITeacherService, TeacherService>();
+                services.AddTransient<IFeedbackServise, FeedbackServise>();
             });
         }
     }

@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Entities.Roles
+﻿namespace Domain.Entities.Roles
 {
     public enum TypeRole
     {

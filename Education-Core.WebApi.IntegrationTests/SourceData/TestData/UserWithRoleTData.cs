@@ -1,58 +1,40 @@
 ﻿using Domain.Entities.Users;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public class UserWithRoleTData
+    public static class UserWithRoleTData
     {
-        private static List<UserWithRole> _users;
-        private const int _countUsers = 1;
+        private static UserWithRole _user;
 
-        public static void InitializeData()
+        static UserWithRoleTData()
         {
-            _users = new List<UserWithRole>();
-
-            for (int i = 0; i < _countUsers; i++)
+            _user = new UserWithRole()
             {
-                _users.Add(new UserWithRole()
-                {
-                    ID = Guid.NewGuid(),
-                    FirstName = $"integration test {i}",
-                    LastName = $"integration test {i}",
-                    Login = $"integration test  login{i}",
-                    Password = $"integration test password{i}"
-                });
-            }
+                ID = Guid.NewGuid(),
+                FirstName = $"Integration test ",
+                LastName = $"Integration test ",
+                Login = "Integration test  login",
+                Password = $"Integration test password"
+            };
         }
 
         public static IEnumerable<object[]> DataForCreate()
         {
-            InitializeData();
-            foreach (var user in _users)
+            yield return new object[]
             {
-                yield return new object[]
-                {
-                    user,
-                    user
-                };
-            }
+                _user,
+                _user
+            };
         }
 
         public static IEnumerable<object[]> DataForUpdate()
         {
-            InitializeData();
-            foreach (var user in _users)
+            yield return new object[]
             {
-                yield return new object[]
-                {
-                    user
-                };
-            }
+                _user
+            };
         }
     }
 }

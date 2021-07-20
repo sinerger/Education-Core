@@ -125,6 +125,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
                 new StringContent(JsonConvert.SerializeObject(teacher), Encoding.UTF8, "application/json"));
 
             HttpResponseMessage addTeacherToGroupResponse = new HttpResponseMessage();
+
             foreach (var group in teacher.Groups)
             {
                 var GroupID = group.ID;
@@ -173,9 +174,9 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                await connection.QueryAsync("CreateCourse", SourceData.InitializeData.CourseInitData.Courses[0]);
+                await connection.QueryAsync("CreateCourse", CourseInitData.Course);
 
-                var CourseID = CourseInitData.Courses[0].ID;
+                var CourseID = CourseInitData.Course.ID;
 
                 foreach (var group in GroupInitData.Groups)
                 {

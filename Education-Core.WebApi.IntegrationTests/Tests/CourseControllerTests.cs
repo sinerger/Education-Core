@@ -1,12 +1,10 @@
 ﻿using Domain.Entities.Courses;
 using Education_Core.WebApi.IntegrationTests.Factories;
-using Education_Core.WebApi.IntegrationTests.SourceData;
 using Education_Core.WebApi.IntegrationTests.SourceData.TestData;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -25,19 +23,16 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         [Theory]
         [MemberData(nameof(CourseTData.DataForCreate), MemberType = typeof(CourseTData))]
         public async Task CreateCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(
-            Course insertedCourse,Course expected)
+            Course course,Course expected)
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.Course.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(insertedCourse), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(course);
 
-            var getRoute = ApiRoutes.Course.GetRouteForGetAllCourses();
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetAll();
             var actual = JsonConvert.DeserializeObject<List<Course>>(await getResponse.Content.ReadAsStringAsync());
 
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             actual.Should().BeEquivalentTo(expected);
         }
@@ -48,9 +43,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.Course.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(course), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(course);
 
             course.Title = "New Title";
             course.Description = "New Description";
@@ -58,11 +51,10 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             var updateResponce = await _client.PutAsync(updateRoute,
                 new StringContent(JsonConvert.SerializeObject(course), Encoding.UTF8, "application/json"));
 
-            var getRoute = ApiRoutes.Course.GetRouteForGetAllCourses();
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetAll();
             var actual = JsonConvert.DeserializeObject<List<Course>>(await getResponse.Content.ReadAsStringAsync());
 
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             updateResponce.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             actual.Should().BeEquivalentTo(course);
@@ -70,27 +62,47 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(CourseTData.DataForUpdate), MemberType = typeof(CourseTData))]
-        public async Task DeleteCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(Course deleteCourse)
+        public async Task DeleteCourse_WhenValidTestPassed_ShouldReturnIEnumerableCourse(Course course)
         {
             await TruncateAllTablesAsync();
 
-            var postRoute = ApiRoutes.Course.GetRouteForCreate();
-            var createResponse = await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(deleteCourse), Encoding.UTF8, "application/json"));
+            var postResponse = await SendRequesToCreate(course);
 
-            var deleteRoute = ApiRoutes.Course.GetRouteForDelete(deleteCourse.ID);
+            var deleteRoute = ApiRoutes.Course.GetRouteForDelete(course.ID);
             var DeleteResponce = await _client.DeleteAsync(deleteRoute);
 
-            var getRoute = ApiRoutes.Course.GetRouteForGetAllCourses();
-            var getResponse = await _client.GetAsync(getRoute);
-           
-            createResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var getResponse = await SendRequesToGetAll();
+
+            postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             DeleteResponce.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         protected async override Task InitializeData()
         {
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToCreate(object obj)
+        {
+            var course = (Course)obj;
+            var postRoute = ApiRoutes.Course.GetRouteForCreate();
+            var postResponse = await _client.PostAsync(postRoute,
+                new StringContent(JsonConvert.SerializeObject(course), Encoding.UTF8, "application/json"));
+
+            return postResponse;
+        }
+
+        protected override Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            var getRoute = ApiRoutes.Course.GetRouteForGetAllCourses();
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
         }
     }
 }

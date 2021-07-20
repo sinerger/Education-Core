@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.Courses;
+using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Courses;
-using Domain.Interfaces;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
@@ -12,35 +12,91 @@ namespace WebApi.Controllers
     [ApiController]
     public class CourseController : Controller
     {
-        private readonly IDBContext _dbContext;
+        private readonly ICourseService _courseService;
 
-        public CourseController(IDBContext dbContext)
+        public CourseController(ICourseService courseService)
         {
-            _dbContext = dbContext;
+            _courseService = courseService;
         }
 
         [HttpGet(ApiRoutes.Course.GetAllCourses)]
-        public async Task<IEnumerable<Course>> GetAllCourses()
+        public async Task<IActionResult> GetAllCourses()
         {
-            return await _dbContext.CourseRepository.GetAllCoursesAsync();
+            var response = await _courseService.GetAllCoursesAsync();
+
+            return GetIActionResult(response);
         }
 
         [HttpPost(ApiRoutes.Course.CreateCourse)]
-        public async Task CreateCourse([FromBody] Course course)
+        public async Task<IActionResult> CreateCourse(Course course)
         {
-            await _dbContext.CourseRepository.CreateCourseAsync(course);
+            var response = await _courseService.CreateCourseAsync(course);
+
+            return GetIActionResult(response);
         }
 
         [HttpDelete(ApiRoutes.Course.DeleteCourse)]
-        public async Task DeleteCourse(Guid id)
+        public async Task<IActionResult> DeleteCourse(Guid id)
         {
-            await _dbContext.CourseRepository.DeleteCourseAsync(id);
+            var response = await _courseService.DeleteCourseAsync(id);
+
+            return GetIActionResult(response);
         }
 
         [HttpPut(ApiRoutes.Course.UpdateCourse)]
-        public async Task UpdateCourse(Course course)
+        public async Task<IActionResult> UpdateCourse(Course course)
         {
-            await _dbContext.CourseRepository.UpdateCourseAsync(course);
+            var response = await _courseService.UpdateCourseAsync(course);
+
+            return GetIActionResult(response);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Course> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Course>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

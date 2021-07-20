@@ -14,7 +14,6 @@ namespace Domain.Interfaces
     public interface IDBContext
     {
         IDbConnection DBConnection { get; }
-
         IUserWithRoleRepository UserWithRoleRepository { get; }
         IHomeworkRepository HomeworkRepository { get; }
         ICourseRepository CourseRepository { get; }

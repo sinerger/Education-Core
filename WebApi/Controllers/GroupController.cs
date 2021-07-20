@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.Groups;
+using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Groups;
-using Domain.Interfaces;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
@@ -12,41 +12,99 @@ namespace WebApi.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly IGroupService _groupService;
 
-        public GroupController(IDBContext dBContext)
+        public GroupController(IGroupService groupService)
         {
-            _dbContext = dBContext;
+            _groupService = groupService;
         }
 
         [HttpGet(ApiRoutes.Group.GetAllGroups)]
-        public async Task<IEnumerable<Group>> GetAllGroups()
+        public async Task<IActionResult> GetAllGroups()
         {
-            return await _dbContext.GroupRepository.GetAllGroupsAsync();
+            var responce = await _groupService.GetAllGroupsAsync();
+
+            return GetIActionResult(responce);
         }
 
-        [HttpGet("{id}")]
-        public async Task<Group> GetGroupByID(Guid id)
+        [HttpGet(ApiRoutes.Group.GetGroupByID)]
+        public async Task<IActionResult> GetGroupByID(Guid id)
         {
-            return await _dbContext.GroupRepository.GetGroupByIDAsync(id);
+            var responce = await _groupService.GetGroupByIDAsync(id);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.Group.CreateGroupWithinCourse)]
-        public async Task<bool> CreateGroupWithinCourse(Guid courseId, Group group)
+        public async Task<IActionResult> CreateGroupWithinCourse(Group group)
         {
-            return await _dbContext.GroupRepository.CreateGroupWithinCourseAsync( group);
+            var responce = await _groupService.CreateGroupWithinCourseAsync(group);
+
+            return GetIActionResult(responce);
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateGroup(Group group)
+        [HttpPut(ApiRoutes.Group.UpdateGroup)]
+        public async Task<IActionResult> UpdateGroup(Group group)
         {
-            return await _dbContext.GroupRepository.UpdateGroupAsync(group);
+            var responce = await _groupService.UpdateGroupAsync(group);
+
+            return GetIActionResult(responce);
         }
 
-        [HttpDelete("{id}")]
-        public async Task DeleteGroup(Guid id)
+        [HttpDelete(ApiRoutes.Group.DeleteGroup)]
+        public async Task<IActionResult> DeleteGroup(Guid id)
         {
-            await _dbContext.GroupRepository.DeleteGroupAsync(id);
+            var responce = await _groupService.DeleteGroupAsync(id);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Group> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Group>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

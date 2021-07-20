@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Entities.Courses;
+﻿using Domain.Entities.Courses;
 using Domain.Entities.Homeworks;
 using Domain.Entities.Users;
+using System;
 
 namespace Domain.Entities.Lessons
 {

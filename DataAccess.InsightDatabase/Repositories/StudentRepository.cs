@@ -1,19 +1,18 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
-using DataAccess.InsightDatabase.Extensions;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using Serilog;
+using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly IStudentRepository _studentRepository;
+        public IDbConnection DBConnection { get; }
 
         public StudentRepository(IDbConnection dbConnection)
         {
@@ -21,37 +20,31 @@ namespace DataAccess.InsightDatabase.Repositories
             _studentRepository = DBConnection.As<IStudentRepository>();
         }
 
-        public async Task<bool> CreateStudentAsync(Student student)
-        {
-            try
-            {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(CreateStudentAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            student.ID,
-                            student.FirstName,
-                            student.LastName,
-                            student.AgreementNumber
-                        });
-                }
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
-        }
-
-        public async Task<bool> AddStudentToGroupAsync(Student student)
+        public async Task CreateStudentAsync(Student student)
         {
             try
             {
                 student.ID = student.ID == Guid.Empty ? Guid.NewGuid() : student.ID;
+
+                await DBConnection.QueryAsync(nameof(CreateStudentAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        student.ID,
+                        student.FirstName,
+                        student.LastName,
+                        student.AgreementNumber
+                    });
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task AddStudentToGroupAsync(Student student)
+        {
+            try
+            {
                 var GroupID = student.Group.ID;
 
                 await DBConnection.QueryAsync(nameof(AddStudentToGroupAsync).GetStoredProcedureName(),
@@ -63,28 +56,21 @@ namespace DataAccess.InsightDatabase.Repositories
                             student.AgreementNumber,
                             GroupID
                         });
-                
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> DeleteStudentAsync(Guid id)
+        public async Task DeleteStudentAsync(Guid id)
         {
             try
             {
-                return await _studentRepository.DeleteStudentAsync(id);
+                await _studentRepository.DeleteStudentAsync(id);
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -97,8 +83,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -111,13 +95,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> UpdateStudentAsync(Student student)
+        public async Task UpdateStudentAsync(Student student)
         {
             try
             {
@@ -129,13 +111,9 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.LastName,
                         student.AgreementNumber
                     });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

@@ -1,15 +1,15 @@
-﻿using System.Data;
-using DataAccess.InsightDatabase.Repositories;
+﻿using DataAccess.InsightDatabase.Repositories;
 using Domain.Interfaces;
-using Domain.Interfaces.HomeworkRepositoryInterfaces;
-using Domain.Interfaces.CouseRepositoryInterfaces;
-using Domain.Interfaces.UserRepositoryInterfaces;
-using Domain.Interfaces.LessonRepositoryInterfaces;
-using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
-using Domain.Interfaces.GroupRepositoryInterfaces;
-using Domain.Interfaces.SolutionRepositoryInterfaces;
-using Domain.Interfaces.FeedbackRepositoryInterfaces;
 using Domain.Interfaces.AttendanceRepositoryInterfaces;
+using Domain.Interfaces.CouseRepositoryInterfaces;
+using Domain.Interfaces.FeedbackRepositoryInterfaces;
+using Domain.Interfaces.GroupRepositoryInterfaces;
+using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
+using Domain.Interfaces.HomeworkRepositoryInterfaces;
+using Domain.Interfaces.LessonRepositoryInterfaces;
+using Domain.Interfaces.SolutionRepositoryInterfaces;
+using Domain.Interfaces.UserRepositoryInterfaces;
+using System.Data;
 
 namespace DataAccess.InsightDatabase
 {

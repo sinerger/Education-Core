@@ -2,19 +2,16 @@
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
     public static class HomeworkTData
     {
-        public static Homework Homework { get; }
+        private static Homework _homework;
 
         static HomeworkTData()
         {
-            Homework = new Homework()
+            _homework = new Homework()
             {
                 ID = Guid.NewGuid(),
                 Title = "Integration test Title",
@@ -27,16 +24,16 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
         {
             yield return new object[]
             {
-                    Homework,
+                    _homework,
                     LessonInitData.Lesson.ID,
-                    Homework
+                    _homework
             };
         }
         public static IEnumerable<object[]> GetDataForDelete()
         {
             yield return new object[]
             {
-                    Homework,
+                    _homework,
                     LessonInitData.Lesson.ID
             };
         }
@@ -44,20 +41,19 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
         {
             yield return new object[]
             {
-                    Homework,
+                    _homework,
                     LessonInitData.Lesson.ID
             };
         }
 
         public static IEnumerable<object[]> GetDataForGetAllByCourseID()
         {
-            var homeworks = new List<Homework>() { Homework };
             yield return new object[]
             {
-                    Homework,
+                    _homework,
                     LessonInitData.Lesson.ID,
-                    CourseInitData.Courses[0].ID,
-                    Homework
+                    CourseInitData.Course.ID,
+                    _homework
             };
         }
     }
