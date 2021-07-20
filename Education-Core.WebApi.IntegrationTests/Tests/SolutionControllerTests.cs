@@ -27,17 +27,17 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(SolutionTData.GetDataForCreate), MemberType = typeof(SolutionTData))]
-        public async Task CreateSolutionWithinHomework_WhenValidTestPassed_ShouldReturnIEnumerableUsers(Solution insertedSolution,Student student,
+        public async Task CreateSolutionWithinHomework_WhenValidTestPassed_ShouldReturnIEnumerableUsers(Solution insertedSolution, Student student,
             Solution expected)
         {
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postResponse = await RequesCreatet(student.ID, insertedSolution);
+            var postResponse = await SendRequesToCreate(student.ID, insertedSolution);
 
             var getRoute = ApiRoutes.Solution.GetRouteForGetAllByHomeworkID(insertedSolution.Homework.ID);
             var getResponse = await _client.GetAsync(getRoute);
-            var actual = JsonConvert.DeserializeObject<IEnumerable< Solution>>(await getResponse.Content.ReadAsStringAsync());
+            var actual = JsonConvert.DeserializeObject<IEnumerable<Solution>>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -51,7 +51,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postResponse = await RequesCreatet(student.ID, solution);
+            var postResponse = await SendRequesToCreate(student.ID, solution);
 
             solution.Answer = "Updated Answer";
             solution.Mark = 100;
@@ -76,13 +76,12 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             await TruncateAllTablesAsync();
             await InitializeData();
 
-            var postResponse = await RequesCreatet(student.ID, solution);
+            var postResponse = await SendRequesToCreate(student.ID, solution);
 
             var deleteRoute = ApiRoutes.Solution.GetRouteForDeletete(solution.ID);
             var deleteResponse = await _client.DeleteAsync(deleteRoute);
 
-            var getRoute = ApiRoutes.Solution.GetRouteForGetAllByStudentID(student.ID);
-            var getResponse = await _client.GetAsync(getRoute);
+            var getResponse = await SendRequesToGetByID(student.ID);
             var actual = JsonConvert.DeserializeObject<IEnumerable<Solution>>(await getResponse.Content.ReadAsStringAsync());
 
             postResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -91,21 +90,13 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             actual.Should().HaveCount(0);
         }
 
-        private async Task<HttpResponseMessage> RequesCreatet(Guid studentID,Solution solution)
-        {
-            var postRoute = ApiRoutes.Solution.GetRouteForCreate(studentID);
-
-            return await _client.PostAsync(postRoute,
-                new StringContent(JsonConvert.SerializeObject(solution), Encoding.UTF8, "application/json"));
-        }
-
         protected async override Task InitializeData()
         {
-            using(DbConnection conn = new MySqlConnection(_connectionString))
+            using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
 
-                await conn.QueryAsync("CreateCourse", CourseInitData.Courses[0]);
+                await conn.QueryAsync("CreateCourse", CourseInitData.Course);
                 var courseID = LessonInitData.Lesson.Course.ID;
                 await conn.QueryAsync("CreateLessonWithinCourse", new
                 {
@@ -128,6 +119,35 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
                 await conn.QueryAsync("CreateStudent", UserInitData.Students[0]);
             }
+        }
+
+        protected async Task<HttpResponseMessage> SendRequesToCreate(Guid studentID, Solution solution)
+        {
+            var postRoute = ApiRoutes.Solution.GetRouteForCreate(studentID);
+
+            var postResponce = await _client.PostAsync(postRoute,
+                new StringContent(JsonConvert.SerializeObject(solution), Encoding.UTF8, "application/json"));
+
+            return postResponce;
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToCreate(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override async Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            var studentID = (Guid)obj;
+            var getRoute = ApiRoutes.Solution.GetRouteForGetAllByStudentID(studentID);
+            var getResponse = await _client.GetAsync(getRoute);
+
+            return getResponse;
+        }
+
+        protected override Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Domain.Entities.Users;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Entities.Users;
 
 namespace Domain.Interfaces.UserRepositoryInterfaces
 {
@@ -9,9 +9,9 @@ namespace Domain.Interfaces.UserRepositoryInterfaces
     {
         Task<IEnumerable<Student>> GetAllStudentsAsync();
         Task<Student> GetStudentByIDAsync(Guid id);
-        Task<bool> AddStudentToGroupAsync(Student student);
-        Task<bool> CreateStudentAsync(Student student);
-        Task<bool> UpdateStudentAsync(Student student);
-        Task<bool> DeleteStudentAsync(Guid id);
+        Task AddStudentToGroupAsync(Student student);
+        Task CreateStudentAsync(Student student);
+        Task UpdateStudentAsync(Student student);
+        Task DeleteStudentAsync(Guid id);
     }
 }

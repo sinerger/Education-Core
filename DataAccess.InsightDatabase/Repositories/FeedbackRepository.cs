@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using DataAccess.InsightDatabase.Extensions;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Feedbacks;
 using Domain.Entities.Users;
 using Domain.Interfaces.FeedbackRepositoryInterfaces;
 using Insight.Database;
-using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -26,19 +25,19 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                await DBConnection.QueryAsync(nameof(CreateFeedbackForUserAsync).GetStoredProcedureName(), new
-                {
-                    feedback.ID,
-                    feedback.Date,
-                    feedback.Description,
-                    userID,
-                    authorID
-                });
+                feedback.ID = feedback.ID == Guid.Empty ? Guid.NewGuid() : feedback.ID;
+                await DBConnection.QueryAsync(nameof(CreateFeedbackForUserAsync).GetStoredProcedureName(),
+                    new
+                    {
+                        feedback.ID,
+                        feedback.Date,
+                        feedback.Description,
+                        userID,
+                        authorID
+                    });
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -51,8 +50,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -65,8 +62,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -79,8 +74,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -93,8 +86,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

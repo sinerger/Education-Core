@@ -1,20 +1,18 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
-using DataAccess.InsightDatabase.Extensions;
-using Domain.Entities.Roles;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
-using Serilog;
+using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
     public class TeacherRepository : ITeacherRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly ITeacherRepository _teacherRepository;
+        public IDbConnection DBConnection { get; }
 
         public TeacherRepository(IDbConnection dbConnection)
         {
@@ -22,7 +20,7 @@ namespace DataAccess.InsightDatabase.Repositories
             _teacherRepository = DBConnection.As<ITeacherRepository>();
         }
 
-        public async Task<bool> CreateTeacherAsync(Teacher teacher)
+        public async Task CreateTeacherAsync(Teacher teacher)
         {
             try
             {
@@ -38,40 +36,31 @@ namespace DataAccess.InsightDatabase.Repositories
                         teacher.Password,
                         role
                     });
-
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> AddTeacherToGroupAsync(Guid GroupID, Guid UserID)
+        public async Task AddTeacherToGroupAsync(Guid groupID, Guid userID)
         {
             try
             {
                     await DBConnection.QueryAsync(nameof(AddTeacherToGroupAsync).GetStoredProcedureName(),
                         parameters: new
                         {
-                            GroupID,
-                            UserID
+                            groupID,
+                            userID
                         });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> AddTeacherToLessonAsync(Guid LessonID, Guid TeacherID)
+        public async Task AddTeacherToLessonAsync(Guid LessonID, Guid TeacherID)
         {
             try
             {
@@ -81,13 +70,9 @@ namespace DataAccess.InsightDatabase.Repositories
                         TeacherID,
                         LessonID
                     });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -100,8 +85,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -111,12 +94,11 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 var result = await _teacherRepository.GetAllTeachersAsync();
+
                 return result;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -129,18 +111,17 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
 
-        public async Task<bool> UpdateTeacherAsync(Teacher teacher)
+        public async Task UpdateTeacherAsync(Teacher teacher)
         {
             try
             {
                 var role = teacher.Role;
                 teacher.ID = teacher.ID == Guid.Empty ? Guid.NewGuid() : teacher.ID;
+
                 await DBConnection.QueryAsync(nameof(UpdateTeacherAsync).GetStoredProcedureName(),
                     parameters: new
                     {
@@ -151,13 +132,9 @@ namespace DataAccess.InsightDatabase.Repositories
                         teacher.Password,
                         role
                     });
-
-                return true;
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

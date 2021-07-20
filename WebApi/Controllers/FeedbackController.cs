@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.Feedbacks;
 using Domain.Entities.Users;
 using Domain.Interfaces;
+using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,41 +14,115 @@ namespace WebApi.Controllers
     [ApiController]
     public class FeedbackController : Controller
     {
-        private readonly IDBContext _dBContext;
+        private readonly IFeedbackServise _feedbackServise;
 
-        public FeedbackController(IDBContext dBContext)
+        public FeedbackController(IFeedbackServise feedbackServise)
         {
-            _dBContext = dBContext;
+            _feedbackServise = feedbackServise;
         }
 
         [HttpPost(ApiRoutes.Feedback.CreateFeedbackForUser)]
-        public async Task CreateFeedbackForUserAsync(Guid authorID, Guid userID, Feedback feedback)
+        public async Task<IActionResult> CreateFeedbackForUser(Guid authorID, Guid userID, Feedback feedback)
         {
-            await _dBContext.FeedbackRepository.CreateFeedbackForUserAsync(authorID, userID, feedback);
+            var responce = await _feedbackServise.CreateFeedbackForUserAsync(authorID, userID, feedback);
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.Feedback.GetAllFeedbacksByUserID)]
-        public async Task<IEnumerable<Feedback>> GetAllFeedbacksByUserIDAsync(Guid userID)
+        public async Task<IActionResult> GetAllFeedbacksByUserID(Guid userID)
         {
-            return await _dBContext.FeedbackRepository.GetAllFeedbacksByUserIDAsync(userID);
+            var responce = await _feedbackServise.GetAllFeedbacksByUserIDAsync(userID);
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.Feedback.GetAuthorByFeedbackID)]
-        public async Task<UserWithRole> GetAuthorByFeedbackIDAsync(Guid feedbackID)
+        public async Task<IActionResult> GetAuthorByFeedbackID(Guid feedbackID)
         {
-            return await _dBContext.FeedbackRepository.GetAuthorByFeedbackIDAsync(feedbackID);
+            var responce = await _feedbackServise.GetAuthorByFeedbackIDAsync(feedbackID);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.Feedback.UpdateFeedback)]
-        public async Task UpdateFeedbackAsync(Feedback feedback)
+        public async Task<IActionResult> UpdateFeedback(Feedback feedback)
         {
-            await _dBContext.FeedbackRepository.UpdateFeedbackAsync(feedback);
+            var responce = await _feedbackServise.UpdateFeedbackAsync(feedback);
+
+            return GetIActionResult(responce);
         }
 
         [HttpDelete(ApiRoutes.Feedback.DeleteFeedback)]
-        public async Task DeleteFeedbackAsync(Guid id)
+        public async Task<IActionResult> DeleteFeedback(Guid id)
         {
-            await _dBContext.FeedbackRepository.DeleteFeedbackAsync(id);
+            var responce = await _feedbackServise.DeleteFeedbackAsync(id);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Feedback> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<UserWithRole> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Feedback>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

@@ -1,35 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Domain.Entities.Users;
+using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Users;
-using Domain.Interfaces.UserRepositoryInterfaces;
-using Domain.Interfaces;
+using System;
+using System.Threading.Tasks;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiRoutes.Api+ApiRoutes.Controller)]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class UserDetailController : ControllerBase
     {
-        private readonly IDBContext _DBContext;
+        private readonly IUserDetailService _userDetailService;
 
-        public UserDetailController(IDBContext dbContext)
+        public UserDetailController(IUserDetailService userDetailService)
         {
-            _DBContext = dbContext;
+            _userDetailService = userDetailService;
         }
 
         [HttpGet(ApiRoutes.UserDetail.GetUserDetailByID)]
-        public async Task<UserDetail> GetUserDetailByID(Guid id)
+        public async Task<IActionResult> GetUserDetailByID(Guid id)
         {
-            return await _DBContext.UserDetailRepository.GetUserDetailByIDAsync(id);
+            var responce = await _userDetailService.GetUserDetailByIDAsync(id);
+
+            return GetObjectInIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.UserDetail.UpdateUserDetail)]
-        public async Task UpdateDetailInfoForUser(UserDetail user)
+        public async Task<IActionResult> UpdateDetailInfoForUser(UserDetail user)
         {
-            await _DBContext.UserDetailRepository.UpdateDetailInfoForUserAsync(user);
+            var responce = await _userDetailService.UpdateDetailInfoForUserAsync(user);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetObjectInIActionResult(IServiceResponce<UserDetail> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<UserDetail> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.IsSuccessfully);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

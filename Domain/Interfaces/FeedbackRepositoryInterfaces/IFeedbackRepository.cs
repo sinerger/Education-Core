@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Entities.Feedbacks;
+﻿using Domain.Entities.Feedbacks;
 using Domain.Entities.Users;
 using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces.FeedbackRepositoryInterfaces
 {

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DataAccess.InsightDatabase.Extensions;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Users;
 using Domain.Interfaces.UserRepositoryInterfaces;
 using Insight.Database;
 using Serilog;
+using System;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -52,8 +50,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

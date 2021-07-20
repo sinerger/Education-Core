@@ -1,5 +1,4 @@
-﻿using Insight.Database;
-using Domain.Entities.Roles;
+﻿using Domain.Entities.Roles;
 
 namespace Domain.Entities.Users
 {

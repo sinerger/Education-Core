@@ -2,63 +2,46 @@
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
     public static class UserDetailTData
     {
-        private static List<UserWithRole> _usersWithRole;
-        private static List<UserDetail> _usersDetail;
-        private const int _countUsers = 1;
+        private static UserWithRole _userWithRole;
+        private static UserDetail _userDetail;
 
         static UserDetailTData()
         {
-            _usersWithRole = new List<UserWithRole>();
-
-            for (int i = 0; i < _countUsers; i++)
+            _userWithRole = new UserWithRole()
             {
-                _usersWithRole.Add(new UserWithRole()
-                {
-                    ID = Guid.NewGuid(),
-                    FirstName = $"integration test {i}",
-                    LastName = $"integration test {i}",
-                    Login = $"integration test  login{i}",
-                    Password = $"integration test password{i}",
-                });
-            }
+                ID = Guid.NewGuid(),
+                FirstName = $"integration test ",
+                LastName = $"integration test ",
+                Login = $"integration test  login",
+                Password = $"integration test password",
+            };
 
-            _usersDetail = new List<UserDetail>();
-
-            for (int i = 0; i < _countUsers; i++)
+            _userDetail = new UserDetail()
             {
-                _usersDetail.Add(new UserDetail()
-                {
-                    ID = _usersWithRole[i].ID,
-                    FirstName = _usersWithRole[i].FirstName,
-                    LastName = _usersWithRole[i].LastName,
-                    City = $"Integration test City{i}",
-                    DateOfBirth = new DateTime(1995, 09, 05),
-                    Email = "integrationTest@mail.com",
-                    Phone = "0000000000",
-                    Feedbacks = FeedbackInitData.Feedbacks
-                });
-            }
+                ID = _userWithRole.ID,
+                FirstName = _userWithRole.FirstName,
+                LastName = _userWithRole.LastName,
+                City = $"Integration test City",
+                DateOfBirth = new DateTime(1995, 09, 05),
+                Email = "integrationTest@mail.com",
+                Phone = "0000000000",
+                Feedbacks = FeedbackInitData.Feedbacks
+            };
         }
 
-        public static IEnumerable<object[]> DataForUpdate()
+        public static IEnumerable<object[]> GetDataForUpdate()
         {
-            for (int i = 0; i < _countUsers; i++)
+            yield return new object[]
             {
-                yield return new object[]
-                {
-                    _usersWithRole[i],
-                    _usersDetail[i],
-                    _usersDetail[i]
-                };
-            }
+                    _userWithRole,
+                    _userDetail,
+                    _userDetail
+            };
         }
     }
 }

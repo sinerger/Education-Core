@@ -1,18 +1,11 @@
 ﻿using DataAccess.InsightDatabase.Extensions;
 using Education_Core.WebApi.IntegrationTests.Factories;
 using Insight.Database;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using Respawn;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using WebApi;
 using Xunit;
 
 namespace Education_Core.WebApi.IntegrationTests
@@ -20,9 +13,8 @@ namespace Education_Core.WebApi.IntegrationTests
     public abstract class IntegrationTestAbstract : IClassFixture<ApiWebApplicationFactory>
     {
         protected readonly string _connectionString;
-
-        private readonly ApiWebApplicationFactory _factory;
         protected readonly HttpClient _client;
+        private readonly ApiWebApplicationFactory _factory;
 
         public IntegrationTestAbstract(ApiWebApplicationFactory fixture)
         {
@@ -30,10 +22,27 @@ namespace Education_Core.WebApi.IntegrationTests
             _client = _factory.CreateClient();
 
             _connectionString = _factory.Configuration.GetConnectionString("TestDB");
-            
         }
 
-        protected abstract Task InitializeData();
+        protected virtual Task InitializeData()
+        {
+            return null;
+        }
+
+        protected virtual Task<HttpResponseMessage> SendRequesToCreate(object obj)
+        {
+            return null;
+        }
+
+        protected virtual Task<HttpResponseMessage> SendRequesToGetByID(object obj)
+        {
+            return null;
+        }
+
+        protected virtual Task<HttpResponseMessage> SendRequesToGetAll()
+        {
+            return null;
+        }
 
         protected async Task TruncateAllTablesAsync()
         {
@@ -44,4 +53,3 @@ namespace Education_Core.WebApi.IntegrationTests
         }
     }
 }
-

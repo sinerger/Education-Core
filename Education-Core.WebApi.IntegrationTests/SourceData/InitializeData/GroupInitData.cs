@@ -19,7 +19,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 Groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = InitializeData.CourseInitData.Courses[0],
+                    Course = InitializeData.CourseInitData.Course,
                     Title = $"Title{i}",
                     StartDate = new DateTime(2020, 08, 09),
                     FinishDate = new DateTime(2021, 03, 15)

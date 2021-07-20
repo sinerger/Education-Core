@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccess.InsightDatabase\DataAccess.InsightDatabase.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Education-Core.BusinessLogic\Education-Core.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>

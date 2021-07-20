@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.Solutions;
+using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Solutions;
-using Domain.Interfaces;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
@@ -12,41 +12,99 @@ namespace WebApi.Controllers
     [ApiController]
     public class SolutionController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly ISolutionService _solutionService;
 
-        public SolutionController(IDBContext dBContext)
+        public SolutionController(ISolutionService solutionService)
         {
-            _dbContext = dBContext;
+            _solutionService = solutionService;
         }
 
         [HttpGet(ApiRoutes.Solution.GetAllSolutionsByHomeworkID)]
-        public async Task<IEnumerable<Solution>> GetAllSolutionsByHomeworkID(Guid homeworkId)
+        public async Task<IActionResult> GetAllSolutionsByHomeworkID(Guid homeworkId)
         {
-            return await _dbContext.SolutionRepository.GetAllSolutionsByHomeworkIDAsync(homeworkId);
+            var responce = await _solutionService.GetAllSolutionsByHomeworkIDAsync(homeworkId);
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.Solution.GetAllSolutionsByStudentID)]
-        public async Task<IEnumerable<Solution>> GetAllSolutionsByStudentID(Guid studentId)
+        public async Task<IActionResult> GetAllSolutionsByStudentID(Guid studentId)
         {
-            return await _dbContext.SolutionRepository.GetAllSolutionsByStudentIDAsync(studentId);
+            var responce = await _solutionService.GetAllSolutionsByStudentIDAsync(studentId);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.Solution.CreateSolutionWithinHomework)]
-        public async Task CreateSolutionWithinHomework(Guid studentID, Solution solution)
+        public async Task<IActionResult> CreateSolutionWithinHomework(Guid studentID, Solution solution)
         {
-            await _dbContext.SolutionRepository.CreateSolutionWithinHomeworkAsync(studentID, solution);
+            var responce = await _solutionService.CreateSolutionWithinHomeworkAsync(studentID, solution);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.Solution.UpdateSolution)]
-        public async Task UpdateSolution(Solution solution)
+        public async Task<IActionResult> UpdateSolution(Solution solution)
         {
-            await _dbContext.SolutionRepository.UpdateSolutionAsync(solution);
+            var responce = await _solutionService.UpdateSolutionAsync(solution);
+
+            return GetIActionResult(responce);
         }
 
         [HttpDelete(ApiRoutes.Solution.DeleteSolution)]
-        public async Task DeleteSolution(Guid id)
+        public async Task<IActionResult> DeleteSolution(Guid id)
         {
-            await _dbContext.SolutionRepository.DeleteSolutionAsync(id);
+            var responce = await _solutionService.DeleteSolutionAsync(id);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Solution> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Solution>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
-using DataAccess.InsightDatabase.Extensions;
+﻿using DataAccess.InsightDatabase.Extensions;
 using Domain.Entities.Solutions;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
-using Serilog;
+using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
@@ -26,6 +25,7 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 var homeworkID = solution.Homework.ID;
+                solution.ID = solution.ID == Guid.Empty ? Guid.NewGuid() : solution.ID;
 
                 await DBConnection.QueryAsync(nameof(CreateSolutionWithinHomeworkAsync).GetStoredProcedureName(),
                     parameters: new
@@ -39,8 +39,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -53,8 +51,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -67,8 +63,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -81,8 +75,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }
@@ -92,6 +84,7 @@ namespace DataAccess.InsightDatabase.Repositories
             try
             {
                 var homeworkID = solution.Homework.ID;
+
                 await DBConnection.QueryAsync(nameof(UpdateSolutionAsync).GetStoredProcedureName(),
                         parameters: new
                         {
@@ -103,8 +96,6 @@ namespace DataAccess.InsightDatabase.Repositories
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e.ToString());
-
                 throw e;
             }
         }

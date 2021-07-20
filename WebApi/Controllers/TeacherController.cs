@@ -1,64 +1,126 @@
-﻿using System;
+﻿using Domain.Entities.Users;
+using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Users;
-using Domain.Interfaces;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route(ApiRoutes.Api+ApiRoutes.Controller)]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly ITeacherService _teacherService;
 
-        public TeacherController(IDBContext dBContext)
+        public TeacherController(ITeacherService teacherService)
         {
-            _dbContext = dBContext;
+            _teacherService = teacherService;
         }
 
         [HttpGet(ApiRoutes.Teacher.GetAllTeachers)]
-        public async Task<IEnumerable<Teacher>> GetAllTeachers()
+        public async Task<IActionResult> GetAllTeachers()
         {
-            return await _dbContext.TeacherRepository.GetAllTeachersAsync();
+            var responce = await _teacherService.GetAllTeachersAsync();
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.Teacher.GetTeacherByID)]
-        public async Task<Teacher> GetTeacherByID(Guid id)
+        public async Task<IActionResult> GetTeacherByID(Guid id)
         {
-            return await _dbContext.TeacherRepository.GetTeacherByIDAsync(id);
+            var responce = await _teacherService.GetTeacherByIDAsync(id);
+
+            return GetIActionResult(responce);
         }
-        
+
         [HttpPost(ApiRoutes.Teacher.AddTeacherToGroup)]
-        public async Task<bool> AddTeacherToGroup(Guid groupID, Guid userID)
+        public async Task<IActionResult> AddTeacherToGroup(Guid groupID, Guid userID)
         {
-            return await _dbContext.TeacherRepository.AddTeacherToGroupAsync(groupID, userID);
+            var responce = await _teacherService.AddTeacherToGroupAsync(groupID, userID);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.Teacher.AddTeacherToLesson)]
-        public async Task<bool> AddTeacherToLesson(Guid groupID, Guid teacherID)
+        public async Task<IActionResult> AddTeacherToLesson(Guid groupID, Guid teacherID)
         {
-            return await _dbContext.TeacherRepository.AddTeacherToLessonAsync(groupID, teacherID);
+            var responce = await _teacherService.AddTeacherToLessonAsync(groupID, teacherID);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.Teacher.CreateTeacher)]
-        public async Task<bool> CreateTeacher(Teacher teacher)
+        public async Task<IActionResult> CreateTeacher(Teacher teacher)
         {
-            return await _dbContext.TeacherRepository.CreateTeacherAsync(teacher);
+            var responce = await _teacherService.CreateTeacherAsync(teacher);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.Teacher.UpdateTeacher)]
-        public async Task<bool> UpdateTeacher(Teacher teacher)
+        public async Task<IActionResult> UpdateTeacher(Teacher teacher)
         {
-            return await _dbContext.TeacherRepository.UpdateTeacherAsync(teacher);
+            var responce = await _teacherService.UpdateTeacherAsync(teacher);
+
+            return GetIActionResult(responce);
         }
 
         [HttpDelete(ApiRoutes.Teacher.DeleteTeacher)]
-        public async Task DeleteTeacher(Guid id)
-        { 
-            await _dbContext.TeacherRepository.DeleteTeacherAsync(id);
+        public async Task<IActionResult> DeleteTeacher(Guid id)
+        {
+            var responce = await _teacherService.DeleteTeacherAsync(id);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Teacher> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Teacher>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Entities.Courses;
+﻿using Domain.Entities.Courses;
 using Domain.Entities.Groups;
 using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces.GroupRepositoryInterfaces
 {
@@ -13,8 +13,8 @@ namespace Domain.Interfaces.GroupRepositoryInterfaces
         Task<IEnumerable<Group>> GetAllGroupsAsync();
         [Recordset(1, typeof(Course), IsChild = true)]
         Task<Group> GetGroupByIDAsync(Guid id);
-        Task<bool> CreateGroupWithinCourseAsync(Group group);
-        Task<bool> UpdateGroupAsync(Group group);
+        Task CreateGroupWithinCourseAsync(Group group);
+        Task UpdateGroupAsync(Group group);
         Task DeleteGroupAsync(Guid id);
     }
 }

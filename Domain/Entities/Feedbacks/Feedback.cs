@@ -1,6 +1,4 @@
-﻿using Domain.Entities.Users;
-using Insight.Database;
-using System;
+﻿using System;
 
 namespace Domain.Entities.Feedbacks
 {

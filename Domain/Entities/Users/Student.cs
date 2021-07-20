@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Entities.Groups;
+﻿using Domain.Entities.Groups;
 using Domain.Entities.Roles;
 using Domain.Entities.Solutions;
+using System.Collections.Generic;
 
 namespace Domain.Entities.Users
 {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.Lessons;
+using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Entities.Lessons;
-using Domain.Interfaces;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
@@ -12,49 +12,99 @@ namespace WebApi.Controllers
     [ApiController]
     public class LessonController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly ILessonService _lessonService;
 
-        public LessonController(IDBContext dBContext)
+        public LessonController(ILessonService lessonService)
         {
-            _dbContext = dBContext;
+            _lessonService = lessonService;
         }
 
         [HttpGet(ApiRoutes.Lesson.GetAllLessons)]
-        public async Task<IEnumerable<Lesson>> GetAllLessons()
+        public async Task<IActionResult> GetAllLessons()
         {
-            return await _dbContext.LessonRepository.GetAllLessonsAsync();
+            var responce = await _lessonService.GetAllLessonsAsync();
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.Lesson.GetLessonByID)]
-        public async Task<Lesson> GetLessonByID(Guid id)
+        public async Task<IActionResult> GetLessonByID(Guid id)
         {
-            return await _dbContext.LessonRepository.GetLessonByIDAsync(id);
+            var responce = await _lessonService.GetLessonByIDAsync(id);
+
+            return GetIActionResult(responce);
         }
 
         [HttpDelete(ApiRoutes.Lesson.DeleteLesson)]
-        public async Task DeleteLesson(Guid id)
+        public async Task<IActionResult> DeleteLesson(Guid id)
         {
-            await _dbContext.LessonRepository.DeleteLessonAsync(id);
+            var responce = await _lessonService.DeleteLessonAsync(id);
+
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.Lesson.CreateLessonWithinCourse)]
-        public async Task CreateLessonWithinCourse(Lesson lesson)
+        public async Task<IActionResult> CreateLessonWithinCourse(Lesson lesson)
         {
-            try
-            {
-                await _dbContext.LessonRepository.CreateLessonWithinCourseAsync(lesson);
-            }
-            catch (Exception e)
-            {
+            var responce = await _lessonService.CreateLessonWithinCourseAsync(lesson);
 
-                throw e;
-            }
+            return GetIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.Lesson.UpdateLesson)]
-        public async Task UpdateLesson(Lesson lesson)
+        public async Task<IActionResult> UpdateLesson(Lesson lesson)
         {
-            await _dbContext.LessonRepository.UpdateLessonAsync(lesson);
+            var responce = await _lessonService.UpdateLessonAsync(lesson);
+
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<Lesson> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<IEnumerable<Lesson>> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

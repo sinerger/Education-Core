@@ -12,9 +12,9 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
         {
             _courseWithLesson = new CourseWithLessons()
             {
-                ID = CourseInitData.Courses[0].ID,
-                Title = CourseInitData.Courses[0].Title,
-                Description = CourseInitData.Courses[0].Description,
+                ID = CourseInitData.Course.ID,
+                Title = CourseInitData.Course.Title,
+                Description = CourseInitData.Course.Description,
                 Lessons = new List<Lesson>()
                 {
                     LessonInitData.Lesson

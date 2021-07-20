@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Insight.Database;
+﻿using Domain.Entities.Courses;
 using Domain.Entities.Homeworks;
 using Domain.Entities.Lessons;
 using Domain.Entities.Users;
-using Domain.Entities.Courses;
+using Insight.Database;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces.LessonRepositoryInterfaces
 {

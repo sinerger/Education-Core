@@ -25,7 +25,7 @@ namespace WebApi.Routes
             public const string GetUserWithRoleByID = _getByIDDefaultRoute;
             public const string GetUserWithRoleByLoginAndPassword = "login";
             public const string UpdateUserWithRole = _updateDefaultRoute;
-            public const string DeleteUserWithRoleByID = _deleteDefaultRoute;
+            public const string DeleteUserWithRole = _deleteDefaultRoute;
             public const string CreateUserWithRole = _createDefaultRoute;
 
             public static string GetRouteForCreate()
@@ -37,7 +37,8 @@ namespace WebApi.Routes
 
             public static string GetRouteForGetByID(Guid id)
             {
-                var result = Api + Route + "/" + id.ToString();
+                var getByID = GetUserWithRoleByID == "{id}" ? "/" : $"/{ GetUserWithRoleByID }?{ GetUserWithRoleByID }=";
+                var result = Api + Route + getByID + id.ToString();
 
                 return result;
             }
@@ -51,7 +52,7 @@ namespace WebApi.Routes
 
             public static string GetRouteForUpdate()
             {
-                var result = Api + Route;
+                var result = Api + Route + "/" + UpdateUserWithRole;
 
                 return result;
             }
@@ -76,27 +77,27 @@ namespace WebApi.Routes
 
             public static string GetRouteForAllLessons()
             {
-                return Api + Route + "/";
+                return Api + Route + "/" + GetAllLessons;
             }
 
             public static string GetRouteForGetByID(Guid id)
             {
-                var getByid = GetLessonByID == "{id}" ? "" : GetLessonByID;
-                var result = Api + Route + getByid + "/" + id.ToString();
+                var getByid = GetLessonByID == "{id}" ? "/" : $"/{ GetLessonByID }?{ GetLessonByID }=";
+                var result = Api + Route + getByid + id.ToString();
 
                 return result;
             }
 
             public static string GetRouteForCreate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + CreateLessonWithinCourse;
 
                 return result;
             }
 
             public static string GetRouteForUpdate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + UpdateLesson;
 
                 return result;
             }
@@ -115,25 +116,28 @@ namespace WebApi.Routes
 
             public const string GetAllGroups = _getAllDefaultRoute;
             public const string CreateGroupWithinCourse = _createDefaultRoute;
-
+            public const string GetGroupByID = _getByIDDefaultRoute;
+            public const string UpdateGroup = _updateDefaultRoute;
+            public const string DeleteGroup = _deleteDefaultRoute;
 
             public static string GetRouteForCreate()
             {
-                var result = Api + Route + CreateGroupWithinCourse;
+                var result = Api + Route + "/" + CreateGroupWithinCourse;
 
                 return result;
             }
 
             public static string GetRouteForGetByID(Guid id)
             {
-                var result = Api + Route + "/" + id.ToString();
+                var getByid = GetGroupByID == "{id}" ? "/" : $"/{ GetGroupByID }?{ GetGroupByID }=";
+                var result = Api + Route + getByid + id.ToString();
 
                 return result;
             }
 
             public static string GetRouteForUpdate()
             {
-                var result = Api + Route;
+                var result = Api + Route + "/" + UpdateGroup;
 
                 return result;
             }
@@ -144,9 +148,10 @@ namespace WebApi.Routes
 
                 return result;
             }
+
             public static string GetRouteForGetAllGroups()
             {
-                var result = Api + Route + GetAllGroups;
+                var result = Api + Route + "/" + GetAllGroups;
 
                 return result;
             }
@@ -155,12 +160,13 @@ namespace WebApi.Routes
         public static class GroupWithStudents
         {
             public static string Route => "/" + nameof(GroupWithStudents);
+
             public const string GetGroupWithStudentsByID = _getByIDDefaultRoute;
-            
+
             public static string GetRouteForGetByID(Guid id)
             {
-                var getByid = GetGroupWithStudentsByID == "{id}" ? "" : GetGroupWithStudentsByID;
-                var result = Api + Route + getByid + "/" + id.ToString();
+                var getByid = GetGroupWithStudentsByID == "{id}" ? "/" : $"/{ GetGroupWithStudentsByID }?{ GetGroupWithStudentsByID }=";
+                var result = Api + Route + getByid + id.ToString();
 
                 return result;
             }
@@ -175,15 +181,15 @@ namespace WebApi.Routes
 
             public static string GetRouteForUpdate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + UpdateUserDetail;
 
                 return result;
             }
 
             public static string GetRouteForGetByID(Guid id)
             {
-                var getByID = GetUserDetailByID == "{id}" ? "" : GetUserDetailByID;
-                var result = Api + Route + getByID + "/" + id.ToString();
+                var getByID = GetUserDetailByID == "{id}" ? "/" : $"/{ GetUserDetailByID }?{ GetUserDetailByID }=";
+                var result = Api + Route + getByID + id.ToString();
 
                 return result;
             }
@@ -200,14 +206,14 @@ namespace WebApi.Routes
 
             public static string GetRouteForGetAllCourses()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + GetAllCourses;
 
                 return result;
             }
 
             public static string GetRouteForCreate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + CreateCourse;
 
                 return result;
             }
@@ -221,7 +227,7 @@ namespace WebApi.Routes
 
             public static string GetRouteForUpdate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + UpdateCourse;
 
                 return result;
             }
@@ -256,14 +262,14 @@ namespace WebApi.Routes
 
             public static string GetRouteForCreate()
             {
-                var result = Api + Route + "/";
+                var result = Api + Route + "/" + CreateHomework;
 
                 return result;
             }
 
             public static string GetRouteForGetByLessonID(Guid lessonID)
             {
-                var getByID = GetHomeworkByLessonID == "{lessonid}" ? "/" : "/" + GetHomeworkByLessonID + "?lessonid=";
+                var getByID = GetHomeworkByLessonID == "{lessonid}" ? "/" : $"/{ GetHomeworkByLessonID }?{ GetHomeworkByLessonID }=";
                 var result = Api + Route + getByID + lessonID.ToString();
 
                 return result;
@@ -271,7 +277,7 @@ namespace WebApi.Routes
 
             public static string GetRouteForAddByLessonID(Guid lessonID)
             {
-                var addByID = AddHomeworkWithinLesson == "{lessonid}" ? "/" : "/" + AddHomeworkWithinLesson + "?lessonid=";
+                var addByID = AddHomeworkWithinLesson == "{lessonid}" ? "/" : $"/{ AddHomeworkWithinLesson }?{ AddHomeworkWithinLesson }=";
                 var result = Api + Route + addByID + lessonID.ToString();
 
                 return result;
@@ -279,31 +285,24 @@ namespace WebApi.Routes
 
             public static string GetRouteForGetAllByCourseID(Guid courseID)
             {
-                var getAllByID = GetAllHomeworkByCourseID == "{courseid}" ? "/" : "/" + GetAllHomeworkByCourseID + "?courseid=";
-                var result = Api + Route + getAllByID + courseID.ToString();
+                var getByID = GetAllHomeworkByCourseID == "{courseid}" ? "/" : $"/{ GetAllHomeworkByCourseID }?{ GetAllHomeworkByCourseID }=";
+                var result = Api + Route + getByID + courseID.ToString();
 
                 return result;
             }
 
             public static string GetRouteForDelete(Guid homeworkID)
             {
-                var delete = DeleteHomework == "{id}" ? "/" : "/" + DeleteHomework;
-                var result = Api + Route + delete + homeworkID.ToString();
+                var result = Api + Route + "/" + homeworkID.ToString();
 
                 return result;
             }
 
             public static string GetRouteForUpdate()
             {
-                var update = UpdateHomework == "{id}" ? "/" : "/" + UpdateHomework;
-                var result = Api + Route + update;
+                var result = Api + Route + UpdateHomework;
 
                 return result;
-            }
-
-            public static object GetRouteForGetAllByHomeworkID(Guid iD)
-            {
-                throw new NotImplementedException();
             }
         }
 
@@ -402,8 +401,7 @@ namespace WebApi.Routes
 
             public static string GetRouteForDeletete(Guid ID)
             {
-                var delete = DeleteSolution == "{id}" ? "" : "/" + DeleteSolution;
-                var result = Api + Route + delete + "/" + ID.ToString();
+                var result = Api + Route + "/" + ID.ToString();
 
                 return result;
             }

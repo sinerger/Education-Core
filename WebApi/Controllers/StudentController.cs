@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Domain.Entities.Users;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Domain.Interfaces;
-using Domain.Entities.Users;
 
 namespace WebApi.Controllers
 {
@@ -31,27 +31,27 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("groupid")]
-        public async Task<bool> AddStudentToGroup(Student student)
+        public async Task AddStudentToGroup(Student student)
         {
-            return await _dbContext.StudentRepository.AddStudentToGroupAsync(student);
+             await _dbContext.StudentRepository.AddStudentToGroupAsync(student);
         }
 
         [HttpPost]
-        public async Task<bool> CreateStudent(Student student)
+        public async Task CreateStudent(Student student)
         {
-            return await _dbContext.StudentRepository.CreateStudentAsync(student);
+             await _dbContext.StudentRepository.CreateStudentAsync(student);
         }
 
         [HttpPut]
-        public async Task<bool> UpdateStudent(Student student)
+        public async Task UpdateStudent(Student student)
         {
-            return await _dbContext.StudentRepository.UpdateStudentAsync(student);
+             await _dbContext.StudentRepository.UpdateStudentAsync(student);
         }
 
         [HttpDelete("{id}")]
-        public async Task<bool> DeleteStudenD(Guid id)
+        public async Task DeleteStudenD(Guid id)
         {
-            return await _dbContext.StudentRepository.DeleteStudentAsync(id);
+             await _dbContext.StudentRepository.DeleteStudentAsync(id);
         }
     }
 }

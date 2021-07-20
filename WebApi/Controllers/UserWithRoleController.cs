@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Users;
-using Domain.Interfaces;
+using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -11,87 +11,83 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserWithRoleController : ControllerBase
     {
-        private readonly IDBContext _dbContext;
+        private readonly IUserWithRoleService _userWithRoleService;
 
-        public UserWithRoleController(IDBContext dbContext)
+        public UserWithRoleController(IUserWithRoleService userWithRoleService)
         {
-            _dbContext = dbContext;
+            _userWithRoleService = userWithRoleService;
         }
 
         [HttpGet(ApiRoutes.UserWIthRole.GetUserWithRoleByID)]
-        public async Task<UserWithRole> GetUserWithRoleById(Guid id)
+        public async Task<IActionResult> GetUserWithRoleById(Guid id)
         {
-            try
-            {
-            return await _dbContext.UserWithRoleRepository.GetUserWithRoleByIDAsync(id);
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            var responce = await _userWithRoleService.GetUserWithRoleByIDAsync(id);
+
+            return GetIActionResult(responce);
         }
 
         [HttpGet(ApiRoutes.UserWIthRole.GetUserWithRoleByLoginAndPassword)]
-        public async Task<UserWithRole> GetUserWithRoleByLoginAndPassword(string login, string password)
+        public async Task<IActionResult> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
-            try
-            {
-                return await _dbContext.UserWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
-            }
-            catch (Exception)
-            {
+            var responce = await _userWithRoleService.GetUserWithRoleByLoginAndPasswordAsync(login, password);
 
-                throw;
-            }
-            
+            return GetIActionResult(responce);
         }
 
         [HttpPost(ApiRoutes.UserWIthRole.CreateUserWithRole)]
-        public async Task<Guid> CreateUserWithRole(UserWithRole user)
+        public async Task<IActionResult> CreateUserWithRole(UserWithRole user)
         {
-            try
-            {
-                await _dbContext.UserWithRoleRepository.CreateUserWithRoleAsync(user);
+            var responce = await _userWithRoleService.CreateUserWithRoleAsync(user);
 
-                return user.ID;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
+            return GetIActionResult(responce);
         }
 
-        [HttpDelete(ApiRoutes.UserWIthRole.DeleteUserWithRoleByID)]
-        public async Task<bool> DeleteUserWithRole(Guid id)
+        [HttpDelete(ApiRoutes.UserWIthRole.DeleteUserWithRole)]
+        public async Task<IActionResult> DeleteUserWithRole(Guid id)
         {
-            try
-            {
-                await _dbContext.UserWithRoleRepository.DeleteUserWithRoleAsync(id);
+            var responce = await _userWithRoleService.DeleteUserWithRoleAsync(id);
 
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
+            return GetIActionResult(responce);
         }
 
         [HttpPut(ApiRoutes.UserWIthRole.UpdateUserWithRole)]
-        public async Task<bool> UpdateUserWithRole(UserWithRole user)
+        public async Task<IActionResult> UpdateUserWithRole(UserWithRole user)
         {
-            try
-            {
-                await _dbContext.UserWithRoleRepository.UpdateUserWithRoleAsync(user);
+            var responce = await _userWithRoleService.UpdateUserWithRoleAsync(user);
 
-                return true;
-            }
-            catch (Exception e)
+            return GetIActionResult(responce);
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<UserWithRole> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
             {
-                return false;
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
             }
 
+            return result;
+        }
+
+        private IActionResult GetIActionResult(IServiceResponce<bool> responce)
+        {
+            IActionResult result = null;
+
+            if (responce.IsSuccessfully)
+            {
+                result = Ok(responce.Result);
+            }
+            else
+            {
+                result = BadRequest(responce.Message);
+            }
+
+            return result;
         }
     }
 }

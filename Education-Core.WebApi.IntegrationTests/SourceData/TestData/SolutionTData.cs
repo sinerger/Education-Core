@@ -2,9 +2,6 @@
 using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {

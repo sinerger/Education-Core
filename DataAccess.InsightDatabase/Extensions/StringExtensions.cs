@@ -1,5 +1,4 @@
-﻿
-namespace DataAccess.InsightDatabase.Extensions
+﻿namespace DataAccess.InsightDatabase.Extensions
 {
     public static class StringExtensions
     {
