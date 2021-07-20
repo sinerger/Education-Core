@@ -322,5 +322,47 @@ namespace WebApi.Routes
                 return result;
             }
         }
+
+        public static class Attendance
+        {
+            public static string Route => "/" + nameof(Attendance);
+
+            public const string GetAllAttendanceByLessonID = "lessonid";
+            public const string GetAllAttendanceByStudentID = "studentid";
+            public const string CreateAttendanceWithinLesson = "lessonid";
+            public const string UpdateAttendance = _updateDefaultRoute;
+
+            public static string GetRouteForGetAllAttendanceByLessonID(Guid lessonID)
+            {
+                var getAllByID = GetAllAttendanceByLessonID == "{lessonid}" ? "/" : "/" + GetAllAttendanceByLessonID + "?lessonid=";
+                var result = Api + Route + getAllByID + lessonID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAllAttendanceByStudentID(Guid studentID)
+            {
+                var getAllByID = GetAllAttendanceByStudentID == "{studentid}" ? "/" : "/" + GetAllAttendanceByStudentID + "?studentid=";
+                var result = Api + Route + getAllByID + studentID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForCreateAttendanceWithinLesson(Guid lessonID)
+            {
+                var createById = CreateAttendanceWithinLesson == "{lessonid}" ? "/" : "/" + CreateAttendanceWithinLesson + "?lessonid=";
+                var result = Api + Route + createById + lessonID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForUpdateAttendance(Guid lessonID)
+            {
+                var update = UpdateAttendance == "{lessonid}" ? "/" : "/" + UpdateAttendance + "?lessonid=";
+                var result = Api + Route + update + lessonID.ToString();
+
+                return result;
+            }
+        }
     }
 }
