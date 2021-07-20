@@ -24,7 +24,16 @@ namespace DataAccess.InsightDatabase.Repositories
 
         public async Task<UserDetail> GetUserDetailByIDAsync(Guid id)
         {
-            return await _userDetailRepository.GetUserDetailByIDAsync(id);
+            try
+            {
+                return await _userDetailRepository.GetUserDetailByIDAsync(id);
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+
+                throw e;
+            }
         }
 
         public async Task UpdateDetailInfoForUserAsync(UserDetail user)
@@ -45,7 +54,7 @@ namespace DataAccess.InsightDatabase.Repositories
             {
                 Log.Logger.Error(e.ToString());
 
-                throw;
+                throw e;
             }
         }
     }

@@ -9,6 +9,7 @@ using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
 using Domain.Interfaces.FeedbackRepositoryInterfaces;
+using Domain.Interfaces.ICourseWithLessonsInterfaces;
 using Domain.Interfaces.AttendanceRepositoryInterfaces;
 
 namespace DataAccess.InsightDatabase
@@ -32,6 +33,7 @@ namespace DataAccess.InsightDatabase
         public IGroupRepository GroupRepository => new GroupRepository(DBConnection);
         public ISolutionRepository SolutionRepository => new SolutionRepository(DBConnection);
         public IFeedbackRepository FeedbackRepository => new FeedbackRepository(DBConnection);
+        public ICourseWithLessonsRepository CourseWithLessonsRepository => new CourseWithLessonsRepository(DBConnection);
         public IAttendanceRepository AttendanceRepository => new AttendanceRepository(DBConnection);
     }
 }

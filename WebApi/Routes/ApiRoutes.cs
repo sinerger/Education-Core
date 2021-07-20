@@ -225,6 +225,22 @@ namespace WebApi.Routes
 
                 return result;
             }
+
+        }
+        public static class CourseWithLessons
+        {
+            public static string Route => "/" + nameof(CourseWithLessons);
+
+            public const string GetCourceWithLessonsByID = _getByIDDefaultRoute;
+
+            public static string GetRouteForGetById(Guid id)
+            {
+                var getByid = GetCourceWithLessonsByID == "{id}" ? "" : "/" + GetCourceWithLessonsByID;
+
+                var result = Api + Route + getByid + "/" + id.ToString();
+
+                return result;
+            }
         }
 
         public static class Homework

@@ -4,6 +4,7 @@ using Domain.Interfaces.FeedbackRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
 using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
 using Domain.Interfaces.HomeworkRepositoryInterfaces;
+using Domain.Interfaces.ICourseWithLessonsInterfaces;
 using Domain.Interfaces.LessonRepositoryInterfaces;
 using Domain.Interfaces.SolutionRepositoryInterfaces;
 using Domain.Interfaces.UserRepositoryInterfaces;
@@ -26,6 +27,7 @@ namespace Domain.Interfaces
         IUserDetailRepository UserDetailRepository { get; }
         ILessonRepository LessonRepository { get; }
         IFeedbackRepository FeedbackRepository { get; }
+        ICourseWithLessonsRepository CourseWithLessonsRepository { get; }
         IAttendanceRepository AttendanceRepository { get; }
     }
 }
