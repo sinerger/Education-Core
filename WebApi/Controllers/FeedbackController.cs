@@ -1,13 +1,15 @@
 ﻿using Domain.Entities.Feedbacks;
+using Domain.Entities.Users;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class FeedbackController : Controller
     {
@@ -18,34 +20,34 @@ namespace WebApi.Controllers
             _dBContext = dBContext;
         }
 
-        [HttpPost]
-        public async Task<bool> CreateFeedbackForUserAsync(Guid userID, Feedback feedback)
+        [HttpPost(ApiRoutes.Feedback.CreateFeedbackForUser)]
+        public async Task CreateFeedbackForUserAsync(Guid authorID, Guid userID, Feedback feedback)
         {
-            return await _dBContext.FeedbackRepository.CreateFeedbackForUserAsync(userID, feedback);
+            await _dBContext.FeedbackRepository.CreateFeedbackForUserAsync(authorID, userID, feedback);
         }
 
-        [HttpGet("{authorid}")]
-        public async Task<IEnumerable<Feedback>> GetAllFeedbacksByAuthorIDAsync(Guid userID)
-        {
-            return await _dBContext.FeedbackRepository.GetAllFeedbacksByAuthorIDAsync(userID);
-        }
-
-        [HttpGet("{userid}")]
+        [HttpGet(ApiRoutes.Feedback.GetAllFeedbacksByUserID)]
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksByUserIDAsync(Guid userID)
         {
             return await _dBContext.FeedbackRepository.GetAllFeedbacksByUserIDAsync(userID);
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateFeedbackAsync(Feedback feedback)
+        [HttpGet(ApiRoutes.Feedback.GetAuthorByFeedbackID)]
+        public async Task<UserWithRole> GetAuthorByFeedbackIDAsync(Guid feedbackID)
         {
-            return await _dBContext.FeedbackRepository.UpdateFeedbackAsync(feedback);
+            return await _dBContext.FeedbackRepository.GetAuthorByFeedbackIDAsync(feedbackID);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<bool> DeleteFeedbackAsync(Guid id)
+        [HttpPut(ApiRoutes.Feedback.UpdateFeedback)]
+        public async Task UpdateFeedbackAsync(Feedback feedback)
         {
-            return await _dBContext.FeedbackRepository.DeleteFeedbackAsync(id);
+            await _dBContext.FeedbackRepository.UpdateFeedbackAsync(feedback);
+        }
+
+        [HttpDelete(ApiRoutes.Feedback.DeleteFeedback)]
+        public async Task DeleteFeedbackAsync(Guid id)
+        {
+            await _dBContext.FeedbackRepository.DeleteFeedbackAsync(id);
         }
     }
 }

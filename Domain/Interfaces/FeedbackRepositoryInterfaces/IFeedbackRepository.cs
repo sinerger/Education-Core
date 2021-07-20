@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities.Feedbacks;
+using Domain.Entities.Users;
+using Insight.Database;
 
 namespace Domain.Interfaces.FeedbackRepositoryInterfaces
 {
     public interface IFeedbackRepository : IRepository
     {
+        [Recordset(typeof(Feedback), typeof(UserWithRole))]
         Task<IEnumerable<Feedback>> GetAllFeedbacksByUserIDAsync(Guid userID);
-        Task<IEnumerable<Feedback>> GetAllFeedbacksByAuthorIDAsync(Guid userID);
-        Task<bool> CreateFeedbackForUserAsync(Guid userID, Feedback feedback);
-        Task<bool> UpdateFeedbackAsync(Feedback feedback);
-        Task<bool> DeleteFeedbackAsync(Guid id);
+        Task<UserWithRole> GetAuthorByFeedbackIDAsync(Guid id);
+        Task CreateFeedbackForUserAsync(Guid authorID, Guid userID, Feedback feedback);
+        Task UpdateFeedbackAsync(Feedback feedback);
+        Task DeleteFeedbackAsync(Guid id);
     }
 }
