@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.CouseRepositoryInterfaces;
+﻿using Domain.Interfaces.AttendanceRepositoryInterfaces;
+using Domain.Interfaces.CouseRepositoryInterfaces;
 using Domain.Interfaces.FeedbackRepositoryInterfaces;
 using Domain.Interfaces.GroupRepositoryInterfaces;
 using Domain.Interfaces.GroupWithStudentRepositoryInterfaces;
@@ -25,5 +26,6 @@ namespace Domain.Interfaces
         IUserDetailRepository UserDetailRepository { get; }
         ILessonRepository LessonRepository { get; }
         IFeedbackRepository FeedbackRepository { get; }
+        IAttendanceRepository AttendanceRepository { get; }
     }
 }
