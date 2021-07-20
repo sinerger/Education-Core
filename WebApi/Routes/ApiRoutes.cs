@@ -268,6 +268,59 @@ namespace WebApi.Routes
 
                 return result;
             }
+
+            public static object GetRouteForGetAllByHomeworkID(Guid iD)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public static class Solution
+        {
+            public static string Route => "/" + nameof(Solution);
+
+            public const string GetAllSolutionsByHomeworkID = "homeworkid";
+            public const string GetAllSolutionsByStudentID = "studentid";
+            public const string AddSolutionToStudent = "studentid";
+            public const string CreateSolutionWithinHomework = "studentid";
+            public const string UpdateSolution = _updateDefaultRoute;
+            public const string DeleteSolution = _deleteDefaultRoute;
+
+            public static string GetRouteForCreate(Guid userID)
+            {
+                var result = Api + Route + "/" + CreateSolutionWithinHomework + "?studentid=" + userID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAllByHomeworkID(Guid homeworkiD)
+            {
+                var result = Api + Route + "/" + GetAllSolutionsByHomeworkID + "?homeworkid=" + homeworkiD.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/" + UpdateSolution;
+
+                return result;
+            }
+
+            public static string GetRouteForDeletete(Guid ID)
+            {
+                var delete = DeleteSolution == "{id}" ? "" : "/" + DeleteSolution;
+                var result = Api + Route + delete + "/" + ID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAllByStudentID(Guid studentID)
+            {
+                var result = Api + Route + "/" + GetAllSolutionsByStudentID + "?studentid=" + studentID.ToString();
+
+                return result;
+            }
         }
     }
 }

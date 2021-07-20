@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities.Solutions;
 using Domain.Interfaces;
+using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class SolutionController : ControllerBase
     {
@@ -18,40 +19,34 @@ namespace WebApi.Controllers
             _dbContext = dBContext;
         }
 
-        [HttpGet("{homeworkid}")]
+        [HttpGet(ApiRoutes.Solution.GetAllSolutionsByHomeworkID)]
         public async Task<IEnumerable<Solution>> GetAllSolutionsByHomeworkID(Guid homeworkId)
         {
             return await _dbContext.SolutionRepository.GetAllSolutionsByHomeworkIDAsync(homeworkId);
         }
 
-        [HttpGet("{studentid}")]
+        [HttpGet(ApiRoutes.Solution.GetAllSolutionsByStudentID)]
         public async Task<IEnumerable<Solution>> GetAllSolutionsByStudentID(Guid studentId)
         {
             return await _dbContext.SolutionRepository.GetAllSolutionsByStudentIDAsync(studentId);
         }
 
-        [HttpPost]
-        public async Task<bool> CreateSolutionWithinHomework(Guid homeworkId,Solution solution)
+        [HttpPost(ApiRoutes.Solution.CreateSolutionWithinHomework)]
+        public async Task CreateSolutionWithinHomework(Guid studentID, Solution solution)
         {
-            return await _dbContext.SolutionRepository.CreateSolutionWithinHomeworkAsync(homeworkId, solution);
+            await _dbContext.SolutionRepository.CreateSolutionWithinHomeworkAsync(studentID, solution);
         }
 
-        [HttpPost("{studentid}")]
-        public async Task<bool> AddSolutionToStudent(Guid studentId,Solution solution)
+        [HttpPut(ApiRoutes.Solution.UpdateSolution)]
+        public async Task UpdateSolution(Solution solution)
         {
-            return await _dbContext.SolutionRepository.AddSolutionToStudentAsync(studentId, solution);
+            await _dbContext.SolutionRepository.UpdateSolutionAsync(solution);
         }
 
-        [HttpPut]
-        public async Task<bool> UpdateSolution(Solution solution)
+        [HttpDelete(ApiRoutes.Solution.DeleteSolution)]
+        public async Task DeleteSolution(Guid id)
         {
-            return await _dbContext.SolutionRepository.UpdateSolutionAsync(solution);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<bool> DeleteSolution(Guid id)
-        {
-            return await _dbContext.SolutionRepository.DeleteSolutionAsync(id);
+            await _dbContext.SolutionRepository.DeleteSolutionAsync(id);
         }
     }
 }

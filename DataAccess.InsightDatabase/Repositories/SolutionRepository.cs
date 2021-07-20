@@ -12,8 +12,8 @@ namespace DataAccess.InsightDatabase.Repositories
 {
     public class SolutionRepository : ISolutionRepository
     {
-        public IDbConnection DBConnection { get; }
         private readonly ISolutionRepository _solutionRepository;
+        public IDbConnection DBConnection { get; }
 
         public SolutionRepository(IDbConnection dbConnection)
         {
@@ -21,23 +21,21 @@ namespace DataAccess.InsightDatabase.Repositories
             _solutionRepository = DBConnection.As<ISolutionRepository>();
         }
 
-        public async Task<bool> CreateSolutionWithinHomeworkAsync(Guid homeworkId, Solution solution)
+        public async Task CreateSolutionWithinHomeworkAsync(Guid studentID, Solution solution)
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(CreateSolutionWithinHomeworkAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            solution.ID,
-                            solution.Answer,
-                            solution.Mark,
-                            homeworkId
-                        });
-                }
+                var homeworkID = solution.Homework.ID;
 
-                return true;
+                await DBConnection.QueryAsync(nameof(CreateSolutionWithinHomeworkAsync).GetStoredProcedureName(),
+                    parameters: new
+                    {
+                        solution.ID,
+                        solution.Answer,
+                        solution.Mark,
+                        homeworkID,
+                        studentID
+                    });
             }
             catch (Exception e)
             {
@@ -47,37 +45,11 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> AddSolutionToStudentAsync(Guid studentId, Solution solution)
+        public async Task DeleteSolutionAsync(Guid id)
         {
             try
             {
-                using (var transaction = DBConnection.OpenWithTransaction())
-                {
-                    await DBConnection.QueryAsync(nameof(AddSolutionToStudentAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            solution.ID,
-                            solution.Answer,
-                            solution.Mark,
-                            studentId
-                        });
-                }
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Error(e.ToString());
-
-                throw e;
-            }
-        }
-
-        public async Task<bool> DeleteSolutionAsync(Guid id)
-        {
-            try
-            {
-                return await _solutionRepository.DeleteSolutionAsync(id);
+                await _solutionRepository.DeleteSolutionAsync(id);
             }
             catch (Exception e)
             {
@@ -115,19 +87,19 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task<bool> UpdateSolutionAsync(Solution solution)
+        public async Task UpdateSolutionAsync(Solution solution)
         {
             try
             {
+                var homeworkID = solution.Homework.ID;
                 await DBConnection.QueryAsync(nameof(UpdateSolutionAsync).GetStoredProcedureName(),
                         parameters: new
                         {
                             solution.ID,
                             solution.Answer,
-                            solution.Mark
+                            solution.Mark,
+                            homeworkID
                         });
-
-                return true;
             }
             catch (Exception e)
             {
