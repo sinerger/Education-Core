@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Groups;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
+    [Authorize(Policy = "PermissionForAdminAndTeacherRoles")]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class GroupController : ControllerBase
@@ -35,6 +37,7 @@ namespace WebApi.Controllers
             return GetIActionResult(responce);
         }
 
+        [Authorize(Policy = "PermissionJustForAdminRole")]
         [HttpPost(ApiRoutes.Group.CreateGroupWithinCourse)]
         public async Task<IActionResult> CreateGroupWithinCourse(Group group)
         {

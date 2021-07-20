@@ -70,8 +70,9 @@ namespace DataAccess.InsightDatabase.Repositories
         public async Task<UserWithRole> GetUserWithRoleByLoginAndPasswordAsync(string login, string password)
         {
             try
-            {
-                return await _userWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+            { 
+                var user = _userWithRoleRepository.GetUserWithRoleByLoginAndPasswordAsync(login, password);
+                return await user;
             }
             catch (Exception e)
             {

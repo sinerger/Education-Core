@@ -3,10 +3,12 @@ using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class UserDetailController : ControllerBase

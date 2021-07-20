@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain.Entities.Attendance;
 using System;
+using Microsoft.AspNetCore.Authorization;
 using Serilog;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class AttendanceController : ControllerBase

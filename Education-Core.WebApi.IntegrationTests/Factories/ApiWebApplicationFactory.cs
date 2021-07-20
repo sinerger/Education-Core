@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Services;
 using Education_Core.BusinessLogic.Services.EntityServices;
 using Insight.Database;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
+using System.Net.Http;
 using WebApi;
 
 namespace Education_Core.WebApi.IntegrationTests.Factories
@@ -18,6 +20,7 @@ namespace Education_Core.WebApi.IntegrationTests.Factories
     public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
     {
         public IConfiguration Configuration { get; private set; }
+        protected readonly HttpClient TestClient;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -48,7 +51,9 @@ namespace Education_Core.WebApi.IntegrationTests.Factories
                 services.AddTransient<IGroupWithStudentsService, GroupWithStudentsService>();
                 services.AddTransient<ITeacherService, TeacherService>();
                 services.AddTransient<IFeedbackServise, FeedbackServise>();
+                services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
             });
         }
+       
     }
 }
