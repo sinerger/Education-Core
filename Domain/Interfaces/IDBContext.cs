@@ -17,7 +17,7 @@ namespace Domain.Interfaces
         IUserWithRoleRepository UserWithRoleRepository { get; }
         IHomeworkRepository HomeworkRepository { get; }
         ICourseRepository CourseRepository { get; }
-        IGroupWithStudentRepository GroupWithStudentRepository { get; }
+        IGroupWithStudentsRepository GroupWithStudentsRepository { get; }
         IStudentRepository StudentRepository { get; }
         ITeacherRepository TeacherRepository { get; }
         IGroupRepository GroupRepository { get; }

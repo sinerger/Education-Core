@@ -1,56 +1,45 @@
-﻿using Domain.Entities.Users;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities.Roles;
+using Domain.Entities.Users;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public class UserWithRoleTData
+    public class StudentTData
     {
-        private static List<UserWithRole> _users;
+        public static List<Student> students;
         private const int _countUsers = 1;
 
-        public static void InitializeData()
+        static  StudentTData()
         {
-            _users = new List<UserWithRole>();
+            students = new List<Student>();
 
             for (int i = 0; i < _countUsers; i++)
             {
-                _users.Add(new UserWithRole()
+                students.Add(new Student()
                 {
                     ID = Guid.NewGuid(),
                     FirstName = $"integration test {i}",
                     LastName = $"integration test {i}",
+                    Role = TypeRole.Student,
                     Login = $"integration test  login{i}",
-                    Password = $"integration test password{i}"
+                    Password = $"integration test password{i}",
+                    AgreementNumber = $"integrayion agrement number{i}"
                 });
             }
         }
 
         public static IEnumerable<object[]> DataForCreate()
         {
-            InitializeData();
-            foreach (var user in _users)
+            foreach (var student in students)
             {
                 yield return new object[]
                 {
-                    user,
-                    user
-                };
-            }
-        }
-
-        public static IEnumerable<object[]> DataForUpdate()
-        {
-            InitializeData();
-            foreach (var user in _users)
-            {
-                yield return new object[]
-                {
-                    user
+                    student,
+                    student
                 };
             }
         }

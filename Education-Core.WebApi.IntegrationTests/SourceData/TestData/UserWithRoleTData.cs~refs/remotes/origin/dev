@@ -25,7 +25,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                     FirstName = $"integration test {i}",
                     LastName = $"integration test {i}",
                     Login = $"integration test  login{i}",
-                    Password = $"integration test password{i}"
+                    Password = $"integration test password{i}",
                 });
             }
         }

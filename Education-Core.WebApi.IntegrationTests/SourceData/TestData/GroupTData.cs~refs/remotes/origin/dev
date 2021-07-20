@@ -1,5 +1,4 @@
-﻿using Domain.Entities.Groups;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +9,14 @@ using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
 {
-    public class GroupTData
+    public class GroupTData 
     {
         private static List<Group> _groups;
-        private static Group _group;
         private static readonly int _countGroups = 1;
 
         static GroupTData()
         {
             _groups = new List<Group>();
-
-            _group = new Group()
-            {
-                ID = Guid.NewGuid(),
-                Course = CourseInitData.Courses[0],
-                Title = $"Title",
-                StartDate = new DateTime(2020, 08, 09),
-                FinishDate = new DateTime(2021, 03, 15)
-            };
 
             for (int i = 0; i < _countGroups; i++)
             {
@@ -36,8 +25,8 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
                     ID = Guid.NewGuid(),
                     Course = CourseInitData.Courses[0],
                     Title = $"Title{i}",
-                    StartDate = new DateTime(2020, 08, 09),
-                    FinishDate = new DateTime(2021, 03, 15)
+                    StartDate = new DateTime(2020,08,09),
+                    FinishDate = new DateTime(2021,03,15)
                 });
             }
         }
@@ -48,7 +37,7 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.TestData
             {
                 yield return new object[]
                 {
-                    group,
+                    group, 
                     group
                 };
             }

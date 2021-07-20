@@ -27,7 +27,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
 
         [Theory]
         [MemberData(nameof(UserDetailTData.DataForUpdate), MemberType = typeof(UserDetailTData))]
-        public async Task UpdateUserDetail_WhenValidTestPassed_ShoulUpdateUserDetailInDB(UserWithRole insertedUser, UserDetail updatedUser, UserDetail expected)
+        public async Task UpdateUserDetail_WhenValidTestPassed_ShoulUpdateUserDetailInDB(UserWithRole insertedUser,UserDetail updatedUser, UserDetail expected)
         {
             await TruncateAllTablesAsync();
             await InitializeData();
@@ -65,6 +65,7 @@ namespace Education_Core.WebApi.IntegrationTests.Tests
             using (DbConnection conn = new MySqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
+                var author = UserInitData.Teacher.ID;
                 foreach (var feedback in FeedbackInitData.Feedbacks)
                 {
                     var authorID = UserInitData.Teacher.ID;

@@ -8,22 +8,22 @@ using Serilog;
 
 namespace DataAccess.InsightDatabase.Repositories
 {
-    public class GroupWithStudentRepository : IGroupWithStudentRepository
+    public class GroupWithStudentsRepository : IGroupWithStudentsRepository
     {
+        private readonly IGroupWithStudentsRepository _groupWithStudentsRepository;
         public IDbConnection DBConnection { get; }
-        private readonly IGroupWithStudentRepository _groupWithStudentRepository;
 
-        public GroupWithStudentRepository(IDbConnection dbConnection)
+        public GroupWithStudentsRepository(IDbConnection dbConnection)
         {
             DBConnection = dbConnection;
-            _groupWithStudentRepository = DBConnection.As<IGroupWithStudentRepository>();
+            _groupWithStudentsRepository = DBConnection.As<IGroupWithStudentsRepository>();
         }
 
-        public async Task<GroupWithStudent> GetGroupWithStudentByIDAsync(Guid id)
+        public async Task<GroupWithStudents> GetGroupWithStudentsByIDAsync(Guid id)
         {
             try
             {
-                return await _groupWithStudentRepository.GetGroupWithStudentByIDAsync(id);
+                return await _groupWithStudentsRepository.GetGroupWithStudentsByIDAsync(id);
             }
             catch (Exception e)
             {

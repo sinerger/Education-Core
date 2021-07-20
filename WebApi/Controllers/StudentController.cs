@@ -30,10 +30,10 @@ namespace WebApi.Controllers
             return await _dbContext.StudentRepository.GetStudentByIDAsync(id);
         }
 
-        [HttpPost("{groupid}")]
-        public async Task<bool> AddStudentToGroup(Guid groupId, Student student)
+        [HttpPost("groupid")]
+        public async Task<bool> AddStudentToGroup(Student student)
         {
-            return await _dbContext.StudentRepository.AddStudentToGroupAsync(groupId, student);
+            return await _dbContext.StudentRepository.AddStudentToGroupAsync(student);
         }
 
         [HttpPost]
