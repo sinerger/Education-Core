@@ -48,9 +48,10 @@ namespace DataAccess.InsightDatabase.Repositories
                         user.DateOfBirth
                     });
             }
+
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
         }
     }

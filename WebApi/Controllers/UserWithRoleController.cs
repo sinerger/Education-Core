@@ -3,10 +3,12 @@ using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
+    [Authorize(Policy = "PermissionForAdminAndTeacherRoles")]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class UserWithRoleController : ControllerBase
@@ -26,6 +28,7 @@ namespace WebApi.Controllers
             return GetIActionResult(responce);
         }
 
+        
         [HttpGet(ApiRoutes.UserWIthRole.GetUserWithRoleByLoginAndPassword)]
         public async Task<IActionResult> GetUserWithRoleByLoginAndPassword(string login, string password)
         {
@@ -34,6 +37,7 @@ namespace WebApi.Controllers
             return GetIActionResult(responce);
         }
 
+        [Authorize(Policy = "PermissionJustForAdminRole")]
         [HttpPost(ApiRoutes.UserWIthRole.CreateUserWithRole)]
         public async Task<IActionResult> CreateUserWithRole(UserWithRole user)
         {

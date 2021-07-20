@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Domain.Entities.Homeworks;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using WebApi.Routes;
 
 namespace WebApi.Controllers
 {
+    [Authorize(Policy = "PermissionForAdminAndTeacherRoles")]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class HomeworkController : ControllerBase

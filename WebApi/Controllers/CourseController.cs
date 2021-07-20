@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using WebApi.Routes;
+
 
 namespace WebApi.Controllers
 {
+    [Authorize(Policy = "PermissionForAdminAndTeacherRoles")]
     [Route(ApiRoutes.Api + ApiRoutes.Controller)]
     [ApiController]
     public class CourseController : Controller
@@ -19,6 +22,7 @@ namespace WebApi.Controllers
             _courseService = courseService;
         }
 
+        [AllowAnonymous]
         [HttpGet(ApiRoutes.Course.GetAllCourses)]
         public async Task<IActionResult> GetAllCourses()
         {
