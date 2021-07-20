@@ -16,7 +16,6 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using WebApi.Routes;
 using Xunit;
-using Education_Core.WebApi.IntegrationTests.SourceData.InitializeData;
 
 namespace Education_Core.WebApi.IntegrationTests.Tests
 {

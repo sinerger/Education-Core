@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac.Core.Registration;
 using Domain.Entities.Users;
 
 namespace WebApi.Routes
@@ -288,6 +289,67 @@ namespace WebApi.Routes
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public static class Teacher
+        {
+            public static string Route => "/" + nameof(Teacher);
+            public const string CreateTeacher = _createDefaultRoute;
+            public const string GetTeacherByID = _getByIDDefaultRoute;
+            public const string GetAllTeachers = _getAllDefaultRoute;
+            public const string DeleteTeacher = _deleteDefaultRoute;
+            public const string AddTeacherToGroup = "groupid";
+            public const string AddTeacherToLesson = "lessonid";
+            public const string UpdateTeacher = _updateDefaultRoute;
+            
+
+            public static string GetRouteForCreate()
+            {
+                var result = Api + Route + CreateTeacher;
+
+                return result;
+            }
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var result = Api + Route + "/" + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForGetAllTeachers()
+            {
+                var result = Api + Route + GetAllTeachers;
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route;
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid id)
+            {
+                var result = Api + Route + "/" + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForAddTeacherToGroup(Guid GroupID, Guid UserID)
+            {
+                var result = Api + Route + "/" + AddTeacherToGroup +"?" + "GroupID="+ GroupID.ToString()+"&" + "UserID=" + UserID.ToString() ;
+
+                return result;
+            }
+            public static string GetRouteForAddTeacherToLesson(Guid LessonID, Guid TeacherID)
+            {
+                var result = Api + Route + "/" + AddTeacherToGroup + "?" + "TeacherID=" + TeacherID.ToString() + "&" + "LessonID=" + LessonID.ToString();
+
+                return result;
+            }
+            
         }
 
         public static class Solution
