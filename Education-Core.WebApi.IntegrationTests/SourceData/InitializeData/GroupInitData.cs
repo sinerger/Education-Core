@@ -10,8 +10,9 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
     public class GroupInitData
     {
         public static List<Group> Groups { get; set; }
+        public static Group Group { get; set; }
         private static readonly int _countGroups = 1;
-        static  GroupInitData()
+        static GroupInitData()
         {
             Groups = new List<Group>();
             for (int i = 0; i < _countGroups; i++)
@@ -19,12 +20,21 @@ namespace Education_Core.WebApi.IntegrationTests.SourceData.InitializeData
                 Groups.Add(new Group()
                 {
                     ID = Guid.NewGuid(),
-                    Course = InitializeData.CourseInitData.Course,
+                    Course = CourseInitData.Course,
                     Title = $"Title{i}",
                     StartDate = new DateTime(2020, 08, 09),
                     FinishDate = new DateTime(2021, 03, 15)
                 });
             }
+
+            Group = new Group()
+            {
+                ID = Guid.NewGuid(),
+                Course = CourseInitData.Course,
+                Title = "Title",
+                StartDate = new DateTime(2020, 08, 09),
+                FinishDate = new DateTime(2021, 03, 15)
+            };
         }
     }
 }

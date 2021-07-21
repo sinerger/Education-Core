@@ -24,7 +24,7 @@ namespace DataAccess.InsightDatabase.Repositories
         {
             try
             {
-                student.ID = student.ID == Guid.Empty ? Guid.NewGuid() : student.ID;
+                var role = student.Role.ToString();
 
                 await DBConnection.QueryAsync(nameof(CreateStudentAsync).GetStoredProcedureName(),
                     parameters: new
@@ -32,8 +32,12 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.ID,
                         student.FirstName,
                         student.LastName,
+                        role,
+                        student.Login,
+                        student.Password,
                         student.AgreementNumber
                     });
+
             }
             catch (Exception e)
             {
@@ -41,21 +45,17 @@ namespace DataAccess.InsightDatabase.Repositories
             }
         }
 
-        public async Task AddStudentToGroupAsync(Student student)
+        public async Task AddStudentToGroupAsync(Guid studentID, Guid groupID)
         {
             try
             {
-                var GroupID = student.Group.ID;
-
                 await DBConnection.QueryAsync(nameof(AddStudentToGroupAsync).GetStoredProcedureName(),
-                        parameters: new
-                        {
-                            student.ID,
-                            student.FirstName,
-                            student.LastName,
-                            student.AgreementNumber,
-                            GroupID
-                        });
+                    parameters: new
+                    {
+                        studentID,
+                        groupID
+                    });
+
             }
             catch (Exception e)
             {
@@ -109,6 +109,9 @@ namespace DataAccess.InsightDatabase.Repositories
                         student.ID,
                         student.FirstName,
                         student.LastName,
+                        student.Role,
+                        student.Login,
+                        student.Password,
                         student.AgreementNumber
                     });
             }

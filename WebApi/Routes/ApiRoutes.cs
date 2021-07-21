@@ -505,5 +505,61 @@ namespace WebApi.Routes
                 return result;
             }
         }
+
+        public static class Student
+        {
+            public static string Route => "/" + nameof(Student);
+
+            public const string GetAllStudents = _getAllDefaultRoute;
+            public const string GetStudentByID = _getByIDDefaultRoute;
+            public const string CreateStudent = _createDefaultRoute;
+            public const string UpdateStudent = _updateDefaultRoute;
+            public const string DeleteStudent = _deleteDefaultRoute;
+            public const string AddStudentToGroup = "studentid";
+
+            public static string GetRouteForGetAllStudents()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForGetByID(Guid id)
+            {
+                var getByID = GetStudentByID == "{id}" ? "" : GetStudentByID;
+                var result = Api + Route + getByID + "/" + id.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForAddStudentToGroup(Guid studentID, Guid groupID)
+            {
+                var result = Api + Route + "/" + AddStudentToGroup + "?studentid=" + studentID.ToString() + "&groupid=" + groupID.ToString();
+
+                return result;
+            }
+
+            public static string GetRouteForCreate()
+            {
+                var result = Api + Route + "/"; 
+
+                return result;
+            }
+
+            public static string GetRouteForUpdate()
+            {
+                var result = Api + Route + "/";
+
+                return result;
+            }
+
+            public static string GetRouteForDelete(Guid id)
+            {
+                var deleteByID = DeleteStudent == "{id}" ? "" : "/" + DeleteStudent;
+                var result = Api + Route + deleteByID + "/" + id.ToString();
+
+                return result;
+            }
+        }
     }
 }
