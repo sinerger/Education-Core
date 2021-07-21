@@ -4,8 +4,3 @@ before_build:
 build:
   publish_aspnet_core: true
   verbosity: minimal
-test:
-  # only assemblies to test
-  assemblies:
-    only:
-      - '**\*.Tests.dll'
